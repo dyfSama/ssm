@@ -9,7 +9,12 @@ import java.io.Serializable;
 
 /* lombok @Data 为类生成 getter、setter、equals、canEqual、hashCode、toString*/
 @Data
-public class User {
+public class User implements Serializable {
+
+    /**
+     * 实体类实现序列化接口
+     */
+    private static final long serialVersionUID = 1L;
 
     private Integer id;
     private String name;

@@ -3,7 +3,6 @@ package com.dyf.user.service.impl;
 import com.dyf.user.dao.UserDao;
 import com.dyf.user.pojo.User;
 import com.dyf.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

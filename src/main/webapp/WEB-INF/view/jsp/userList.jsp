@@ -60,7 +60,7 @@
                         <td>${bean.age}</td>
                         <td>
                             <a href="javascript:void(0)">更改</a> |
-                            <a href="javascript:void(0)">删除</a>
+                            <a href="${appPath}/user/delete?id=${bean.id}">删除</a>
                         </td>
                     </tr>
                 </c:forEach>
