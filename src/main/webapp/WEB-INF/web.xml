@@ -26,6 +26,10 @@
         <!-- 加载配置文件 spring-redis.xml spring-context.xml -->
         <param-value>classpath:spring/spring-context.xml,classpath:spring/spring-redis.xml</param-value>
     </context-param>
+    <context-param>
+        <param-name/>
+        <param-value/>
+    </context-param>
 
     <!-- 编码过滤器 -->
     <filter>
