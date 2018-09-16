@@ -53,7 +53,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="bean" items="${list}" varStatus="status">
+                <c:forEach var="bean" items="${page.list}" varStatus="status">
                     <tr>
                         <td>${bean.id}</td>
                         <td>${bean.name}</td>
@@ -66,6 +66,12 @@
                 </c:forEach>
                 </tbody>
             </table>
+            当前页: ${page.pageNum}
+            每页:${page.pageSize}
+            上一页:${page.prePage}
+            下一页:${page.nextPage}
+            总数:${page.total}
         </div>
     </div>
+
 </div>

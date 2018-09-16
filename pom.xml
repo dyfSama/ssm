@@ -137,6 +137,25 @@
              <version>3.0.2</version>
          </dependency>-->
 
+        <!-- mybatis 分页插件 start -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.miemiedev</groupId>
+            <artifactId>mybatis-paginator</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+       <!-- <dependency>
+            <groupId>com.github.jsqlparser</groupId>
+            <artifactId>jsqlparser</artifactId>
+            <version>1.2</version>
+        </dependency>-->
+        <!-- mybatis 分页插件 end -->
+
+        <!--  mybatis 逆向工程 -->
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
@@ -150,7 +169,7 @@
             <version>1.3.2</version>
         </dependency>
 
-        <!-- redis 做缓存 需要4个包-->
+        <!-- redis 做缓存 需要4个包  start-->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
@@ -171,6 +190,7 @@
             <artifactId>commons-pool2</artifactId>
             <version>2.4.2</version>
         </dependency>-->
+        <!-- redis 做缓存 需要4个包  end-->
 
         <!--echace 做缓存-->
         <!--<dependency>
