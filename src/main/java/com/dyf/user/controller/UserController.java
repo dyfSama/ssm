@@ -30,6 +30,7 @@ public class UserController {
     @RequestMapping("/findList")
     public String list(Model model, User user) {
 
+        //分页使用demo
         PageHelper.startPage(5,20,true);
 
         List<User> userList = userService.findList(user);
