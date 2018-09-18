@@ -21,6 +21,7 @@
         <mybatis.version>3.4.6</mybatis.version>
         <junit.version>4.12</junit.version>
         <dubbo.version>2.5.10</dubbo.version>
+        <shiro.verison>1.4.0</shiro.verison>
     </properties>
 
     <dependencies>
@@ -249,7 +250,33 @@
         </dependency>
         <!-- 第五部分 dubbo end-->
 
-
+        <!-- 第六部分 shiro框架(共13个) start-->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>${shiro.verison}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>${shiro.verison}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+            <version>${shiro.verison}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>${shiro.verison}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-quartz</artifactId>
+            <version>${shiro.verison}</version>
+        </dependency>
+        <!--  第六部分 shiro框架 end-  -->
         <!-- 其他, -->
         <!-- lombok 简化bean-->
         <dependency>

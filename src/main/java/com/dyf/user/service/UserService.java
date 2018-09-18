@@ -8,6 +8,8 @@ public interface UserService {
 
     User get(Integer id);
 
+    User getByName(String name);
+
     List<User> findList(User user);
 
     int delete(Integer id);

@@ -35,12 +35,13 @@
         <!-- 加载配置文件 spring-redis.xml spring-context.xml,dubbo-server.xml -->
         <param-value>
             classpath:spring/spring-context.xml,
-            classpath:spring/spring-redis.xml
+            classpath:spring/spring-redis.xml,
+            classpath:spring/spring-shiro.xml
         </param-value>
     </context-param>
 
 
-    <!-- 编码过滤器 -->
+    <!-- filter1: 编码过滤器 -->
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -49,6 +50,11 @@
             <param-name>encoding</param-name>
             <param-value>utf-8</param-value>
         </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+
     </filter>
 
     <filter-mapping>
@@ -56,7 +62,22 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- druid 数据源的过滤器 -->
+    <!-- filter2: shiro过滤器 -->
+    <!-- The filter-name matches name of a 'shiroFilter' bean inside applicationContext.xml -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- filter3: druid 数据源的过滤器 -->
     <filter>
         <filter-name>DruidWebStatFilter</filter-name>
         <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
@@ -87,14 +108,14 @@
             <param-value>false</param-value>
         </init-param>
         <!-- 可选项  登陆的用户名和密码 -->
-        <init-param>
+       <!-- <init-param>
             <param-name>loginUsername</param-name>
             <param-value>druid</param-value>
         </init-param>
         <init-param>
             <param-name>loginPassword</param-name>
             <param-value>druid</param-value>
-        </init-param>
+        </init-param>-->
     </servlet>
 
     <servlet-mapping>
@@ -121,5 +142,9 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <welcome-file-list>
+       <!-- <welcome-file>login.jsp</welcome-file>-->
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 
 </web-app>

@@ -12,7 +12,9 @@
 
     <!-- 配置SpringMVC -->
     <!-- 1.开启SpringMVC注解模式-->
+    <!-- 启用@Component，@Controller，@Service，@Repository注解驱动 -->
     <mvc:annotation-driven/>
+
 
     <!-- 2.静态资源默认servlet配置
       (1)加入对静态资源的处理：js,gif,png

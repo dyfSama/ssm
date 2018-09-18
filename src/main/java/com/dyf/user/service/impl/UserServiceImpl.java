@@ -20,6 +20,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getByName(String name) {
+        return userDao.getByName(name);
+    }
+
+    @Override
     public List<User> findList(User user) {
         return userDao.findList(user);
     }

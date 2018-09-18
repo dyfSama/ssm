@@ -13,6 +13,7 @@
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="age" column="age"/>
+        <result property="password" column="password"/>
     </resultMap>
 
     <select id="get" parameterType="integer" resultMap="userResultMap">
@@ -22,18 +23,21 @@
     <select id="findList" resultMap="userResultMap" parameterType="User">
         select * from user
     </select>
+    <select id="getByName" resultType="User" parameterType="string">
+        select * from user where name = #{name}
+    </select>
 
     <delete id="delete" parameterType="integer">
         delete from user where id = #{id}
     </delete>
 
     <insert id="insert" parameterType="User">
-        insert into user (name,age) values (#{name},#{age})
+        insert into user (name,age,password) values (#{name},#{age},#{password})
     </insert>
 
     <update id="update" parameterType="User">
         update user
-        set name = #{name},age=#{age}
+        set name = #{name},age=#{age},password=#{password}
         where id = #{id}
     </update>
 </mapper>
