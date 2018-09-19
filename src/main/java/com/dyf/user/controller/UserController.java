@@ -46,7 +46,7 @@ public class UserController {
         logger.info("page.getPrePage(): " + page.getPrePage());
         logger.info("page.getNextPage(): " + page.getNextPage());
         logger.info("page.getEndRow" + page.getEndRow());
-        return "welcome";
+        return "user/userList";
     }
 
 
