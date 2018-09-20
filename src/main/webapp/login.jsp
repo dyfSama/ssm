@@ -33,7 +33,7 @@
 
     <script type="text/javascript">
         
-        	layui.extend({
+        /*	layui.extend({
 				admin: '{/}./static/js/admin'
 			});
             layui.use(['form','admin'], function(){
@@ -50,7 +50,7 @@
                 });
                 return false;
               });
-            });   
+            });   */
     </script>  
     <!-- 底部结束 -->
 </body>

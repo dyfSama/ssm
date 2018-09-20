@@ -49,6 +49,18 @@ public class UserController {
         return "user/userList";
     }
 
+    @RequestMapping("/form")
+    public String form(Model model, User user) {
+        return "user/userForm";
+    }
+
+    @RequestMapping("/save")
+    public String save(Model model, User user) {
+
+        userService.save(user);
+        return "user/userList";
+    }
+
 
     @RequestMapping("/delete")
     public String delete(Model model, User user){

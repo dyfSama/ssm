@@ -276,8 +276,30 @@
             <artifactId>shiro-quartz</artifactId>
             <version>${shiro.verison}</version>
         </dependency>
-        <!--  第六部分 shiro框架 end-  -->
-        <!-- 其他, -->
+        <!--  shiro框架 end-  -->
+
+        <!--  第七部分 activity start-->
+        <!--<dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+            <version>7-201802-EA</version>
+        </dependency>-->
+        <!--Activity工作流依赖-->
+      <!--  <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+            <version>6.0.0</version>
+        </dependency>
+        &lt;!&ndash;activiti 与Spring 集成&ndash;&gt;
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring</artifactId>
+            <version>6.0.0</version>
+        </dependency>-->
+
+
+        <!--  activity end-->
+       <!-- 其他, -->
         <!-- lombok 简化bean-->
         <dependency>
             <groupId>org.projectlombok</groupId>

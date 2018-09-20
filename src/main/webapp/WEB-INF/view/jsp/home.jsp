@@ -10,12 +10,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/static/WeAdmin/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/WeAdmin/static/css/font.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/WeAdmin/static/css/weadmin.css">
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/WeAdmin/lib/layui/layui.js"
-            charset="utf-8"></script>
-
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/view/jsp/common/common.jsp" flush="true"/>
 </head>
 
 <body>
@@ -288,13 +283,13 @@
 <!-- 底部结束 -->
 <script type="text/javascript">
 
-    layui.extend({
+   /* layui.extend({
         admin: '${pageContext.request.contextPath}/static/WeAdmin/static/js/admin' // {/}的意思即代表采用自有路径，即不跟随 base 路径
     });
     //使用拓展模块
     layui.use('admin', function () {
         var admin = layui.admin;
-    });
+    });*/
 
 
 </script>

@@ -23,8 +23,7 @@
     <!--[if IE 6]>
     <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
    <!-- <script>DD_belatedPNG.fix('*');</script>-->
-    <![endif]-->
-    <!--/meta 作为公共模版分离出去-->
+    <![endif]-->    <!--/meta 作为公共模版分离出去-->
 
     <title>H-ui.admin v3.0</title>
     <meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">

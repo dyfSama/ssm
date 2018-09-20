@@ -11,5 +11,6 @@
 <![endif]-->
 <!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
 <script src="${pageContext.request.contextPath}/static/WeAdmin/lib/layui/layui.js" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/static/WeAdmin/static/js/admin.js" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/static/WeAdmin/static/js/eleDel.js" type="text/javascript"
         charset="utf-8"></script>

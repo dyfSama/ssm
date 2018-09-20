@@ -47,7 +47,7 @@
     </div>
     <div class="weadmin-block">
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="WeAdminShow('添加用户','./add.html',600,400)"><i class="layui-icon"></i>添加
+        <button class="layui-btn" onclick="WeAdminShow('添加用户','/user/form',800,600)"><i class="layui-icon"></i>添加
         </button>
         <span class="fr" style="line-height:40px">共有数据：88 条</span>
     </div>
@@ -108,6 +108,20 @@
         </div>
     </div>
 </div>
+<!-- 底部结束 -->
+<script type="text/javascript">
+
+    layui.extend({
+        admin: '${pageContext.request.contextPath}/static/WeAdmin/static/js/admin' // {/}的意思即代表采用自有路径，即不跟随 base 路径
+    });
+    //使用拓展模块
+    layui.use('admin', function () {
+        var admin = layui.admin;
+    });
+
+
+</script>
 </body>
+
 
 </html>
