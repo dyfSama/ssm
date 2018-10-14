@@ -35,8 +35,9 @@
         <!-- 加载配置文件 spring-redis.xml spring-context.xml,dubbo-server.xml -->
         <param-value>
             classpath:spring/spring-context.xml,
-            classpath:spring/spring-redis.xml,
-            classpath:spring/spring-shiro.xml
+            classpath:spring/spring-redis.xml
+            <!--,-->
+            <!--classpath:spring/spring-shiro.xml-->
         </param-value>
     </context-param>
 
@@ -50,10 +51,10 @@
             <param-name>encoding</param-name>
             <param-value>utf-8</param-value>
         </init-param>
-        <init-param>
+        <!--<init-param>
             <param-name>forceEncoding</param-name>
             <param-value>true</param-value>
-        </init-param>
+        </init-param>-->
 
     </filter>
 
@@ -64,18 +65,18 @@
 
     <!-- filter2: shiro过滤器 -->
     <!-- The filter-name matches name of a 'shiroFilter' bean inside applicationContext.xml -->
-    <filter>
-        <filter-name>shiroFilter</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-        <init-param>
-            <param-name>targetFilterLifecycle</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>shiroFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    <!--<filter>-->
+        <!--<filter-name>shiroFilter</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+        <!--<init-param>-->
+            <!--<param-name>targetFilterLifecycle</param-name>-->
+            <!--<param-value>true</param-value>-->
+        <!--</init-param>-->
+    <!--</filter>-->
+    <!--<filter-mapping>-->
+        <!--<filter-name>shiroFilter</filter-name>-->
+        <!--<url-pattern>/*</url-pattern>-->
+    <!--</filter-mapping>-->
 
     <!-- filter3: druid 数据源的过滤器 -->
     <filter>
@@ -142,14 +143,24 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <!-- 首页访问路径方法一, 配合 webapp/index.jsp 使用-->
     <welcome-file-list>
-       <!-- <welcome-file>login.jsp</welcome-file>-->
-        <welcome-file>index.html</welcome-file>
+        <!--<welcome-file>index.jsp</welcome-file>-->
+        <!--使用springmvc的方式这里置空-->
+        <welcome-file></welcome-file>
     </welcome-file-list>
 
     <error-page>
         <error-code>404</error-code>
-        <location>/static/errorPage/404.html</location>
+        <location>/WEB-INF/views/error/404.html</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/views/error/error.html</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/views/error/error.html</location>
     </error-page>
 
 </web-app>

@@ -6,15 +6,17 @@ import java.util.List;
 
 public interface UserDao {
 
-    User get(Integer id);
+    User get(String id);
 
-    User getByName(String name);
+    User getByName(String loginName);
 
     List<User> findList(User user);
 
-    int delete(Integer id);
+    int delete(String id);
 
     int insert(User user);
 
     int update(User user);
+
+    int batchDelete(List<String> idList);
 }

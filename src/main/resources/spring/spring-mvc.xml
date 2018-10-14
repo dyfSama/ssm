@@ -10,6 +10,8 @@
                            http://www.springframework.org/schema/mvc
                            http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
+
+
     <!-- 配置SpringMVC -->
     <!-- 1.开启SpringMVC注解模式-->
     <!-- 启用@Component，@Controller，@Service，@Repository注解驱动 -->
@@ -22,13 +24,37 @@
    -->
     <mvc:default-servlet-handler/>
 
+    <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+    <bean id="mappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>apolication/json; charset=UTF-8</value>
+                <value>text/html;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="mappingJacksonHttpMessageConverter" /> <!-- JSON转换器 -->
+            </list>
+        </property>
+    </bean>
+
+
     <!-- 3.配置jsp 显示ViewResolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/view/jsp/"/>
+        <!--<property name="prefix" value="/WEB-INF/view/jsp/"/>-->
+        <property name="prefix" value="/WEB-INF/view/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
 
     <!-- 4.扫描web相关的bean -->
     <context:component-scan base-package="com.dyf"/>
+
+    <!-- 首页访问路径方法二-->
+    <mvc:view-controller path="/" view-name="redirect:/a" />
 </beans>

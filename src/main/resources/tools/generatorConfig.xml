@@ -7,9 +7,12 @@
     <!--导入属性配置-->
     <properties resource="jdbc.properties"></properties>
 
+
     <context id="testTables" targetRuntime="MyBatis3">
 
-        <commentGenerator>
+        <!-- 指定生成的java文件的编码,没有直接生成到项目时中文可能会乱码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <commentGenerator >
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
@@ -51,7 +54,7 @@
         </javaClientGenerator>
 
         <!-- 指定数据库表 -->
-        <table tableName="user" domainObjectName="test"
+        <table tableName="sys_user" domainObjectName="user"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

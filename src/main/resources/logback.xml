@@ -18,9 +18,12 @@
     <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
         <!--encoder：对日志进行格式化 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <Pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method\(\):%L -%msg%n</Pattern>
-            <!-- <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>-->
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%message：日志消息，%n是换行符-->
+            <!--<Pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method\(\):%L -%message%n</Pattern>-->
+            <pattern>
+                %date{yyyy-MM-dd HH:mm:ss.SSS} %magenta(%-5level) [%cyan(%thread)] %logger.%blue(%method):%green(%L) --- %message%n"
+            </pattern>
+            <!-- <pattern>%-4relative [%thread] %-5level %logger{35} - %message %n</pattern>-->
         </encoder>
     </appender>
 
@@ -46,7 +49,7 @@
 
         <!-- 日志输出的文件的格式 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method\(\):%L -%msg%n</pattern>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method\(\):%L -%message%n</pattern>
         </encoder>
     </appender>
 
@@ -69,7 +72,7 @@
 
         <!-- 日志输出的文件的格式 -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method\(\):%L -%msg%n</pattern>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} %-5level[%thread]%logger{56}.%method\(\):%L -%message%n</pattern>
         </encoder>
     </appender>
 

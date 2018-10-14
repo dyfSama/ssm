@@ -6,38 +6,170 @@
 <mapper namespace="com.dyf.user.dao.UserDao">
 
     <!-- 引用redis缓存 使用第三方内存数据库Redis作为二级缓存 -->
-    <cache type="com.dyf.sys.redis.RedisCache"/>
+        <cache type="com.dyf.sys.redis.RedisCache"/>
 
 
-    <resultMap id="userResultMap" type="User">
-        <id property="id" column="id"/>
-        <result property="name" column="name"/>
-        <result property="age" column="age"/>
-        <result property="password" column="password"/>
+    <resultMap id="BaseResultMap" type="com.dyf.user.pojo.User">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="login_name" property="loginName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="CHAR"/>
+        <result column="avatar" property="avatar" jdbcType="VARCHAR"/>
+        <result column="salary" property="salary" jdbcType="DECIMAL"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <result column="del_flag" property="delFlag" jdbcType="CHAR"/>
     </resultMap>
 
-    <select id="get" parameterType="integer" resultMap="userResultMap">
-        select * from user where id = #{id}
+    <sql id="Base_Column_List">
+        id,
+        user_name,
+        login_name,
+        password,
+        mobile,
+        email,
+        gender,
+        avatar,
+        salary,
+        create_by,
+        create_date,
+        update_by,
+        update_date,
+        remarks,
+        del_flag
+  </sql>
+
+    <select id="get" parameterType="string" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user where id = #{id}
     </select>
 
-    <select id="findList" resultMap="userResultMap" parameterType="User">
-        select * from user
+    <select id="findList" resultMap="BaseResultMap" parameterType="User">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        <where>
+            <if test="loginName != null and loginName !=''">
+                login_name like concat('%',#{loginName},'%')
+            </if>
+            <if test="email != null and email !=''">
+               and email like concat('%',#{email},'%')
+            </if>
+            <if test="gender != null and gender !=''">
+                and gender = #{gender}
+            </if>
+            <if test="createDate != null and createDate !=''">
+                and create_date = #{createDate}
+            </if>
+        </where>
+        order by update_date desc
     </select>
     <select id="getByName" resultType="User" parameterType="string">
-        select * from user where name = #{name}
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user where login_name = #{loginName}
     </select>
 
-    <delete id="delete" parameterType="integer">
-        delete from user where id = #{id}
+    <delete id="delete" parameterType="string">
+        delete from sys_user where id = #{id}
+    </delete>
+    <delete id="batchDelete" parameterType="list">
+        delete from sys_user where id in
+        <foreach collection="list" item="id" open="(" close=")"  separator=",">
+            #{id}
+        </foreach>
     </delete>
 
     <insert id="insert" parameterType="User">
-        insert into user (name,age,password) values (#{name},#{age},#{password})
+    insert into sys_user (
+          id,
+          user_name,
+          login_name,
+          password,
+          mobile,
+          email,
+          gender,
+          avatar,
+          salary,
+          create_by,
+          create_date,
+          update_by,
+          update_date,
+          remarks,
+          del_flag
+          )
+        values (
+          #{id},
+          #{userName},
+          #{loginName},
+          #{password},
+          #{mobile},
+          #{email},
+          #{gender},
+          #{avatar},
+          #{salary},
+          #{createBy},
+          #{createDate},
+          #{updateBy},
+          #{updateDate},
+          #{remarks},
+          #{delFlag}
+          )
     </insert>
 
     <update id="update" parameterType="User">
-        update user
-        set name = #{name},age=#{age},password=#{password}
+        update sys_user
+        <set>
+            <if test="userName != null">
+                user_name = #{userName},
+            </if>
+            <if test="loginName != null">
+                login_name = #{loginName},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar},
+            </if>
+            <if test="salary != null">
+                salary = #{salary},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks},
+            </if>
+            <if test="delFlag != null">
+                del_flag = #{delFlag},
+            </if>
+        </set>
         where id = #{id}
     </update>
 </mapper>
