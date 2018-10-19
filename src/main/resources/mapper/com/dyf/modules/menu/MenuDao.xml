@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dyf.modules.menu.dao.MenuDao">
+
+    <!-- 引用redis缓存 使用第三方内存数据库Redis作为二级缓存 -->
+    <!--<cache type="com.dyf.system.redis.RedisCache"/>-->
+
+    <resultMap id="BaseResultMap" type="com.dyf.modules.menu.pojo.Menu">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="parent_id" property="parentId" jdbcType="INTEGER"/>
+        <result column="menu_name" property="menuName" jdbcType="VARCHAR"/>
+        <result column="menu_sort" property="menuSort" jdbcType="INTEGER"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="icon" property="icon" jdbcType="VARCHAR"/>
+        <result column="menu_Type" property="menuType" jdbcType="VARCHAR"/>
+        <result column="permission" property="permission" jdbcType="VARCHAR"/>
+        <result column="is_show" property="isShow" jdbcType="CHAR"/>
+        <result column="status" property="status" jdbcType="CHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        parent_id,
+        menu_name,
+        menu_sort,
+        menu_Type,
+        url,
+        icon,
+        permission,
+        is_show,
+        status,
+        create_by,
+        create_date,
+        update_by,
+        update_date,
+        remarks
+    </sql>
+
+    <select id="getMenuTree" resultMap="BaseResultMap" parameterType="com.dyf.modules.menu.pojo.Menu">
+        select
+          id,
+          parent_id,
+          menu_name
+        from sys_menu
+        <where>
+            status != '1'
+            <if test="parentId != null">
+                and  parent_id = #{parentId}
+            </if>
+        </where>
+        order by id
+    </select>
+
+
+    <!--数据状态（0：启用；1：删除; 2: 停用）-->
+    <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu
+        where status != '1' and id = #{id}
+    </select>
+
+    <select id="findList" resultMap="BaseResultMap" parameterType="com.dyf.modules.menu.pojo.Menu">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu
+        <where>
+            status != '1'
+            <if test="parentId != null">
+               and  parent_id = #{parentId}
+            </if>
+        </where>
+        order by id
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        update sys_menu set status='1' where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.dyf.modules.menu.pojo.Menu">
+        insert into sys_menu (
+            parent_id,
+            menu_name,
+            menu_sort,
+            menu_Type,
+            url,
+            icon,
+            permission,
+            is_show,
+            status,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks
+           )
+        values (
+            #{parentId},
+            #{menuName},
+            #{menuSort},
+            #{menuType},
+            #{url},
+            #{icon},
+            #{permission},
+            #{isShow},
+            #{status},
+            #{createBy},
+            #{createDate},
+            #{updateBy},
+            #{updateDate},
+            #{remarks}
+            )
+    </insert>
+
+    <update id="update" parameterType="com.dyf.modules.menu.pojo.Menu">
+        update sys_menu
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="menuName != null">
+                menu_name = #{menuName},
+            </if>
+            <if test="menuSort != null">
+                menu_sort = #{menuSort},
+            </if>
+            <if test="menuType != null">
+                menu_Type = #{menuType},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+            <if test="icon != null">
+                icon = #{icon},
+            </if>
+            <if test="permission != null">
+                permission = #{permission},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

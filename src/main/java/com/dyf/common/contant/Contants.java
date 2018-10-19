@@ -25,6 +25,23 @@ public class Contants {
     public static final String PAGE_SIZE_2 = "pageSize";
 
 
+
+    /**
+     * 数据状态（0：正常；1：删除;2:停用）
+     */
+    public static final String STATUS_NORMAL = "0";
+    public static final String STATUS_DELETE = "1";
+    public static final String STATUS_LOCKED = "2";
+
+
+    /**
+     * 菜单类型（C:目录; B:按钮,;M:菜单）
+     */
+    public static final String MENU_TYPE_CONTENTS = "C";
+    public static final String MENU_TYPE_BUTTON = "B";
+    public static final String MENU_TYPE_MENU = "M";
+
+
    /* *//**
      * 成功
      *//*

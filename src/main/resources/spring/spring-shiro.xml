@@ -16,19 +16,35 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <!-- shiro的核心安全接口-->
         <property name="securityManager" ref="securityManager"/>
-      <!--  &lt;!&ndash; 身份认证失败 &ndash;&gt;
-        <property name="loginUrl" value="/login.jsp"/>
-        &lt;!&ndash; 认证成功&ndash;&gt;
-        <property name="successUrl" value="/index.jsp"/>
-        &lt;!&ndash; 权限认证失败&ndash;&gt;
-        <property name="unauthorizedUrl" value="/unauthorized.jsp"/>-->
+        <!-- 身份认证失败 -->
+        <property name="loginUrl" value="/login"/>
+        <!-- 认证成功-->
+        <property name="successUrl" value="/index"/>
+        <!-- 权限认证失败-->
+        <property name="unauthorizedUrl" value="/unauthorized"/>
         <!-- 过滤链 -->
         <property name="filterChainDefinitions">
             <value>
-                <!-- 静态资源放行-->
-                /static/** = anon
-                /sys/login = anon <!--anon表示不需要认证就可以访问的     -->
-               <!-- /home = authc, perms[/home]-->  <!--authc 表示需要认证才能访问的页面 perms 表示需要该权限才能访问的页面 -->
+                <!--
+                    anon 可以被匿名访问
+                    authc 必须认证(登录)后才可能访问
+                    logout 登出
+                    roles 角色过滤器
+                -->
+                /static/** = anon       <!-- 静态资源放行-->
+                /loginAuth = anon       <!-- 普通登录 -->
+                /shiroLogin = anon      <!-- shiro登录-->
+                /index = anon           <!-- 主页 -->
+                /user/toRegister = anon <!-- 注册页面 -->
+                /user/register = anon   <!-- 注册 -->
+                /user/toForget = anon   <!-- 忘记密码 -->
+
+                /logout = logout        <!-- 注销 -->
+
+
+
+                /druid = roles[admin]
+                /index_v1 = roles[user]
                 /** = authc
             </value>
         </property>
@@ -36,7 +52,7 @@
 
     <!-- 安全管理, 被filter引用,  他引用了myRealm -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="realm" ref="myRealm"/>
+        <property name="realm" ref="shiroRealm"/>
     </bean>
 
     <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
@@ -45,7 +61,7 @@
     <!-- 开启Shiro注解 - AOP式方法级权限检查 -->
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
           depends-on="lifecycleBeanPostProcessor">
-          <property name="proxyTargetClass" value="true"/>
+        <property name="proxyTargetClass" value="true"/>
     </bean>
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
@@ -53,7 +69,15 @@
 
 
     <!-- 自定义Realm -->
-    <bean id="myRealm" class="com.dyf.shiro.MyRealm">
+    <bean id="shiroRealm" class="com.dyf.system.shiro.ShiroRealm">
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!-- 加密算法MD5 -->
+                <property name="hashAlgorithmName" value="MD5"/>
+                <!-- 1024次加密 -->
+                <property name="hashIterations" value="1024"/>
+            </bean>
+        </property>
     </bean>
 
 

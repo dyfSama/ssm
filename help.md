@@ -27,3 +27,15 @@ DelegatingFilterProxy类委派给B!
     /admin/user/**=rest[user] ：根据请求方式来识别，相当于 /admins/user/**=perms[user:get]或perms[user:post] 等等
     /admin**=roles["admin,guest"] ：允许多个参数（逗号分隔），此时要全部通过才算通过，相当于hasAllRoles()
     /admin**=perms["user:add:*,user:del:*"]：允许多个参数（逗号分隔），此时要全部通过才算通过，相当于isPermitedAll()
+
+
+    
+    @Aspect放在类头上，把这个类作为一个切面。
+    @Pointcut放在方法头上，定义一个可被别的方法引用的切入点表达式。
+    5种通知。
+    @Before，前置通知，放在方法头上。
+    @After，后置【finally】通知，放在方法头上。
+    @AfterReturning，后置【try】通知，放在方法头上，使用returning来引用方法返回值。
+    @AfterThrowing，后置【catch】通知，放在方法头上，使用throwing来引用抛出的异常。
+    @Around，环绕通知，放在方法头上，这个方法要决定真实的方法是否执行，而且必须有返回值。
+    

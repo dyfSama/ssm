@@ -1,7 +1,7 @@
 package com.dyf.common.persistence;
 
+import com.dyf.common.contant.Contants;
 import com.dyf.common.utils.IdGen;
-import com.dyf.user.pojo.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -45,14 +45,17 @@ public class DataEntity<T> extends BaseEntity<T> {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected Date updateDate;
 
+
     /**
-     * 删除标记（0：正常；1：删除;）
+     * 数据状态（0：启用；1：删除; 2: 停用）
      */
-    protected String delFlag;
+    protected String status;
+
 
     public DataEntity() {
         super();
-        this.delFlag = DEL_FLAG_NORMAL;
+        //默认正常
+        this.status = Contants.STATUS_NORMAL;
     }
 
     public DataEntity(String id) {

@@ -1,6 +1,5 @@
 package com.dyf.common.persistence;
 
-import com.dyf.user.pojo.User;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -46,9 +45,5 @@ public abstract class BaseEntity<T> implements Serializable {
      */
     public abstract void preUpdate();
 
-    /**
-     * 删除标记（0：正常；1：删除;）
-     */
-    public static final String DEL_FLAG_NORMAL = "0";
-    public static final String DEL_FLAG_DELETE = "1";
+
 }

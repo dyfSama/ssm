@@ -3,14 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context.xsd
                            http://www.springframework.org/schema/mvc
-                           http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-
-
+                           http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+                           http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 配置SpringMVC -->
     <!-- 1.开启SpringMVC注解模式-->
@@ -38,7 +39,7 @@
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">
             <list>
-                <ref bean="mappingJacksonHttpMessageConverter" /> <!-- JSON转换器 -->
+                <ref bean="mappingJacksonHttpMessageConverter"/> <!-- JSON转换器 -->
             </list>
         </property>
     </bean>
@@ -52,9 +53,25 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+
+    <!-- SpringMVC文件上传 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--defaultEncoding：请求的编码格式必须和用户JSP的编码一致，以便正确读取表单中的内容。
+            uploadTempDir:文件上传过程中的临时目录，上传完成后，临时文件会自动删除
+            maxUploadSize:设置文件上传大小上限（单位为字节） -->
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="maxUploadSize" value="102400000"/>
+    </bean>
+
     <!-- 4.扫描web相关的bean -->
-    <context:component-scan base-package="com.dyf"/>
+    <context:component-scan base-package="com.dyf">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!-- 首页访问路径方法二-->
-    <mvc:view-controller path="/" view-name="redirect:/a" />
+    <mvc:view-controller path="/" view-name="redirect:/login"/>
+
+    <!--SpringMVC使用AOP注解 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <bean id="loggerAspect" class="com.dyf.system.aspect.LoggerAspect"/>
 </beans>

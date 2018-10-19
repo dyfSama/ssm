@@ -5,6 +5,8 @@ import com.dyf.common.msg.MsgInfo;
 import com.dyf.common.page.TableDataInfo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -20,8 +22,15 @@ import java.util.List;
  * @auther: duyafei
  * @date: 2018/10/12 15:15
  */
+public abstract class BaseController {
 
-public class BaseController {
+
+    /**
+     * 管理基础路径
+     */
+    @Value("/a")
+    protected String adminPath;
+
 
 
     /**
@@ -29,7 +38,7 @@ public class BaseController {
      */
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }

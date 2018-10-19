@@ -1,10 +1,9 @@
 package com.dyf.base;
 
 import com.dyf.common.utils.IdGen;
-import com.dyf.user.pojo.User;
-import com.dyf.user.service.UserService;
+import com.dyf.modules.user.pojo.User;
+import com.dyf.modules.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.math.BigDecimal;
-import java.util.UUID;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/spring-context.xml"})
@@ -37,6 +33,8 @@ public class SpringTestBase {
         //构造 MockMvc
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
     }
+
+
 
     @Test
     public void testUserController() throws Exception {
@@ -71,13 +69,21 @@ public class SpringTestBase {
             u.setEmail(IdGen.uuid()+"@qq.com");
             u.setGender((i%2==0) ?  "1" : "0");
             u.setUserName("userName"+IdGen.uuid());
-            u.setLoginName("loginName" + IdGen.uuid());
-            u.setMobile("1231323123");
-            u.setSalary(BigDecimal.valueOf(8888.88));
+//            u.setLoginName("loginName" + IdGen.uuid());
+//            u.setMobile("1231323123");
+//            u.setSalary(BigDecimal.valueOf(8888.88));
             userService.save(u);
 
         }
 
+    }
+
+
+    @Test
+    public void test111(){
+       String s =  "1231232.jpg";
+        String suffix = s.substring(s.lastIndexOf("."));
+        System.out.println("==========================="+suffix);
     }
 
 }
