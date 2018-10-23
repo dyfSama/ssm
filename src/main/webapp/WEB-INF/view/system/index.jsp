@@ -117,6 +117,9 @@
                         <li>
                             <a class="J_menuItem" href="${ctx}/tools/formValidate">表单校验</a>
                         </li>
+                        <li>
+                            <a class="J_menuItem" href="${ctx}/sysLog/toList">日志监控</a>
+                        </li>
                     </ul>
 
                 </li>

@@ -40,7 +40,6 @@
 </div>
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
-
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <%--<div class="ibox-title">--%>
@@ -74,7 +73,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div class=" float-e-margins">
+            <div class=" ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>标题</h5>
                     <div class="ibox-tools">

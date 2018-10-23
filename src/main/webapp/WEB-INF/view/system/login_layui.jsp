@@ -98,7 +98,7 @@
                     if (data.status === "0") {
                         layer.msg("验证成功,正在跳转到首页....", {time: 500, anim: 5}, function () {
                                 var userName = $('#LAY-user-login-username').val();
-                               window.location.href = "${pageContext.request.contextPath}/index?userName=" + userName;
+                               window.location.href = "${pageContext.request.contextPath}/index";
                             }
                         );
                     } else {

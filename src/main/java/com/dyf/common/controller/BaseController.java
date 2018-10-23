@@ -3,6 +3,7 @@ package com.dyf.common.controller;
 import com.dyf.common.contant.Contants;
 import com.dyf.common.msg.MsgInfo;
 import com.dyf.common.page.TableDataInfo;
+import com.dyf.system.aspect.annotation.Log;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import java.util.List;
  * @auther: duyafei
  * @date: 2018/10/12 15:15
  */
+@Slf4j
 public abstract class BaseController {
 
 
@@ -53,6 +55,8 @@ public abstract class BaseController {
         int pageSize = 10;
         try {
             //layui
+//            pageNum = Integer.valueOf(request.getParameter("offset"));
+//            pageSize = Integer.valueOf(request.getParameter("limit"));
             pageNum = Integer.valueOf(request.getParameter(Contants.PAGE_NUM));
             pageSize = Integer.valueOf(request.getParameter(Contants.PAGE_SIZE));
         }catch (Exception e){
@@ -61,6 +65,7 @@ public abstract class BaseController {
             pageSize = Integer.valueOf(request.getParameter(Contants.PAGE_SIZE_2));
         }
 
+        log.info("===========================pageNum:"+pageNum+"\t"+"pageSize: "+pageSize);
         PageHelper.startPage(pageNum, pageSize);
     }
 

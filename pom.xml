@@ -23,6 +23,21 @@
         <dubbo.version>2.5.10</dubbo.version>
         <shiro.verison>1.3.2</shiro.verison>
         <!--<shiro.verison>1.4.0</shiro.verison>-->
+        <aspectj.version>1.8.13</aspectj.version>
+        <servlet-api.version>3.0.1</servlet-api.version>
+        <jsp-api.version>2.2</jsp-api.version>
+        <jstl.version>1.2</jstl.version>
+        <druid.version>1.1.10</druid.version>
+        <pagehelper.version>5.1.6</pagehelper.version>
+        <mybatis-paginator.version>1.2.17</mybatis-paginator.version>
+        <mybatis-generator-core.version>1.3.7</mybatis-generator-core.version>
+        <mybatis-spring.version>1.3.2</mybatis-spring.version>
+        <jedis.version>2.9.0</jedis.version>
+        <spring-data-commons.version>1.13.9.RELEASE</spring-data-commons.version>
+        <spring-data-redis.version>1.8.9.RELEASE</spring-data-redis.version>
+        <mybatis-ehcache.version>1.1.0</mybatis-ehcache.version>
+        <lombok.version>1.18.2</lombok.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
     </properties>
 
     <dependencies>
@@ -71,17 +86,17 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- aop -->
+        <!-- aspectj -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.8.13</version>
+            <version>${aspectj.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-            <version>1.8.13</version>
+            <version>${aspectj.version}</version>
         </dependency>
 
         <!-- 第二部分, servet-web 容器类-->
@@ -89,7 +104,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <version>${servlet-api.version}</version>
             <!--这个将由web容器(tomcat)提供,scope设置为provided-->
             <scope>provided</scope>
         </dependency>
@@ -98,7 +113,7 @@
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>2.2</version>
+            <version>${jsp-api.version}</version>
             <!--这个将由web容器(tomcat)提供,scope设置为provided-->
             <scope>provided</scope>
         </dependency>
@@ -107,7 +122,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${jstl.version}</version>
         </dependency>
         <!-- jackson-databind  可以将JSON格式的数据转化为类对象 -->
         <dependency>
@@ -134,7 +149,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.10</version>
+            <version>${druid.version}</version>
         </dependency>
 
 
@@ -156,12 +171,12 @@
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>5.1.6</version>
+            <version>${pagehelper.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.miemiedev</groupId>
             <artifactId>mybatis-paginator</artifactId>
-            <version>1.2.17</version>
+            <version>${mybatis-paginator.version}</version>
         </dependency>
         <!-- <dependency>
              <groupId>com.github.jsqlparser</groupId>
@@ -174,31 +189,31 @@
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
-            <version>1.3.7</version>
+            <version>${mybatis-generator-core.version}</version>
         </dependency>
 
         <!-- mybatis-spring整合包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>1.3.2</version>
+            <version>${mybatis-spring.version}</version>
         </dependency>
 
         <!-- redis 做缓存 需要4个包  start-->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
+            <version>${jedis.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
-            <version>1.13.9.RELEASE</version>
+            <version>${spring-data-commons.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
-            <version>1.8.9.RELEASE</version>
+            <version>${spring-data-redis.version}</version>
         </dependency>
         <!--<dependency>
             <groupId>org.apache.commons</groupId>
@@ -208,11 +223,11 @@
         <!-- redis 做缓存 需要4个包  end-->
 
         <!--echace 做缓存-->
-        <!--<dependency>
+        <dependency>
             <groupId>org.mybatis.caches</groupId>
             <artifactId>mybatis-ehcache</artifactId>
-            <version>1.1.0</version>
-        </dependency>-->
+            <version>${mybatis-ehcache.version}</version>
+        </dependency>
 
         <!-- 第四部分,日志-->
         <!--logback 自动依赖了 slf4j 和 logback-core-->
@@ -298,29 +313,31 @@
             <version>7-201802-EA</version>
         </dependency>-->
         <!--Activity工作流依赖-->
-      <!--  <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-engine</artifactId>
-            <version>6.0.0</version>
-        </dependency>
-        &lt;!&ndash;activiti 与Spring 集成&ndash;&gt;
-        <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring</artifactId>
-            <version>6.0.0</version>
-        </dependency>-->
+        <!--  <dependency>
+              <groupId>org.activiti</groupId>
+              <artifactId>activiti-engine</artifactId>
+              <version>6.0.0</version>
+          </dependency>
+          &lt;!&ndash;activiti 与Spring 集成&ndash;&gt;
+          <dependency>
+              <groupId>org.activiti</groupId>
+              <artifactId>activiti-spring</artifactId>
+              <version>6.0.0</version>
+          </dependency>-->
 
 
         <!--  activity end-->
-       <!-- 其他, -->
+
+        <!-- 其他, -->
         <!-- lombok 简化bean-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.2</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
+        <!-- junit -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -331,28 +348,9 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
-       <!-- <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-lgpl</artifactId>
-            <version>1.9.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.9.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-lgpl</artifactId>
-            <version>1.9.6</version>
-        </dependency>-->
+
 
         <!-- 文件上传 -->
         <dependency>

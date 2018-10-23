@@ -226,8 +226,18 @@
 <script src="${ctxStatic}/hplus/js/content.min.js?v=1.0.0"></script>
 <script src="${ctxStatic}/hplus/js/plugins/validate/jquery.validate.min.js"></script>
 <script src="${ctxStatic}/hplus/js/plugins/validate/messages_zh.min.js"></script>
-<script src="${ctxStatic}/hplus/js/demo/form-validate-demo.min.js"></script>
+<%--<script src="${ctxStatic}/hplus/js/demo/form-validate-demo.min.js"></script>--%>
+<script type="text/javascript">
 
+    $.validator.setDefaults({
+        submitHandler: function() {
+            alert("提交事件!");
+        }
+    });
+    $().ready(function() {
+        $("#commentForm").validate();
+    });
+</script>
 </body>
 
 </html>

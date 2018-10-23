@@ -8,6 +8,8 @@ import com.dyf.modules.menu.service.MenuService;
 import com.dyf.modules.role.pojo.Role;
 import com.dyf.modules.role.service.RoleService;
 import com.dyf.modules.user.pojo.User;
+import com.dyf.system.aspect.annotation.Log;
+import com.dyf.system.aspect.enums.BusinessType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,6 +49,7 @@ public class RoleController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/getList")
+    @Log(module = "角色管理",businessType = BusinessType.QUERY)
     public TableDataInfo getList(HttpServletRequest request, Role entity) {
         startPage(request);
         List<Role> userList = roleService.findList(entity);
@@ -62,6 +65,7 @@ public class RoleController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/delete")
+    @Log(module = "角色管理",businessType = BusinessType.DELETE)
     public MsgInfo delete(Role entity) {
         String id = entity.getId();
         int rows = roleService.delete(id);

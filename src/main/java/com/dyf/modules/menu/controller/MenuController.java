@@ -8,6 +8,8 @@ import com.dyf.modules.menu.pojo.Menu;
 import com.dyf.modules.menu.service.MenuService;
 import com.dyf.modules.user.pojo.User;
 import com.dyf.modules.user.service.UserService;
+import com.dyf.system.aspect.annotation.Log;
+import com.dyf.system.aspect.enums.BusinessType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +52,7 @@ public class MenuController extends BaseController {
 
     @ResponseBody
     @RequestMapping("getList")
+    @Log(module = "菜单管理", businessType = BusinessType.QUERY)
     public List<Menu> getList(Menu entity) {
         return menuService.findList(entity);
     }
@@ -78,10 +81,9 @@ public class MenuController extends BaseController {
             m.put("id",menu.getId());
             m.put("pId",menu.getParentId());
             m.put("name",menu.getMenuName());
-//            if(0==(menu.getParentId())){
-//                m.put("isParent",true);
-//            }
-            m.put("open",true);
+            if(0==(menu.getParentId())){
+                m.put("open",true);
+            }
             ll.add(m);
         }
         return ll;

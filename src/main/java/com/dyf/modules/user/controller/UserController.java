@@ -6,11 +6,13 @@ import com.dyf.common.page.TableDataInfo;
 import com.dyf.common.utils.IdGen;
 import com.dyf.modules.user.pojo.User;
 import com.dyf.modules.user.service.UserService;
-import com.dyf.system.aspect.annotation.SysLog;
+import com.dyf.system.aspect.annotation.Log;
 import com.dyf.system.aspect.enums.BusinessType;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,8 +47,11 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping("/form")
-    public String form() {
-        return "modules/user/userForm";
+    public String form(User user, Model model) {
+        if(StringUtils.isNotBlank(user.getId())){
+            model.addAttribute("entity",userService.get(user.getId()));
+        }
+        return "modules/user/userForm2";
     }
 
     @RequestMapping("/info")
@@ -79,7 +84,7 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/getList")
-    @SysLog(module = "用户管理", businessType = BusinessType.QUERY)
+    @Log(module = "用户管理",businessType = BusinessType.QUERY)
     public TableDataInfo getList(HttpServletRequest request, User user) {
         startPage(request);
         List<User> userList = userService.findList(user);
@@ -88,6 +93,7 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/save")
+    @Log(module = "用户管理",businessType = BusinessType.INSERT)
     public MsgInfo save(User user) {
         int rows = userService.save(user);
         return getMsgInfo(rows, MsgInfo.OPT_SAVE);
@@ -95,6 +101,7 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/delete")
+    @Log(module = "用户管理",businessType = BusinessType.DELETE)
     public MsgInfo delete(User user) {
         String id = user.getId();
         int rows = userService.delete(id);
@@ -111,9 +118,9 @@ public class UserController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/checkLoginName")
-    public String checkLoginName(User user) {
+    public boolean checkLoginName(User user) {
         User u = userService.getByName(user.getUserName());
-        return u != null ? "1" : "0"; //1 已存在
+        return u != null ? false : true; // 已存在 true
     }
 
     @ResponseBody
@@ -142,6 +149,12 @@ public class UserController extends BaseController {
     @RequestMapping("/updatePassword")
     public MsgInfo updatePassword(User user) {
         return getMsgInfo(1, MsgInfo.OPT_DEL); //1 已存在
+    }
+
+    @ResponseBody
+    @RequestMapping("get")
+    public User get(User user) {
+        return userService.get(user.getId()); //1 已存在
     }
 
 

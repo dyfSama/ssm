@@ -66,8 +66,8 @@ public class LoginController extends BaseController {
             token.setRememberMe(false);
             try {
                 currentUser.login(token);
-                //成功将用户信息设置到session中
-                    //...
+                //成功将用户信息设置到session
+                 request.getSession().setAttribute("currentUser",userService.getByName(user.getUserName()));
             } catch (AuthenticationException e) {
                 log.error(e.getMessage(), e);
                 return MsgInfo.error(e.getMessage());
@@ -113,8 +113,8 @@ public class LoginController extends BaseController {
     @RequestMapping("/index")
     public String index(HttpServletRequest request, Model model, User user) {
         log.info("================================主页");
-        User currentUser = userService.getByName(user.getUserName());
-        model.addAttribute("currentUser", currentUser);
+        User currentUser = (User) request.getSession().getAttribute("currentUser");
+        model.addAttribute("currentUser", userService.getByName(currentUser.getUserName()));
         Menu entity = new Menu();
         entity.setParentId(0);
         model.addAttribute("topMenuList", menuService.findList(entity));
@@ -178,6 +178,7 @@ public class LoginController extends BaseController {
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request, Model model, User user) {
         log.info("================================注销");
+        request.getSession().setAttribute("currentUser",null);
         return "redirect:/login";
     }
 

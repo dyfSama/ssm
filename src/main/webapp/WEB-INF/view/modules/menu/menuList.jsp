@@ -67,7 +67,7 @@
 
 </body>
 <script type="text/javascript">
-    layer.load(1, {shade: [0.5, '#393D49']});
+    // layer.load(1, {shade: [0.5, '#393D49']});
     NProgress.start();
     window.onload = function () {
 
@@ -128,7 +128,7 @@
             parentIdField: 'parentId',
 
             onResetView: function (data) {
-                layer.closeAll('loading');
+                // layer.closeAll('loading');
                 //console.log('load');
                 $table.treegrid({
                     initialState: 'collapsed',// 所有节点都折叠

@@ -71,21 +71,12 @@
     };
     var $table = $('#table');
     $(function () {
-        $.ajax({
-            url: "${ctx}/menu/getList",
-            type: "post",
-            dataType: "json",
-            success: function (data) {
-                //控制台输出一下数据
-                treeTableInit(data);
-            }
-        });
-
+        treeTableInit();
     });
 
-    function treeTableInit(data) {
+    function treeTableInit() {
         $table.bootstrapTable({
-            data: data,
+            url: "${ctx}/menu/getList",
             idField: 'id',
             dataType: 'json',
             toolbar: "#talbeToolbar",
@@ -171,20 +162,6 @@
 
     }
 
-    // 格式化类型
-    function typeFormatter(value, row, index) {
-        if (value === 'menu') {
-            return '菜单';
-        }
-        if (value === 'button') {
-            return '按钮';
-        }
-        if (value === 'api') {
-            return '接口';
-        }
-        return '-';
-    }
-
     // 格式化状态
     function statusFormatter(value, row, index) {
         if (value === '0') {
@@ -214,7 +191,8 @@
                 area: ['70%', '95%'],
                 content: '${ctx}/menu/form',
                 end: function () {
-                  //  table.reload('tableId'); //数据刷新
+                    $table.bootstrapTable('refresh', {url: "${ctx}/menu/getList"});
+
                 }
             });
         },

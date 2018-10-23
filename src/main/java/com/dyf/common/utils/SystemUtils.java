@@ -5,6 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
  * @className:   SystemUtils
  * @description: TODO
@@ -53,7 +56,23 @@ public class SystemUtils {
             user.setPassword(result.toString());
         }
 
-
     }
+
+    /**
+     * @description: 获取ip地址
+     * @auther: duyafei
+     * @date:   2018/10/19 17:35
+     */
+    public static String getHostAddress(){
+        String remoteAddr = "";
+        try {
+            remoteAddr = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        return remoteAddr;
+    }
+
 
 }

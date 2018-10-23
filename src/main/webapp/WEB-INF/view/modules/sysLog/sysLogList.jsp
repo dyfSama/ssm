@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用户列表</title>
+    <title>日志记录</title>
     <meta name="keywords" content="keyworkdstext">
     <meta name="description" content="dericsdfsddemo">
 
@@ -27,29 +27,34 @@
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
-        <div class="col-sm-2">
-            <div class=" ibox float-e-margins">
-                <div class="ibox-content" style="height: 720px;">
-                    <input type="text" class="form-control" id="ztreeKey" placeholder="录入字符试试吧">
-                    <ul id="treeDemo" class="ztree"></ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-10">
+        <%--        <div class="col-sm-2">
+                    <div class=" ibox float-e-margins">
+                        <div class="ibox-content" style="height: 720px;">
+                            <input type="text" class="form-control" id="ztreeKey" placeholder="录入字符试试吧">
+                            <ul id="treeDemo" class="ztree"></ul>
+                        </div>
+                    </div>
+                </div>--%>
+        <div class="col-sm-12">
             <div class=" ibox float-e-margins">
                 <div class="ibox-content">
                     <form id="formSearch" class="form-horizontal">
                         <div class="form-group" style="margin-top:15px">
-                            <label class="control-label col-sm-1" for="userName">用户名</label>
+                            <label class="control-label col-sm-1" for="module">功能模块</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="userName" placeholder="请输入用户名   ">
+                                <input type="text" class="form-control" id="module" placeholder="请输入模块名   ">
                             </div>
-                            <label class="control-label col-sm-1" for="status">状态</label>
+                            <label class="control-label col-sm-1" for="businessType">业务类型</label>
                             <div class="col-sm-2">
-                                <select class="form-control m-b" name="status" id="status">
+                                <select class="form-control m-b" name="businessType" id="businessType">
                                     <option value=""></option>
-                                    <option value="0">启用</option>
-                                    <option value="2">停用</option>
+                                    <option value=0>新增</option>
+                                    <option value=1>更新</option>
+                                    <option value=2>删除</option>
+                                    <option value=3>查询</option>
+                                    <option value=4>登录</option>
+                                    <option value=5>注销</option>
+                                    <option value=6>其他</option>
                                 </select>
                             </div>
                             <div class="col-sm-4" style="text-align:left;">
@@ -106,18 +111,19 @@
     };
     $(function () {
 
-        //ztree自定义参数
-        var setting = {
-            data: {
-                simpleData: {
-                    enable: true
-                }
-            }
-        };
+        /*  //ztree自定义参数
+          var setting = {
+              data: {
+                  simpleData: {
+                      enable: true
+                  }
+              }
+          };
 
-        //初始化ztree
-        $.ajax({
-            url: "${ctx}/menu/getMenuTree",
+          //初始化ztree
+          $.ajax({
+              url: "
+        ${ctx}/menu/getMenuTree",
             type: "post",
             dataType: "json",
             success: function (data) {
@@ -125,12 +131,12 @@
                 //初始化模糊搜索方法
                 fuzzySearch('treeDemo', '#ztreeKey', null, true);
             }
-        });
+        });*/
 
         //table自定义参数
         var option = {
             $tableId: $("#tableId"),
-            url: "${ctx}/user/getList",
+            url: "${ctx}/sysLog/getList",
             tableToolbar: "talbeToolbar",
             queryParams: function (params) {
                 return {// 请求服务器数据时发送的参数，可以在这里添加额外的查询参数，返回false则终止请求
@@ -139,22 +145,23 @@
                     limit: params.limit,  //每页多少条
                     order: params.order,
                     ordername: params.sort,
-                    userName: $("#userName").val(), // 额外添加的参数
-                    status: $("#status").val()
+                    module: $("#module").val(), // 额外添加的参数
+                    businessType: $("#businessType").val()
                 }
             },
             columns: [
                 {checkbox: true},
                 {title: '序号', align: 'center',width:50,formatter: 'indexFormatter'},
                 {field: 'id', title: 'ID', visible: false},
-                {field: 'userName', title: '用户名', align: 'center', width:200, formatter: 'lengthFormatter'},
-                {field: 'realName', title: '真实姓名', align: 'center'},
-                {field: "avatar", title: "头像", align: 'center', width: 60, formatter: 'avatarFormatter'},
-                {field: 'gender', title: '性别', align: 'center', width: 60, formatter: 'genderFormatter'},
-                {field: 'mobile', title: '手机', align: 'center'},
-                {field: 'email', title: '邮箱', align: 'center'},
-                {field: 'birthday', title: '生日', align: 'center'},
-                {field: 'status', title: '状态', align: 'center', width: 70, formatter: 'statusFormatter'},
+                {field: 'module', title: '用户名', align: 'center', width: 80},
+                {field: 'businessType', title: '业务类型', align: 'center'},
+                {field: "execMethod", title: "执行方法", align: 'center', formatter: 'lengthFormatter'},
+                {field: 'remoteUrl', title: '请求地址', align: 'center'},
+                {field: 'requestMethod', title: '请求类型', align: 'center'},
+                {field: 'remoteAddr', title: 'IP地址', align: 'center'},
+                {field: 'time', title: '执行时间(ms)', align: 'center'},
+                {field: 'isException', title: '是否异常', align: 'center', formatter: 'statusFormatter'},
+                // {field: 'exceptionInfo', title: '异常信息', align: 'center', formatter: 'lengthFormatter'},
                 {
                     title: '操作',
                     width: 150,
@@ -179,68 +186,6 @@
             $('.form-control').val('');
         });
 
-        //添加方法
-        $('#add').click(function () {
-            layer.open({
-                type: 2,
-                title: '添加用户',
-                maxmin: true,
-                area: ['50%', '90%'],
-                content: '${ctx}/user/form'
-            });
-        });
-
-        //批量删除方法
-        $('#batchDel').click(function () {
-            //获取选中行
-            var checkData= $("#tableId").bootstrapTable('getSelections');
-            if (checkData.length === 0) {
-                return layer.msg("请选择数据");
-            }
-            console.info(checkData);
-            layer.prompt({formType: 1, title: "敏感操作，请验证口令[admin]"}, function (value, indexp) {
-                if (value === "admin") {
-                    layer.close(indexp);
-                    layer.confirm("确定删除吗?", {
-                        skin: 'layui-layer-molv',
-                        icon: 2,
-                        title: '提示',
-                        anim: 6
-                    }, function (indexc) {
-                        layer.close(indexc);
-                        var ids = [];
-                        checkData.forEach(function (row) {
-                            ids.push(row.id);
-                        });
-                        if (ids !== '') {
-                            $.ajax({
-                                url: "${ctx}/user/batchDelete",
-                                type: "post",
-                                dataType: "json",
-                                data: "id=" + ids,
-                                beforeSend: function () {
-                                    layer.load();
-                                },
-                                success: function (data) {
-                                    layer.closeAll('loading');
-                                    if (data.status === "0") {
-                                        option.$tableId.bootstrapTable('refresh'); //数据刷新
-                                        layer.msg(data.message, {icon: 6, time: 1000});
-                                    } else {
-                                        layer.msg(data.message, {icon: 2, time: 2000, anim: 6});
-                                    }
-                                }
-                            });
-                        }
-                    })
-                } else {
-                    layer.msg("口令不正确!", {icon: 6, time: 1000, anim: 6});
-                }
-
-            });
-        })
-
-
     });
 
 
@@ -254,7 +199,7 @@
             showToggle: true, //右上角按钮
             showColumns: true, //右上角按钮
             iconSize: "outline", //右上角按钮风格
-            uniqueId : "id",
+            uniqueId: "id",
             editable: true,//开启编辑模式
             // clickToSelect: true,//点击复选框选中
             pageNumber: 1,
@@ -282,10 +227,10 @@
 
     //长度格式化
     function lengthFormatter(value, row, index) {
-        if(value.length>10){
-            return "<span title='"+value+"'>"+value.substring(0,10)+"..."+"</span>";
-        }else{
-            return "<span title='"+value+"'>"+value.substring(0,value.length)+"</span>";
+        if (value.length > 20) {
+            return "<span title='" + value + "'>" + value.substring(0, 20) + "..." + "</span>";
+        } else {
+            return "<span title='" + value + "'>" + value.substring(0, value.length) + "</span>";
         }
     }
 
@@ -316,58 +261,26 @@
     // 格式化按钮
     function operateFormatter(value, row, index) {
         return [
-            '<button type="button" class="RoleOfedit btn btn-xs  btn-info" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;编辑</button>',
-            '<button type="button" class="RoleOfdelete btn btn-xs  btn-danger" style="margin-right:15px;"><i class="fa fa-trash-o" ></i>&nbsp;删除</button>'
+            '<button type="button" class="RoleOfdetail btn btn-xs  btn-info" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;详情</button>',
         ].join('');
     }
 
     // 格式化状态
     function statusFormatter(value, row, index) {
-        if (value === '0') {
-            return '<span class="label label-success">启用</span>';
+        if (value === 0) {
+            return '<span class="label label-success">正常</span>';
         } else {
-            return '<span class="label label-info">停用</span>';
+            return '<span class="label label-info">异常</span>';
         }
     }
 
     //初始化操作按钮的方法
     window.operateEvents = {
-        'click .RoleOfdelete': function (e, value, row, index) {
-            var id = row.id;
-            layer.confirm("确定要删除吗？", {skin: 'layui-layer-molv', icon: 2, title: '提示', anim: 6}, function (index) {
-                layer.close(index);
-                $.ajax({
-                    url: "${ctx}/user/delete",
-                    type: "post",
-                    dataType: "json",
-                    data: {id: id},
-                    beforeSend: function () {
-                        layer.load();
-                    },
-                    success: function (data) {
-                        layer.closeAll('loading');
-                        if (data.status === "0") {
-                            $('#tableId').bootstrapTable('refresh'); //数据刷新
-                            layer.msg(data.message, {icon: 6, time: 1000});
-                        } else {
-                            layer.msg(data.message, {icon: 2, time: 2000, anim: 6});
-                        }
-
-                    }
-                });
-            });
-        },
-        'click .RoleOfedit': function (e, value, row, index) {
-            layer.open({
-                type: 2,
-                title: '编辑用户',
-                maxmin: true,
-                area: ['50%', '90%'],
-                content: '${ctx}/user/form?id='+row.id
-            });
+        'click .RoleOfdetail': function (e, value, row, index) {
+            console.info(row.id);
+            // update(row.id);
         }
-    };
-
+    }
 </script>
 </body>
 
