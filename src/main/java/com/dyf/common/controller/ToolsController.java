@@ -23,4 +23,13 @@ public class ToolsController {
     public String formValidate() {
         return "tools/formValidate";
     }
+    @RequestMapping("bootstrap-star-rating")
+    public String bootstrap_star_rating() {
+        return "tools/bootstrap-star-rating";
+    }
+
+    @RequestMapping("bootstrap-step")
+    public String bootstrap_step() {
+        return "tools/bootstrap-step";
+    }
 }

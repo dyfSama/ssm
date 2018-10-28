@@ -1,11 +1,9 @@
 package com.dyf.modules.menu.service.impl;
 
-import com.dyf.common.utils.SystemUtils;
-import com.dyf.modules.menu.dao.MenuDao;
-import com.dyf.modules.menu.pojo.Menu;
+import com.dyf.common.service.impl.CrudService;
+import com.dyf.modules.menu.mapper.MenuMapper;
+import com.dyf.modules.menu.entity.Menu;
 import com.dyf.modules.menu.service.MenuService;
-import com.dyf.modules.role.dao.RoleDao;
-import com.dyf.modules.role.pojo.Role;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -13,43 +11,33 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class MenuServiceImpl implements MenuService {
+public class MenuServiceImpl extends CrudService<MenuMapper, Menu> implements MenuService {
 
 
     @Resource
-    private MenuDao menuDao;
+    private MenuMapper menuMapper;
 
-    @Override
-    public Menu get(Integer id) {
-        return menuDao.get(id);
-    }
 
-    @Override
-    public List<Menu> findList(Menu entity) {
-        return menuDao.findList(entity);
-    }
-
-    @Override
-    public int delete(Integer id) {
-        return menuDao.delete(id);
-    }
-
-    @Override
-    public int save(Menu entity) {
-
-        if (null != entity.getId()) {
-            //有ID 更新
-            entity.preUpdate();
-            return menuDao.update(entity);
-        } else {
-            //新增
-            entity.preInsert();
-            return menuDao.insert(entity);
-        }
-    }
-
+    /**
+     * 角色的菜单信息回显
+     *
+     * @param entity
+     * @return
+     */
     @Override
     public List<Menu> getMenuTree(Menu entity) {
-        return menuDao.getMenuTree(entity);
+        //菜单
+        List<Menu> menuList = menuMapper.getMenuTree(entity);
+        //拥有权限的菜单
+        List<Menu> checkedList = menuMapper.getMenuListByRoleId(entity.getRoleId());
+        //选中
+        for (Menu menu : menuList) {
+            for (Menu menu1 : checkedList) {
+                if (menu.getId().equals(menu1.getId())) {
+                    menu.setChecked(true);
+                }
+            }
+        }
+        return menuList;
     }
 }

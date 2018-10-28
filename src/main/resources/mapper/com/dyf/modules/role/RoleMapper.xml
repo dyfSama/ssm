@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dyf.modules.role.mapper.RoleMapper">
+
+    <!-- 引用redis缓存 使用第三方内存数据库Redis作为二级缓存 -->
+    <!--<cache type="com.dyf.system.redis.RedisCache"/>-->
+
+    <resultMap id="BaseResultMap" type="com.dyf.modules.role.entity.Role">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="role_key" property="roleKey" jdbcType="VARCHAR"/>
+        <result column="role_sort" property="roleSort" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="CHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="roleMenuResultMap" type="com.dyf.modules.role.entity.Role">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="role_key" property="roleKey" jdbcType="VARCHAR"/>
+        <result column="role_sort" property="roleSort" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="CHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+        <!-- 菜单权限信息 -->
+        <collection property="menuList" javaType="java.util.List" ofType="com.dyf.modules.menu.entity.Menu"
+                    select="com.dyf.modules.menu.mapper.MenuMapper.getMenuListByRoleId" column="id"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+        id,
+        role_name,
+        role_key,
+        role_sort,
+        status,
+        create_by,
+        create_date,
+        update_by,
+        update_date,
+        remarks
+    </sql>
+
+
+    <!--数据状态（0：启用；1：删除; 2: 停用）-->
+    <select id="selectOneById" resultMap="roleMenuResultMap" parameterType="string">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role r
+        where r.status != '1' and r.id = #{id}
+    </select>
+
+    <!-- 通过用户Id获取角色列表 -->
+    <select id="getRoleListByUserId" resultMap="roleMenuResultMap" parameterType="string">
+         select
+            r.id,
+            r.role_name,
+            r.role_key,
+            r.role_sort,
+            r.status,
+            r.create_by,
+            r.create_date,
+            r.update_by,
+            r.update_date,
+            r.remarks
+         from sys_role r
+         left join sys_user_role ur on r.id = ur.role_id
+         left join sys_user u on u.id = ur.user_id
+         where u.id =#{id}
+    </select>
+
+    <select id="findList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_role
+        <where>
+            status != '1'
+            <if test="roleName != null and roleName !=''">
+                and role_name like concat('%',#{roleName},'%')
+            </if>
+            <if test="status != null and status !=''">
+                and status = #{status}
+            </if>
+        </where>
+        order by role_sort
+    </select>
+
+
+
+    <delete id="deleteLogicalById" parameterType="java.lang.String">
+        update sys_role set status='1' where id = #{id}
+    </delete>
+
+    <update id="deleteLogicalByIdList" parameterType="list">
+        update sys_role set status='1' where id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
+
+    <insert id="insert" parameterType="com.dyf.modules.role.entity.Role">
+        insert into sys_role (
+            id,
+            role_name,
+            role_key,
+            role_sort,
+            status,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks
+            )
+        values (
+            #{id},
+            #{roleName},
+            #{roleKey},
+            #{roleSort},
+            #{status},
+            #{createBy},
+            #{createDate},
+            #{updateBy},
+            #{updateDate},
+            #{remarks})
+    </insert>
+
+
+    <update id="update" parameterType="com.dyf.modules.role.entity.Role">
+        update sys_role
+        <set>
+            <if test="roleName != null">
+                role_name = #{roleName},
+            </if>
+            <if test="roleKey != null">
+                role_key = #{roleKey},
+            </if>
+            <if test="roleSort != null">
+                role_sort = #{roleSort},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createByR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

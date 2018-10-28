@@ -34,15 +34,13 @@ public abstract class BaseController {
     protected String adminPath;
 
 
-
     /**
      * 将前台传递过来的日期格式的字符串，自动转化为Date类型
      */
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+//        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), true));
     }
 
     /**
@@ -53,19 +51,8 @@ public abstract class BaseController {
     protected void startPage(HttpServletRequest request) {
         int pageNum = 0;
         int pageSize = 10;
-        try {
-            //layui
-//            pageNum = Integer.valueOf(request.getParameter("offset"));
-//            pageSize = Integer.valueOf(request.getParameter("limit"));
-            pageNum = Integer.valueOf(request.getParameter(Contants.PAGE_NUM));
-            pageSize = Integer.valueOf(request.getParameter(Contants.PAGE_SIZE));
-        }catch (Exception e){
-            //bootStrap-table
-            pageNum = Integer.valueOf(request.getParameter(Contants.PAGE_NUM_2));
-            pageSize = Integer.valueOf(request.getParameter(Contants.PAGE_SIZE_2));
-        }
-
-        log.info("===========================pageNum:"+pageNum+"\t"+"pageSize: "+pageSize);
+        pageNum = Integer.valueOf(request.getParameter(Contants.PAGE_NUM));
+        pageSize = Integer.valueOf(request.getParameter(Contants.PAGE_SIZE));
         PageHelper.startPage(pageNum, pageSize);
     }
 
@@ -91,7 +78,7 @@ public abstract class BaseController {
 
 
     /**
-     * @param rows - 记录数
+     * @param rows    - 记录数
      * @param optType save, update, delete , upload
      * @return
      */
@@ -110,6 +97,28 @@ public abstract class BaseController {
                 return optFlag ? MsgInfo.success() : MsgInfo.error();
         }
     }
+
+    /**
+     * ajax信息返回
+     * @param result 执行结果
+     * @param optType 操作类型
+     * @return
+     */
+    protected MsgInfo getMsgInfo(boolean result, int optType) {
+        switch (optType) {
+            case MsgInfo.OPT_SAVE:
+                return result ? MsgInfo.success(MsgInfo.SAVE_SUCCESS) : MsgInfo.error(MsgInfo.SAVE_FAIl);
+            case MsgInfo.OPT_UPDATE:
+                return result ? MsgInfo.success(MsgInfo.UPDATE_SUCCESS) : MsgInfo.error(MsgInfo.UPDATE_FAIl);
+            case MsgInfo.OPT_DEL:
+                return result ? MsgInfo.success(MsgInfo.DEL_SUCCESS) : MsgInfo.error(MsgInfo.DEL_FAIl);
+            case MsgInfo.OPT_UPLOAD:
+                return result ? MsgInfo.success(MsgInfo.UPLOAD_SUCCESS) : MsgInfo.error(MsgInfo.UPLOAD_FAIL);
+            default:
+                return result ? MsgInfo.success() : MsgInfo.error();
+        }
+    }
+
 
     protected MsgInfo getMsgInfo(int rows) {
         return getMsgInfo(rows, -1);

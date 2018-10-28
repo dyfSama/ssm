@@ -4,12 +4,13 @@ import com.dyf.common.controller.BaseController;
 import com.dyf.common.msg.MsgInfo;
 import com.dyf.common.page.TableDataInfo;
 import com.dyf.common.utils.IdGen;
-import com.dyf.modules.user.pojo.User;
+import com.dyf.modules.user.entity.User;
 import com.dyf.modules.user.service.UserService;
 import com.dyf.system.aspect.annotation.Log;
 import com.dyf.system.aspect.enums.BusinessType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,106 +26,120 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/modules/user")
 public class UserController extends BaseController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/findList2")
-    public String list2() {
-        return "modules/user/userList2";
-    }
-
-    @RequestMapping("/findList")
+    /**
+     * toList
+     *
+     * @return
+     */
+    @RequestMapping("/toList")
     public String list() {
         return "modules/user/userList";
     }
 
-    @RequestMapping("/empty")
-    public String empty() {
-        return "tools/template";
-    }
-
-    @RequestMapping("/form")
+    /**
+     * form
+     *
+     * @param user
+     * @param model
+     * @return
+     */
+    @RequestMapping("/toForm")
     public String form(User user, Model model) {
-        if(StringUtils.isNotBlank(user.getId())){
-            model.addAttribute("entity",userService.get(user.getId()));
+        if (StringUtils.isNotBlank(user.getId())) {
+            model.addAttribute("entityId", user.getId());
+            return "modules/user/editUser";
+        } else {
+            return "modules/user/addUser";
         }
-        return "modules/user/userForm2";
     }
 
-    @RequestMapping("/info")
-    public String info() {
-        return "modules/info";
-    }
-
-    @RequestMapping("/password")
-    public String password() {
-        return "modules/password";
-    }
-
-    @RequestMapping("/toRegister")
-    public String register() {
-        log.info("============================注册用户");
-        return "modules/reg";
-    }
-
-
-    @RequestMapping("/formAvatar")
-    public String formAvatar() {
-        log.info("============================注册用户");
-        return "modules/formAvatar";
-    }
-
-    @RequestMapping("/forget")
-    public String forget() {
-        return "modules/forget";
-    }
-
+    /**
+     * 数据list
+     *
+     * @param request
+     * @param user
+     * @return
+     */
     @ResponseBody
-    @RequestMapping("/getList")
-    @Log(module = "用户管理",businessType = BusinessType.QUERY)
+    @RequestMapping("/list")
     public TableDataInfo getList(HttpServletRequest request, User user) {
         startPage(request);
         List<User> userList = userService.findList(user);
         return getTableInfo(userList);
     }
 
+    /**
+     * 保存更新
+     *
+     * @param user
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/save")
-    @Log(module = "用户管理",businessType = BusinessType.INSERT)
+    @Log(moduleName = "用户管理", businessType = BusinessType.INSERT)
     public MsgInfo save(User user) {
-        int rows = userService.save(user);
-        return getMsgInfo(rows, MsgInfo.OPT_SAVE);
+        return getMsgInfo(userService.saveOrUpdate(user), MsgInfo.OPT_SAVE);
     }
 
+    /**
+     * 删除
+     *
+     * @param user
+     * @return
+     */
     @ResponseBody
+    @RequiresRoles({"admin"})
     @RequestMapping("/delete")
-    @Log(module = "用户管理",businessType = BusinessType.DELETE)
+    @Log(moduleName = "用户管理", businessType = BusinessType.DELETE)
     public MsgInfo delete(User user) {
-        String id = user.getId();
-        int rows = userService.delete(id);
-        return getMsgInfo(rows, MsgInfo.OPT_DEL);
+        return getMsgInfo(userService.deleteById(user.getId()), MsgInfo.OPT_DEL);
     }
 
+    /**
+     * 批量删除
+     *
+     * @param user
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/batchDelete")
+    @Log(moduleName = "用户管理", businessType = BusinessType.DELETE_BATCH)
     public MsgInfo batchDelete(User user) {
-        int rows = userService.batchDelete(user.getId());
-        return getMsgInfo(rows, MsgInfo.OPT_DEL);
+        return getMsgInfo(userService.deleteByIds(user.getId()), MsgInfo.OPT_DEL);
     }
 
-
+    /**
+     * 检查用户名唯一
+     *
+     * @param user
+     * @return
+     */
     @ResponseBody
-    @RequestMapping("/checkLoginName")
-    public boolean checkLoginName(User user) {
-        User u = userService.getByName(user.getUserName());
-        return u != null ? false : true; // 已存在 true
+    @RequestMapping("/checkUserName")
+    public boolean checkUserName(User user) {
+        return userService.getByUserName(user.getUserName()) == null;
     }
 
+    /**
+     * 获取单条记录
+     *
+     * @param user
+     * @return
+     */
     @ResponseBody
-    @RequestMapping("/uploadAvatar")
+    @RequestMapping("getById")
+    public User getById(User user) {
+        return userService.getById(user.getId());
+    }
+
+   /* @ResponseBody
+    @RequestMapping("uploadAvatar")
     public MsgInfo uploadAvatar(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
         String path = request.getSession().getServletContext().getRealPath("/upload/head/");
         log.info(" ================== " + path);
@@ -142,20 +157,8 @@ public class UserController extends BaseController {
             return MsgInfo.error();
         }
 
-        return MsgInfo.success(filePath); //1 已存在
-    }
-
-    @ResponseBody
-    @RequestMapping("/updatePassword")
-    public MsgInfo updatePassword(User user) {
-        return getMsgInfo(1, MsgInfo.OPT_DEL); //1 已存在
-    }
-
-    @ResponseBody
-    @RequestMapping("get")
-    public User get(User user) {
-        return userService.get(user.getId()); //1 已存在
-    }
+        return MsgInfo.success(filePath);
+    }*/
 
 
 }

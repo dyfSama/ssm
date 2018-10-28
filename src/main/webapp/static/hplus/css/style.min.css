@@ -3473,7 +3473,7 @@ code {
     -o-border-image: none;
     border-image: none;
     border-style: solid solid none;
-    border-width: 1px 0
+    border-width: 0px 0
 }
 
 table.table-mail tr td {

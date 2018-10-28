@@ -1,17 +1,17 @@
 package com.dyf.modules.role.service;
 
-import com.dyf.modules.role.pojo.Role;
+import com.dyf.common.service.BaseSerivce;
+import com.dyf.modules.role.entity.Role;
 
 import java.util.List;
 
-public interface RoleService {
+public interface RoleService extends BaseSerivce<Role> {
 
-    Role get(String id);
-
-    List<Role> findList(Role entity);
-
-    int delete(String id);
-
-    int save(Role entity);
+    /**
+     * 维护机构和角色的关系
+     * @param entity
+     * @return
+     */
+    boolean maintainRoleMenu(Role entity);
 
 }

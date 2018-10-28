@@ -75,3 +75,7 @@ DelegatingFilterProxy类委派给B!
             mysqlToJdbcTypesMap.put("SET", Integer.valueOf(mysqlToJavaType(FIELD_TYPE_SET)));
             mysqlToJdbcTypesMap.put("GEOMETRY", Integer.valueOf(mysqlToJavaType(FIELD_TYPE_GEOMETRY)));
         }
+
+
+fixedRate ：每隔多少毫秒执行一次该方法， 以上一次执行开始时间计算
+fixedDelay：当一次方法执行完毕之后，延迟多少毫秒再执行该方法

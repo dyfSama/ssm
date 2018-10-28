@@ -16,7 +16,7 @@ public @interface Log {
     /**
      * 模块名字
      */
-    String module() default "";
+    String moduleName() default "";
 
     /**
      * 业务类型

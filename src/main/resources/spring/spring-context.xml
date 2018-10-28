@@ -3,12 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context.xsd
                            http://www.springframework.org/schema/tx
-                           http://www.springframework.org/schema/tx/spring-tx.xsd">
+                           http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/task
+                           http://www.springframework.org/schema/task/spring-task.xsd">
 
     <!-- 配置整合 mybatis -->
 
@@ -80,7 +82,7 @@
         <!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!-- 扫描pojo包 使用别名 -->
-        <property name="typeAliasesPackage" value="com.dyf.**.pojo"/>
+        <property name="typeAliasesPackage" value="com.dyf.**.entity"/>
         <!-- 扫描sql配置文件:mapper需要的xml文件 -->
         <property name="mapperLocations" value="classpath:mapper/**/*.xml"/>
     </bean>
@@ -90,11 +92,15 @@
         <!-- 注入sqlSessionFactory -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 扫描Dao接口包 -->
-        <property name="basePackage" value="com.dyf.**.dao"/>
+        <property name="basePackage" value="com.dyf.**.mapper"/>
     </bean>
 
     <!-- 5.扫描service包下所有使用注解的类型-->
-    <context:component-scan base-package="com.dyf.**.service"/>
+    <context:component-scan base-package="com.dyf">
+        <!-- controller 扫描配置在spring-mvc.xml,这里要排除掉 -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
 
     <!-- 6.配置事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -104,4 +110,22 @@
 
     <!-- 7.配置基于注解的声明式事物-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+    <!-- 8.打开任务调度 -->
+    <!-- 任务执行线程池的初始大小 -->
+    <!--    <task:executor id="executor" pool-size="5"/>
+        &lt;!&ndash;  任务调度线程池的大小 &ndash;&gt;
+        <task:scheduler id="scheduler" pool-size="10"/>
+        &lt;!&ndash;  定时器开关 &ndash;&gt;
+        <task:annotation-driven executor="executor" scheduler="scheduler"  />
+
+        <task:scheduled-tasks>
+            &lt;!&ndash;  这里表示的是每隔五秒执行一次   &ndash;&gt;
+            <task:scheduled ref="task" method="show" cron="*/5 * * * * ?" />
+            <task:scheduled ref="task" method="print" cron="*/10 * * * * ?"/>
+        </task:scheduled-tasks>
+
+        <bean id="task" class="com.dyf.system.job.controller.SpringTaskXml"></bean>-->
+
 </beans>

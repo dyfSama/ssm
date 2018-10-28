@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dyf.modules.dept.mapper.DeptMapper">
+    <resultMap id="BaseResultMap" type="com.dyf.modules.dept.entity.Dept">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+        <result column="parent_ids" property="parentIds" jdbcType="VARCHAR"/>
+        <result column="dept_name" property="deptName" jdbcType="VARCHAR"/>
+        <result column="dept_sort" property="deptSort" jdbcType="VARCHAR"/>
+        <result column="icon" property="icon" jdbcType="VARCHAR"/>
+        <result column="is_show" property="isShow" jdbcType="CHAR"/>
+        <result column="status" property="status" jdbcType="CHAR"/>
+        <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="remarks" property="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        parent_id,
+        parent_ids,
+        dept_name,
+        dept_sort,
+        icon,
+        is_show,
+        status,
+        create_by,
+        create_date,
+        update_by,
+        update_date,
+        remarks
+    </sql>
+
+
+    <select id="getDeptTree" resultMap="BaseResultMap" parameterType="com.dyf.modules.dept.entity.Dept">
+        select id, parent_id, dept_name,remarks
+        from sys_dept
+        <where>
+            status != '1'
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+        </where>
+        order by dept_sort
+    </select>
+
+    <select id="selectOneById" resultMap="BaseResultMap" parameterType="com.dyf.modules.dept.entity.Dept">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dept where id=#{id}
+    </select>
+
+
+    <select id="findList" resultMap="BaseResultMap" parameterType="com.dyf.modules.dept.entity.Dept">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_dept
+        <where>
+            status != '1' and parent_id != ''
+            <if test="parentId != null ">
+                and parent_id = #{parentId}
+            </if>
+            <if test="isShow != null and isShow != ''">
+                and is_show = #{isShow}
+            </if>
+            <if test="deptName != null and deptName != ''">
+                and dept_name like concat('%',#{deptName},'%')
+            </if>
+        </where>
+        order by id
+    </select>
+
+
+    <!--逻辑删除 -->
+    <delete id="deleteLogicalById" parameterType="java.lang.String">
+        update sys_dept set status='1' where id = #{id}
+    </delete>
+
+    <!-- 物理删除 -->
+    <delete id="deletePhysicalById" parameterType="java.lang.String">
+        delete from sys_dept where id = #{id}
+    </delete>
+
+    <insert id="insert" parameterType="com.dyf.modules.dept.entity.Dept">
+        insert into sys_dept (
+            id,
+            parent_id,
+            parent_ids,
+            dept_name,
+            dept_sort,
+            icon,
+            is_show,
+            status,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks
+            )
+        values(
+            #{id},
+            #{parentId},
+            #{parentIds},
+            #{deptName},
+            #{deptSort},
+            #{icon},
+            #{isShow},
+            #{status},
+            #{createBy},
+            #{createDate},
+            #{updateBy},
+            #{updateDate},
+            #{remarks}
+            )
+  </insert>
+
+    <update id="update" parameterType="com.dyf.modules.dept.entity.Dept">
+        update sys_dept
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="parentIds != null">
+                parent_ids = #{parentIds},
+            </if>
+            <if test="deptName != null">
+                dept_name = #{deptName},
+            </if>
+            <if test="icon != null">
+                icon = #{icon},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow},
+            </if>
+            <if test="deptSort != null">
+                dept_sort = #{deptSort},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

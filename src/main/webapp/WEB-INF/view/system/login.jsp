@@ -11,11 +11,12 @@
     <meta name="keywords" content="keyworkdstext">
     <meta name="description" content="dericsdfsddemo">
     <link rel="shortcut icon" href="${ctxStatic}/images/login/favicon.ico">
-    <link href="${ctxStatic}/layuiadmin/dist/layuiadmin/layui/css/layui.css" rel="stylesheet">
     <link href="${ctxStatic}/hplus/css/bootstrap.min.css" rel="stylesheet">
     <link href="${ctxStatic}/hplus/cdn/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="${ctxStatic}/hplus/css/style.min.css" rel="stylesheet">
     <link href="${ctxStatic}/hplus/css/login.min.css" rel="stylesheet">
+    <%-- icheck --%>
+    <link href="${ctxStatic}/hplus/js/plugins/iCheck/skins/all.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html"/><![endif]-->
@@ -51,15 +52,24 @@
             </div>
         </div>
         <div class="col-sm-5">
-            <form class="layui-form" method="post" action="">
+            <form id="formId">
                 <h4 class="no-margins">登录：</h4>
                 <p class="m-t-md">登录ssm</p>
-                <input type="text" class="form-control uname" name="loginName" id='loginName' placeholder="用户名"
-                       lay-verify="required"/>
-                <input type="password" class="form-control pword m-b" name="password" placeholder="密码"
-                       lay-verify="required"/>
-                <%--<input  type="checkbox" name="rememberme" />&nbsp;&nbsp;记住我--%>
-                <a href="">忘记密码了？</a>
+                <input type="text" class="form-control uname" name="userName" id='userName' placeholder="用户名"/>
+                <input type="password" class="form-control pword m-b" name="password" placeholder="密码"/>
+                <div class="row" style="margin-top: -12px">
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" name="vercode" placeholder="验证码" style="width: 125px"/>
+                    </div>
+                    <div class="col-xs-6">
+                        <img src="https://www.oschina.net/action/user/captcha" style="width: 90%;margin-top: 17.5px">
+                    </div>
+                </div>
+                <div class="checkbox i-checks">
+                    <input class="i-checks" type="checkbox" name="rememberMe" value="true" title="记住我"/>&nbsp;&nbsp;记住我&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="${ctx}/user/forget">忘记密码?</a>
+                </div>
+
                 <button class="btn btn-success btn-block" lay-submit type="submit" lay-filter="login">登录</button>
             </form>
         </div>
@@ -71,46 +81,60 @@
     </div>
 </div>
 <!--js逻辑-->
-<script src="${ctxStatic}/layuiadmin/dist/layuiadmin/layui/layui.js"></script>
+<%-- jqueryValidate --%>
+<script src="${ctxStatic}/hplus/js/plugins/jquery/2.1.4/jquery.min.js"></script>
+<%-- icheck --%>
+<script src="${ctxStatic}/hplus/js/plugins/iCheck/icheck.min.js"></script>
+<%-- layer --%>
+<script src="${ctxStatic}/hplus/plugins/layer-v3.1.1/layer.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/validate/messages_zh.min.js"></script>
+<%--<script src="${ctxStatic}/layuiadmin/dist/layuiadmin/layui/layui.js"></script>--%>
 <script>
-    layui.use(['form', 'jquery'], function () {
-        var form = layui.form;
-        var $ = layui.jquery;
+    $(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
 
-        form.on('submit(login)', function (data) {
+    });
+    $("#formId").validate({
+        rules: {
+            userName: {required: true},
+            password: {required: true}
+        },
+        messages: {
+            userName: {required: "请输入用户名"},
+            password: {required: "请输入密码"}
+        },
+        errorPlacement: function (error, element) {
+            layer.tips("必填项", element);
+        },
+        submitHandler: function (form) {
             $.ajax({
-                <%--url: "${ctx}/loginAuth",--%>
-                url: "${ctx}/shiroLogin",
+                url: "${pageContext.request.contextPath}/shiroLogin",
                 type: "post",
                 dataType: "json",
-                data: $('.layui-form').serialize(),
+                data: $('#formId').serialize(),
                 beforeSend: function () {
-                    layer.msg("正在验证中...",{time: 10000});
+                    // layer.msg("正在验证中...", {icon: 6, offset: "t", time: 10000});
+                    layer.msg("正在验证中...", {time: 10000});
                 },
                 success: function (data) {
                     layer.closeAll();
                     if (data.status === "0") {
-                        layer.msg("验证成功,正在跳转到首页....", {time: 500, anim: 5}, function () {
-                                var loginName = $('#loginName').val();
-                                window.location.href = "${ctx}/index?loginName=" + loginName;
+                        layer.msg("验证成功,正在跳转到首页...", {time: 500}, function () {
+                                window.location.href = "${pageContext.request.contextPath}/index";
                             }
                         );
                     } else {
-                        layer.msg(data.message, {anim: 6}, function () {
-                                $('.layui-input').val("");
-                            }
-                        );
-
-                       /* layer.msg( "用户或密码不正确！", {icon:5,anim: 6}, function () {
-                                $('.layui-input').val("");
-                            }
-                        );*/
+                        $('.form-control').val("");
+                        layer.msg("验证失败: " + data.message, {time: 3000, anim: 6});
                     }
-
                 }
             });
-            return false;
-        });
+        }
     });
 </script>
 </body>

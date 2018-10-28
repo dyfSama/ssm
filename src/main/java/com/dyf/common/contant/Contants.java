@@ -18,12 +18,11 @@ public class Contants {
 
     /**
      * bootstrap-table
-     *当前记录起始索引
+     * 当前记录起始索引
      * 每页显示记录数
      */
     public static final String PAGE_NUM_2 = "pageNumber";
     public static final String PAGE_SIZE_2 = "pageSize";
-
 
 
     /**
@@ -42,7 +41,20 @@ public class Contants {
     public static final String MENU_TYPE_MENU = "M";
 
 
-   /* *//**
+    /**
+     * 当前登录的用户
+     */
+    public static final String CURRENT_USER = "currentUser";
+
+
+
+    /**
+     * 逗号切割字符串
+     */
+    public static final String SPLIT_1 = ",";
+
+
+    /* *//**
      * 成功
      *//*
     public static final String SUCCESS = "0";

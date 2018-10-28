@@ -23,23 +23,25 @@
         <!-- 权限认证失败-->
         <property name="unauthorizedUrl" value="/unauthorized"/>
         <!-- 过滤链 -->
-        <property name="filterChainDefinitions">
+        <!-- 从数据库加载权限资源 -->
+        <property name="filterChainDefinitionMap" ref="filterChainDefinitionMap"/>
+        <!--<property name="filterChainDefinitions">
             <value>
-                <!--
+                &lt;!&ndash;
                     anon 可以被匿名访问
                     authc 必须认证(登录)后才可能访问
                     logout 登出
                     roles 角色过滤器
-                -->
-                /static/** = anon       <!-- 静态资源放行-->
-                /loginAuth = anon       <!-- 普通登录 -->
-                /shiroLogin = anon      <!-- shiro登录-->
-                /index = anon           <!-- 主页 -->
-                /user/toRegister = anon <!-- 注册页面 -->
-                /user/register = anon   <!-- 注册 -->
-                /user/toForget = anon   <!-- 忘记密码 -->
+                &ndash;&gt;
+                /static/** = anon       &lt;!&ndash; 静态资源放行&ndash;&gt;
+                /loginAuth = anon       &lt;!&ndash; 普通登录 &ndash;&gt;
+                /shiroLogin = anon      &lt;!&ndash; shiro登录&ndash;&gt;
+                /index = anon           &lt;!&ndash; 主页 &ndash;&gt;
+                /user/toRegister = anon &lt;!&ndash; 注册页面 &ndash;&gt;
+                /user/register = anon   &lt;!&ndash; 注册 &ndash;&gt;
+                /user/toForget = anon   &lt;!&ndash; 忘记密码 &ndash;&gt;
 
-                /logout = logout        <!-- 注销 -->
+                /logout = logout        &lt;!&ndash; 注销 &ndash;&gt;
 
 
 
@@ -47,12 +49,28 @@
                 /index_v1 = roles[user]
                 /** = authc
             </value>
-        </property>
+        </property>-->
+
     </bean>
+
+    <!-- 通过实例工厂方法的方式构建一个 filterChainDefinitionMap-->
+    <bean id="filterChainDefinitionMap" factory-bean="filterChainDefinitionMapBuilder"
+          factory-method="builderFilterChainDefinitionMap"/>
 
     <!-- 安全管理, 被filter引用,  他引用了myRealm -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!-- 缓存管理器 -->
+        <!--<property name="cacheManager" ref="cacheManager"/>-->
+        <!-- 自定义realm -->
         <property name="realm" ref="shiroRealm"/>
+        <!-- 记住我有效时间 -->
+        <!--<property name="rememberMeManager.cookie.maxAge" value="10" />-->
+    </bean>
+
+
+    <!-- 使用ehcache作为shiro的缓存管理器 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
     </bean>
 
     <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->

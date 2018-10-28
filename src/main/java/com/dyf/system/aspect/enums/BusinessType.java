@@ -1,10 +1,10 @@
 package com.dyf.system.aspect.enums;
 
 /**
- * @className:   BusinessType
+ * @className: BusinessType
  * @description: 业务类型
  * @auther: duyafei
- * @date:   2018/10/19 13:53
+ * @date: 2018/10/19 13:53
  */
 public enum BusinessType {
 
@@ -24,9 +24,9 @@ public enum BusinessType {
     DELETE,
 
     /**
-     * 查询
+     * 批量删除
      */
-    QUERY,
+    DELETE_BATCH,
 
     /**
      * 登录
@@ -37,6 +37,11 @@ public enum BusinessType {
      * 注销
      */
     LOGOUT,
+
+    /**
+     * 其他
+     */
+    CODE_GENERATOR,
 
     /**
      * 其他

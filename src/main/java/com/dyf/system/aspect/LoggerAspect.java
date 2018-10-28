@@ -1,11 +1,11 @@
 package com.dyf.system.aspect;
 
+import com.dyf.common.contant.Contants;
 import com.dyf.common.utils.SystemUtils;
-import com.dyf.modules.logger.pojo.SysLog;
-import com.dyf.modules.logger.service.SysLogService;
-import com.dyf.modules.user.pojo.User;
+import com.dyf.modules.logger.entity.Logger;
+import com.dyf.modules.logger.service.LoggerService;
+import com.dyf.modules.user.entity.User;
 import com.dyf.system.aspect.annotation.Log;
-import com.dyf.system.aspect.enums.BusinessStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -18,10 +18,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @className: LoggerAspect
@@ -35,7 +31,7 @@ import java.util.Map;
 public class LoggerAspect {
 
     @Autowired
-    private SysLogService sysLogService;
+    private LoggerService loggerService;
 
 
     /**
@@ -56,11 +52,10 @@ public class LoggerAspect {
 
     @Around("logAspect()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info("环绕通知start...................");
         long startTime = System.currentTimeMillis();
 
         Object object = null;
-        SysLog entity = new SysLog();
+        Logger entity = new Logger();
         entity.setIsException(0);
         try {
             object = joinPoint.proceed();
@@ -72,9 +67,8 @@ public class LoggerAspect {
 
         long endTime = System.currentTimeMillis();
         //设置参数
-        entity.setTime((int) (endTime-startTime));
+        entity.setExecTime((int) (endTime - startTime));
         sysLogOperation(joinPoint, entity);
-        log.info("环绕通知end...................");
         return object;
     }
 
@@ -86,21 +80,21 @@ public class LoggerAspect {
      * @param: [joinPoint, entity]
      * @return: void
      */
-    private void sysLogOperation(JoinPoint joinPoint, SysLog log) {
+    private void sysLogOperation(JoinPoint joinPoint, Logger log) {
 
         //方法签名
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         //方法
         Method method = methodSignature.getMethod();
         //自定义参数module
-        String module = method.getAnnotation(Log.class).module();
+        String moduleName = method.getAnnotation(Log.class).moduleName();
         //自定义参数businessType
         int businessType = method.getAnnotation(Log.class).businessType().ordinal();
         //执行的方法名
         String execMethod = method.toString();
         //从session中获取操作者
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        User user = (User) request.getSession().getAttribute("currentUser");
+        User user = (User) request.getSession().getAttribute(Contants.CURRENT_USER);
         //请求url
         String remoteUrl = request.getRequestURL().toString();
         //请求方法的类型(get/post)
@@ -108,25 +102,25 @@ public class LoggerAspect {
         //ip地址
         String remoteAddr = SystemUtils.getHostAddress();
         //执行时间
-        int t = log.getTime();
+        int t = log.getExecTime();
         //异常信息
         String exceptionInfo = log.getExceptionInfo();
         //是否异常
-        int isException  = log.getIsException();
+        int isException = log.getIsException();
         //设置参数
-        SysLog entity = new SysLog();
-        entity.setCreateBy(user.getUserName());
+        Logger entity = new Logger();
+        entity.setCreateBy(null != user ? user.getUserName() : "");
         entity.setRemoteAddr(remoteAddr);
-        entity.setModule(module);
+        entity.setModuleName(moduleName);
         entity.setBusinessType(businessType);
-        entity.setTime(t);
+        entity.setExecTime(t);
         entity.setRemoteUrl(remoteUrl);
         entity.setRequestMethod(requestMethod);
         entity.setExecMethod(execMethod);
         entity.setExceptionInfo(exceptionInfo);
         entity.setIsException(isException);
         //保存日志
-        sysLogService.save(entity);
+        loggerService.saveOrUpdate(entity);
     }
 
 }

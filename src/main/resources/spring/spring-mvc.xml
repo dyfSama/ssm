@@ -69,7 +69,8 @@
     </context:component-scan>
 
     <!-- 首页访问路径方法二-->
-    <mvc:view-controller path="/" view-name="redirect:/login"/>
+    <mvc:view-controller path="/" view-name="redirect:/index"/>
+    <!--<mvc:view-controller path="/" view-name="redirect:/login"/>-->
 
     <!--SpringMVC使用AOP注解 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>

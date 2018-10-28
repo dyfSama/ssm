@@ -1,68 +1,68 @@
 package com.dyf.modules.user.service.impl;
 
+import com.dyf.common.service.impl.CrudService;
 import com.dyf.common.utils.SystemUtils;
+import com.dyf.modules.role.service.RoleService;
+import com.dyf.modules.user.entity.User;
+import com.dyf.modules.user.mapper.UserMapper;
+import com.dyf.modules.user.mapper.UserRoleMapper;
 import com.dyf.modules.user.service.UserService;
-import com.dyf.modules.user.dao.UserDao;
-import com.dyf.modules.user.pojo.User;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends CrudService<UserMapper, User> implements UserService {
 
     @Resource
-    private UserDao userDao;
+    private UserMapper userMapper;
+
+    @Resource
+    private UserRoleMapper userRoleMapper;
+
+    @Autowired
+    private RoleService roleService;
+
 
     @Override
-    public User get(String id) {
-        return userDao.get(id);
+    public User getByUserName(String userName) {
+        return userMapper.getByUserName(userName);
     }
 
+    /**
+     * 保存用户信息,维护关联信息,加密
+     * @param user
+     * @return
+     */
     @Override
-    public User getByName(String userName) {
-        return userDao.getByName(userName);
+    public boolean saveOrUpdate(User user) {
+        //密码加密
+        SystemUtils.entryptPassword(user);
+        //保存用户信息
+        boolean flag1 = super.saveOrUpdate(user);
+        //维护用户角色关联信息
+        boolean flag2 = this.maintainUserRole(user);
+        return flag1 && flag2;
     }
 
+    /**
+     * 维护角色和用户的关联信息
+     * 先删除该用户已有的角色,然后添加新的角色
+     *
+     * @param user
+     */
     @Override
-    public List<User> findList(User user) {
-        return userDao.findList(user);
-    }
-
-    @Override
-    public int delete(String id) {
-        return userDao.delete(id);
-    }
-
-    @Override
-    public int save(User user) {
-
-        if (StringUtils.isNotBlank(user.getId())) {
-            //有ID 更新
-            user.preUpdate();
-//            SystemUtils.entryptPassword(user);
-            return userDao.update(user);
-        } else {
-            //新增
-            user.preInsert();
-            SystemUtils.entryptPassword(user);
-            return userDao.insert(user);
+    public boolean maintainUserRole(User user) {
+        boolean flag1 = false;
+        boolean flag2 = false;
+        if (user.getRoleIds() != null && user.getRoleIds().length > 0) {
+            flag1 = userRoleMapper.batchDeleteUserRoleByUserId(user) > 0;
+            flag2 = userRoleMapper.insertUserRole(user) > 0;
+        }else{
+            return true;
         }
+        return  flag2;
     }
-
-    @Override
-    public int batchDelete(String ids) {
-        int rows = 0;
-        if (StringUtils.isNotBlank(ids)) {
-            String[] idArray = ids.split(",");
-            List<String> idList = Arrays.asList(idArray);
-            rows = userDao.batchDelete(idList);
-        }
-        return rows;
-    }
-
 
 }

@@ -1,20 +1,13 @@
 package com.dyf.modules.user.service;
 
-import com.dyf.modules.user.pojo.User;
+import com.dyf.common.service.BaseSerivce;
+import com.dyf.modules.user.entity.User;
 
 import java.util.List;
 
-public interface UserService  {
+public interface UserService  extends BaseSerivce<User> {
 
-    User get(String id);
+    User getByUserName(String userName);
 
-    List<User> findList(User entity);
-
-    int delete(String id);
-
-    int save(User entity);
-
-    User getByName(String userName);
-
-    int batchDelete(String id);
+    boolean maintainUserRole(User user);
 }

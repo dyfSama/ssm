@@ -1,11 +1,11 @@
 package com.dyf.modules.role.service.impl;
 
-import com.dyf.common.utils.SystemUtils;
-import com.dyf.modules.role.dao.RoleDao;
-import com.dyf.modules.role.pojo.Role;
+import com.dyf.common.service.impl.CrudService;
+import com.dyf.modules.menu.mapper.MenuMapper;
+import com.dyf.modules.role.mapper.RoleMapper;
+import com.dyf.modules.role.mapper.RoleMenuMapper;
+import com.dyf.modules.role.entity.Role;
 import com.dyf.modules.role.service.RoleService;
-import com.dyf.modules.user.dao.UserDao;
-import com.dyf.modules.user.pojo.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -14,37 +14,33 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends CrudService<RoleMapper, Role> implements RoleService {
 
     @Resource
-    private RoleDao roleDao;
-
+    private RoleMenuMapper roleMenuMapper;
 
     @Override
-    public Role get(String id) {
-        return roleDao.get(id);
+    public boolean saveOrUpdate(Role entity) {
+        boolean flag1 = super.saveOrUpdate(entity);
+        boolean flag2 = this.maintainRoleMenu(entity);
+        return flag1 && flag2;
     }
 
+    /**
+     * 维护机构和角色的关系
+     * @param entity
+     * @return
+     */
     @Override
-    public List<Role> findList(Role entity) {
-        return roleDao.findList(entity);
-    }
-
-    @Override
-    public int delete(String id) {
-        return roleDao.delete(id);
-    }
-
-    @Override
-    public int save(Role entity) {
-        if (StringUtils.isNotBlank(entity.getId())) {
-            //有ID 更新
-            entity.preUpdate();
-            return roleDao.update(entity);
-        } else {
-            //新增
-            entity.preInsert();
-            return roleDao.insert(entity);
+    public boolean maintainRoleMenu(Role entity) {
+        boolean flag1 = false;
+        boolean flag2 = false;
+        if (entity.getMenuIds() != null && entity.getMenuIds().length > 0) {
+            flag1 = roleMenuMapper.batchDeleteRoleMenuByRoleId(entity) > 0;
+            flag2 = roleMenuMapper.insertRoleMenu(entity) > 0;
+        }else{
+            return true;
         }
+        return flag2;
     }
 }

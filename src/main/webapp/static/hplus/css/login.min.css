@@ -4,12 +4,12 @@ html {
 
 body.signin {
     height: auto;
-    background: url(../../images/login/login-background.jpg) no-repeat center fixed;
+    background: url(/static/images/login/login-background.jpg) no-repeat center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    color: gray;
+    color: rgba(255, 255, 255, .95);
 }
 
 .signinpanel {
@@ -36,12 +36,12 @@ body.signin {
 }
 
 .signinpanel .uname {
-    background: #fff url(../../images/user.png) no-repeat 95% center;
+    background: #fff url(/static/images/login/user.png) no-repeat 95% center;
     color: #333
 }
 
 .signinpanel .pword {
-    background: #fff url(../../images/locked.png) no-repeat 95% center;
+    background: #fff url(/static/images/login/locked.png) no-repeat 95% center;
     color: #333
 }
 

@@ -1,19 +1,12 @@
 package com.dyf.modules.menu.service;
 
 
-import com.dyf.modules.menu.pojo.Menu;
+import com.dyf.common.service.BaseSerivce;
+import com.dyf.modules.menu.entity.Menu;
 
 import java.util.List;
 
-public interface MenuService {
-
-    Menu get(Integer id);
-
-    List<Menu> findList(Menu entity);
-
-    int delete(Integer id);
-
-    int save(Menu entity);
+public interface MenuService extends BaseSerivce<Menu> {
 
     List<Menu> getMenuTree(Menu entity);
 }

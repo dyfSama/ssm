@@ -244,7 +244,6 @@
 			    error:function(xhr,textStatus){
 					var _errorMsg = '<tr><td colspan="'+options.columns.length+'"><div style="display: block;text-align: center;">'+xhr.responseText+'</div></td></tr>'
 					tbody.html(_errorMsg);
-					debugger;
 			    },
 			});
 		}
@@ -313,7 +312,8 @@
 		expandAll : false, // 是否全部展开
         expandFirst : true, // 是否默认第一级展开--expandAll为false时生效
 		striped : false, // 是否各行渐变色
-		columns : [],
+        bordered : true, //边框
+        columns : [],
         toolbar: '#toolbar',//顶部工具条
         height: 0,
 		expanderExpandedClass : 'glyphicon glyphicon-chevron-down',// 展开的按钮的图标

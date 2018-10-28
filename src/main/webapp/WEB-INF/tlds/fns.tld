@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <taglib xmlns="http://java.sun.com/xml/ns/j2ee"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
-  version="2.0">
-    
-  <description>JSTL 1.1 functions library</description>
-  <display-name>JSTL functions sys</display-name>
-  <tlib-version>1.1</tlib-version>
-  <short-name>fns</short-name>
-  <uri>http://java.sun.com/jsp/jstl/functionss</uri>
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
 
-  <function>
-    <description>获取管理路径</description>
-    <name>getAdminPath</name>
-    <function-class>com.dyf.common.config.Global</function-class>
-    <function-signature>java.lang.String getAdminPath()</function-signature>
-    <example>${fns:getAdminPath()}</example>
-  </function>
+    <description>JSTL 1.1 functions library</description>
+    <display-name>JSTL functions sys</display-name>
+    <tlib-version>1.1</tlib-version>
+    <short-name>fns</short-name>
+    <uri>http://java.sun.com/jsp/jstl/functionss</uri>
 
-  
+    <function>
+        <description>获取管理路径</description>
+        <name>getAdminPath</name>
+        <function-class>com.dyf.common.config.Global</function-class>
+        <function-signature>java.lang.String getAdminPath()</function-signature>
+        <example>${fns:getAdminPath()}</example>
+    </function>
+
+    <function>
+        <description>过去当前登录用户</description>
+        <name>getCurrentUser</name>
+        <function-class>com.dyf.common.utils.SystemUtils</function-class>
+        <function-signature>com.dyf.modules.user.pojo.User getCurrentUser()</function-signature>
+        <example>${fns:getCurrentUser}</example>
+    </function>
+
 </taglib>

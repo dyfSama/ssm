@@ -1,7 +1,7 @@
 package com.dyf.system.shiro;
 
 import com.dyf.common.contant.Contants;
-import com.dyf.modules.user.pojo.User;
+import com.dyf.modules.user.entity.User;
 import com.dyf.modules.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
@@ -23,26 +23,25 @@ public class ShiroRealm extends AuthorizingRealm {
 
     /**
      * 授权
+     *
      * @param principals
      * @return
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         Object principal = principals.getPrimaryPrincipal();
-
         Set<String> roles = new HashSet<>();
-
         roles.add("user");
-        if("admin".equals(principal)){
+        if ("admin".equals(principal)) {
             roles.add("admin");
         }
         SimpleAuthorizationInfo saInfo = new SimpleAuthorizationInfo(roles);
-
         return saInfo;
     }
 
     /**
      * 登录认证
+     *
      * @param token
      * @return
      * @throws AuthenticationException
@@ -50,21 +49,19 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken upToken = (UsernamePasswordToken) authenticationToken;
-        log.info("shiro登录认证....");
         String username = upToken.getUsername();
 
-        // Null username is invalid
         if (username == null) {
-            throw new AccountException("Null usernames are not allowed by this realm.");
+            throw new AccountException("用户名不能为空!");
         }
-        User user = userService.getByName(username);
+        User user = userService.getByUserName(username);
 
         if (null == user) {
-            throw new UnknownAccountException("用户 " + username + " 不存在!");
+            throw new UnknownAccountException("用户[ " + username + " ]不存在!");
         }
 
         if (Contants.STATUS_LOCKED.equals(user.getStatus())) {
-            throw new LockedAccountException("用户 " + username + " 已被停用!");
+            throw new LockedAccountException("用户[ " + username + " ]已被停用!");
         }
 
         /**
@@ -77,7 +74,7 @@ public class ShiroRealm extends AuthorizingRealm {
         Object credentials = user.getPassword();
         String realmName = getName();
         ByteSource credentialsSalt = ByteSource.Util.bytes(username);
-        SimpleAuthenticationInfo saInfo = new SimpleAuthenticationInfo(principal, credentials,credentialsSalt, realmName);
+        SimpleAuthenticationInfo saInfo = new SimpleAuthenticationInfo(principal, credentials, credentialsSalt, realmName);
 
         return saInfo;
     }
