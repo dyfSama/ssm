@@ -140,27 +140,4 @@ public class UserController extends BaseController {
         return userService.getById(user.getId());
     }
 
-   /* @ResponseBody
-    @RequestMapping("uploadAvatar")
-    public MsgInfo uploadAvatar(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
-        String path = request.getSession().getServletContext().getRealPath("/upload/head/");
-        log.info(" ================== " + path);
-        String originalFilename = file.getOriginalFilename();
-        //eg: 111.jpg ==>  .jpg
-        String suffix = originalFilename.substring(originalFilename.lastIndexOf(",") + 1);
-        String uuid = IdGen.uuid();
-        String filePath = "/upload/images/head/" + uuid + suffix;
-        File file1 = new File(filePath);
-
-        try {
-            file.transferTo(file1);
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-            return MsgInfo.error();
-        }
-
-        return MsgInfo.success(filePath);
-    }*/
-
-
 }

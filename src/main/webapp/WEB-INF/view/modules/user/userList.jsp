@@ -122,8 +122,8 @@
                     //key是后台分页参数, value是bootstrap提供的参数
                     page: params.offset / params.limit + 1,  //offset当前记录起始索引,转换为页码page
                     limit: params.limit,  //每页多少条
-                    order: params.order,
-                    ordername: params.sort,
+                    // order: params.order,
+                    // ordername: params.sort,
                     userName: $("#userName").val(), // 额外添加的参数
                     realName: $("#realName").val(),
                     status: $("#status").val(),
@@ -135,7 +135,7 @@
                 {
                     title: '序号',
                     align: 'center',
-                    width: '5%',
+                    width: '3%',
                     formatter: indexFormatter
                 },
                 {
@@ -155,7 +155,7 @@
                     field: 'realName',
                     title: '真实姓名',
                     align: 'center',
-                    width: '10%',
+                    width: '8%',
                     formatter: lengthFormatter
                 },
                 {
@@ -163,13 +163,14 @@
                     title: "头像",
                     align: 'center',
                     width: '5%',
+                    clickToSelect: false,
                     formatter: avatarFormatter
                 },
                 {
                     field: 'gender',
                     title: '性别',
                     align: 'center',
-                    width: '5%',
+                    width: '2%',
                     formatter: genderFormatter
                 },
                 {
@@ -204,11 +205,11 @@
                     field: 'remarks',
                     title: '备注',
                     align: 'center',
-                    width: '10%'
+                    width: '8%'
                 },
                 {
                     title: '操作',
-                    width: '200px',
+                    width: '300px',
                     align: 'center',
                     clickToSelect: false,
                     events: operateEvents,
@@ -263,12 +264,15 @@
         },
         'click .RoleOfreset': function (e, value, row, index) {
             $.modal.edit("重置密码", "${ctx}/modules/userInfo/toPassword", "25%", "36%", row.id);
+        },
+        'click .RoleOfavatar': function (e, value, row, index) {
+            $.modal.edit("修改 [ " + row.realName + " ] 的头像", "${ctx}/modules/userInfo/toAvatar", "510px", "630px", row.id);
         }
     };
 
     //长度格式化
     function lengthFormatter(value, row, index) {
-        if(value !=null ){
+        if (value != null) {
             if (value.length > 10) {
                 return "<span title='" + value + "'>" + value.substring(0, 10) + "..." + "</span>";
             } else {
@@ -280,11 +284,14 @@
 
     //头像格式化
     function avatarFormatter(value, row, index) {
-        if (value === undefined || value === "") {
+        if (value === undefined || value === "" || value === null) {
             return "";
         } else {
-            return '<img style="width:20px;" src=" ${ctx}/static/images/head/' + value + '">';
+            var url = "${ctx}/modules/userInfo/getAvatarById?id=" + row.id + "&t=" + Math.random();
+            return '<img style="width:20px;" src="' + url + '">';
         }
+
+
     }
 
     //性别格式化
@@ -295,6 +302,7 @@
     // 格式化按钮
     function operateFormatter(value, row, index) {
         return [
+            '<button type="button" class="RoleOfavatar btn btn-xs  btn-primary" style="margin-right:15px;"><i class="fa fa-user" ></i>&nbsp;修改头像</button>',
             '<button type="button" class="RoleOfreset btn btn-xs  btn-info" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;重置</button>',
             '<button type="button" class="RoleOfedit btn btn-xs  btn-success" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;编辑</button>',
             '<button type="button" class="RoleOfdelete btn btn-xs  btn-danger" style="margin-right:15px;"><i class="fa fa-trash-o" ></i>&nbsp;删除</button>'

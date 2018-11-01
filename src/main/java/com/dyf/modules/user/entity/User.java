@@ -53,7 +53,8 @@ public class User extends DataEntity<User> {
     /**
      * 头像url
      */
-    private String avatar;
+//    private String avatar;
+    private byte[] avatar;
 
 
     /**
@@ -65,7 +66,7 @@ public class User extends DataEntity<User> {
 
     /******** 其他字段 *********
 
-    /**
+     /**
      * 机构Id
      */
     private String deptId;

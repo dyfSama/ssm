@@ -3,7 +3,7 @@
 <mapper namespace="com.dyf.modules.user.mapper.UserMapper">
 
     <!-- 引用redis缓存 使用第三方内存数据库Redis作为二级缓存 -->
-    <!--<cache type="com.dyf.system.redis.RedisCache"/>-->
+    <cache type="com.dyf.system.redis.RedisCache"/>
 
 
     <resultMap id="BaseResultMap" type="com.dyf.modules.user.entity.User">
@@ -15,7 +15,7 @@
         <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
         <result column="email" property="email" jdbcType="VARCHAR"/>
         <result column="gender" property="gender" jdbcType="CHAR"/>
-        <result column="avatar" property="avatar" jdbcType="VARCHAR"/>
+        <result column="avatar" property="avatar" jdbcType="BLOB"/>
         <result column="birthday" property="birthday" jdbcType="DATE"/>
         <result column="status" property="status" jdbcType="CHAR"/>
         <result column="create_by" property="createBy" jdbcType="VARCHAR"/>
@@ -34,7 +34,7 @@
         <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
         <result column="email" property="email" jdbcType="VARCHAR"/>
         <result column="gender" property="gender" jdbcType="CHAR"/>
-        <result column="avatar" property="avatar" jdbcType="VARCHAR"/>
+        <result column="avatar" property="avatar" jdbcType="BLOB"/>
         <result column="birthday" property="birthday" jdbcType="DATE"/>
         <result column="status" property="status" jdbcType="CHAR"/>
         <result column="create_by" property="createBy" jdbcType="VARCHAR"/>

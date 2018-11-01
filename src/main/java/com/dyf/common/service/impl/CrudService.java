@@ -43,6 +43,7 @@ public abstract class CrudService<M extends BaseMapper<T>, T extends DataEntity<
             rows = baseMapper.insert(entity);
         } else {
             //id不为空
+            entity.preUpdate();
             rows = baseMapper.update(entity);
         }
         return rows > 0;

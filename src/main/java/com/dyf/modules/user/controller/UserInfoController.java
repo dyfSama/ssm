@@ -3,6 +3,7 @@ package com.dyf.modules.user.controller;
 import com.dyf.common.contant.Contants;
 import com.dyf.common.controller.BaseController;
 import com.dyf.common.msg.MsgInfo;
+import com.dyf.common.utils.ImageUtils;
 import com.dyf.modules.user.entity.User;
 import com.dyf.modules.user.service.UserService;
 import com.dyf.system.aspect.annotation.Log;
@@ -12,15 +13,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * @className: UserInfoController
@@ -41,7 +46,7 @@ public class UserInfoController extends BaseController {
 
     @RequestMapping("/info")
     public String info() {
-        return "modules/user/userInfo/info";
+        return "tools/basic_gallery";
     }
 
     @RequestMapping("/toPassword")
@@ -57,10 +62,14 @@ public class UserInfoController extends BaseController {
         return getMsgInfo(1, MsgInfo.OPT_DEL);
     }
 
+    /**
+     * 跳转到注册页面
+     *
+     * @return
+     */
     @RequestMapping("/toRegister")
     public String toRegister() {
         return "modules/user/userInfo/register";
-//        return "modules/user/userInfo/reg";
     }
 
     /**
@@ -84,10 +93,60 @@ public class UserInfoController extends BaseController {
     }
 
 
-    @RequestMapping("/formAvatar")
-    public String formAvatar() {
-        log.info("============================注册用户");
+    /**
+     * 跳转到修改头像
+     *
+     * @return
+     */
+    @RequestMapping("/toAvatar")
+    public String toAvatar(User entity, Model model) {
+        model.addAttribute("entityId", entity.getId());
         return "modules/user/userInfo/formAvatar";
+    }
+
+
+    /**
+     * 更新头像
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/updateAvatar")
+    public MsgInfo updateAvatar(@RequestParam("imagefile") MultipartFile file, HttpServletResponse response, HttpServletRequest request, User entity) {
+        try {
+            InputStream is = file.getInputStream();
+            byte[] bytes = FileCopyUtils.copyToByteArray(is);
+            entity.setAvatar(bytes);
+            userService.saveOrUpdate(entity);
+        } catch (IOException e) {
+            log.info(e.getMessage(), e);
+        }
+
+        return getMsgInfo(true, MsgInfo.OPT_UPLOAD);
+    }
+
+
+    /**
+     * 更新头像
+     *
+     * @return
+     */
+    @RequestMapping("/getAvatarById")
+    public void getAvatarById(User entity, HttpServletResponse response) {
+        User user = userService.getById(entity.getId());
+        byte[] data = user.getAvatar();
+        if (data != null && data.length > 0) {
+            try {
+                response.setContentType("image/png");
+                response.setCharacterEncoding("UTF-8");
+                OutputStream outputStream = new BufferedOutputStream(response.getOutputStream());
+                outputStream.write(data);
+                outputStream.flush();
+                outputStream.close();
+            } catch (IOException e) {
+                log.info(e.getMessage(), e);
+            }
+        }
     }
 
     @RequestMapping("/forget")

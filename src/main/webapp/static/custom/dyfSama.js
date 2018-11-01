@@ -200,7 +200,7 @@
                             parent.$.table.refresh();//刷新父页面
                             parent.$.treeTable.refresh();//刷新父页面
                         } else {
-                            parent.$.modal.msg_fail(data.message);
+                            $.modal.msg_fail(data.message);
                         }
                     },
                     error: function () {

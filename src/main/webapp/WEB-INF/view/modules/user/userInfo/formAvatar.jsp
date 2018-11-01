@@ -7,75 +7,125 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%@include file="/WEB-INF/view/include/head.jsp" %>
 
-    <title>H+ 后台主题UI框架 - 富头像上传编辑器</title>
+    <title></title>
     <meta name="keywords" content="keyworkdstext">
     <meta name="description" content="dericsdfsddemo">
 
-    <link rel="shortcut icon" href="${ctxStatic}/hplus/images/favicon.ico">
-    <link href="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${ctxStatic}/hplus/cdn/font-awesome.css" rel="stylesheet">
-
+    <link rel="shortcut icon" href="${ctxStatic}/images/login/favicon.ico">
+    <link href="${ctxStatic}/hplus/css/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ctxStatic}/hplus/js/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="${ctxStatic}/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
-    <link href="${ctxStatic}/hplus/css/plugins/cropper/cropper.min.css" rel="stylesheet">
+    <link href="${ctxStatic}/hplus/js/plugins/cropbox/cropbox.css" rel="stylesheet">
 
 </head>
 
-<body class="gray-bg">
+<body>
 <div class="wrapper wrapper-content">
-
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
-
                 <div class="ibox-content">
-                    <p>
-                        一款简单的jQuery图片裁剪插件 </p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="image-crop">
-                                <img src="http://ozwpnu2pa.bkt.clouddn.com/a3.jpg">
-                            </div>
+                    <div class="container">
+                        <div class="imageBox">
+                            <div class="thumbBox"></div>
+                            <div class="spinner" style="display: none">Loading...</div>
                         </div>
-                        <div class="col-md-6">
-                            <h4>图片预览：</h4>
-                            <div class="img-preview img-preview-sm"></div>
-                            <h4>说明：</h4>
-                            <p>
-                                你可以选择新图片上传，然后下载裁剪后的图片 </p>
-                            <div class="btn-group">
-                                <label title="上传图片" for="inputImage" class="btn btn-primary">
-                                    <input type="file" accept="image/*" name="file" id="inputImage" class="hide">
-                                    上传新图片
-                                </label>
-                                <label title="下载图片" id="download" class="btn btn-primary">下载</label>
+                        <div class="action">
+                            <div class="new-contentarea tc"><a href="javascript:void(0)" class="upload-img">
+                                <label for="avatar">上传图像</label>
+                            </a>
+                                <input type="hidden" name="id" value="${entityId}" id="id">
+                                <input type="file" class="" name="avatar" id="avatar"/>
                             </div>
-                            <h4>其他说明：</h4>
-                            <p>
-                                你可以使用<code>$({image}).cropper(options)</code>来配置插件 </p>
-                            <div class="btn-group">
-                                <button class="btn btn-white" id="zoomIn" type="button">放大</button>
-                                <button class="btn btn-white" id="zoomOut" type="button">缩小</button>
-                                <button class="btn btn-white" id="rotateLeft" type="button">左旋转</button>
-                                <button class="btn btn-white" id="rotateRight" type="button">右旋转</button>
-                                <button class="btn btn-warning" id="setDrag" type="button">裁剪</button>
-                            </div>
+                            <input type="button" id="blobSubmit" class="Btnsty_success" value="保存">
+                            <%--<input type="button" id="btnCrop" class="Btnsty_peyton" value="裁切">--%>
+                            <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="放大">
+                            <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="缩小">
                         </div>
+                        <%--<div class="cropped"></div>--%>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 <script src="${ctxStatic}/hplus/js/plugins/jquery/2.1.4/jquery.min.js"></script>
 <script src="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <script src="${ctxStatic}/hplus/js/content.min.js?v=1.0.0"></script>
-<script src="${ctxStatic}/hplus/js/plugins/cropper/cropper.min.js"></script>
-<script src="${ctxStatic}/hplus/js/demo/form-advanced-demo.min.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/cropbox/cropbox.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/iCheck/icheck.min.js"></script>
+<script src="${ctxStatic}/hplus/plugins/layer-v3.1.1/layer.js"></script>
+<script src="${ctxStatic}/custom/dyfSama.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //网上摘的了,只学习了后台的代码
+        console.info('${entityId}');
+        var options =
+            {
+                thumbBox: '.thumbBox',
+                spinner: '.spinner',
+                imgSrc: ${empty entityId} ? '/img/profile.jpg' : "${ctx}/modules/userInfo/getAvatarById?id=${entityId}&t=" + Math.random()
+            };
+        var cropper = $('.imageBox').cropbox(options);
+        $('#avatar').on('change', function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                options.imgSrc = e.target.result;
+                cropper = $('.imageBox').cropbox(options);
+            };
+            reader.readAsDataURL(this.files[0]);
+            this.files = [];
+        });
+        $('#blobSubmit').on('click', function () {
+            var img = cropper.getBlob();
+            var formdata = new FormData();
+            formdata.append("imagefile", img);
+            var id = $('#id').val();
+            var parentIndex = parent.layer.getFrameIndex(window.name);
+            $.ajax({
+                url: "${ctx}/modules/userInfo/updateAvatar?id=" + id,
+                data: formdata,
+                type: "post",
+                //默认值: true。默认情况下，通过data选项传递进来的数据，如果是一个对象(技术上讲只要不是字符串)，
+                // 都会处理转化成一个查询字符串，以配合默认内容类型 "application/x-www-form-urlencoded"。如果要发送 DOM 树信息或其它不希望转换的信息，请设置为 false。
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data.status === '0') {
+                        parent.layer.close(parentIndex);//关闭弹出层
+                        parent.$.modal.msg_success(data.message);//父页面提示信息
+                        parent.$.table.refresh();//刷新父页面
+                    } else {
+                        $.modal.msg_fail(data.message);
+                    }
+                },
+                error: function () {
+                    $.modal.msg_fail("系统错误!");
+                }
+            })
+        });
 
+        //裁剪生成三个不同大小头像
+        $('#btnCrop').on('click', function () {
+            var img = cropper.getDataURL();
+            $('.cropped').html('');
+            $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:64px;margin-top:4px;border-radius:64px;box-shadow:0px 0px 12px #7E7E7E;" ><p>64px*64px</p>');
+            $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:128px;margin-top:4px;border-radius:128px;box-shadow:0px 0px 12px #7E7E7E;"><p>128px*128px</p>');
+            $('.cropped').append('<img src="' + img + '" align="absmiddle" style="width:180px;margin-top:4px;border-radius:180px;box-shadow:0px 0px 12px #7E7E7E;"><p>180px*180px</p>');
+        });
 
+        //放大
+        $('#btnZoomIn').on('click', function () {
+            cropper.zoomIn();
+        });
+        //缩小
+        $('#btnZoomOut').on('click', function () {
+            cropper.zoomOut();
+        })
+    });
+</script>
 
 </body>
 
