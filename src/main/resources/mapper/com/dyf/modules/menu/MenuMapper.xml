@@ -52,14 +52,14 @@
 
     <select id="getMenuTree" resultMap="BaseResultMap" parameterType="com.dyf.modules.menu.entity.Menu">
         select
-          id,
-          parent_id,
-          menu_name
+        id,
+        parent_id,
+        menu_name
         from sys_menu
         <where>
             status != '1'
             <if test="parentId != null">
-                and  parent_id = #{parentId}
+                and parent_id = #{parentId}
             </if>
         </where>
         order by id
@@ -67,7 +67,7 @@
 
 
     <!--数据状态（0：启用；1：删除; 2: 停用）-->
-    <select id="selectOneById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="selectOneById" resultMap="BaseResultMap" parameterType="string">
         select
         <include refid="Base_Column_List"/>
         from sys_menu
@@ -81,13 +81,13 @@
         <where>
             status != '1'
             <if test="parentId != null">
-               and  parent_id = #{parentId}
+                and parent_id = #{parentId}
             </if>
             <if test="isShow != null and isShow != ''">
-                and  is_show = #{isShow}
+                and is_show = #{isShow}
             </if>
             <if test="menuName != null and menuName != ''">
-                and  menu_name like concat('%',#{menuName},'%')
+                and menu_name like concat('%',#{menuName},'%')
             </if>
         </where>
         order by id
@@ -147,7 +147,7 @@
                 parent_id = #{parentId},
             </if>
             <if test="menuName != null">
-                menu_name like concat('%',#{menuName},'%')
+                menu_name = #{menuName},
             </if>
             <if test="menuSort != null">
                 menu_sort = #{menuSort},

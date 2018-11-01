@@ -43,7 +43,7 @@ public class UserServiceImpl extends CrudService<UserMapper, User> implements Us
         boolean flag1 = super.saveOrUpdate(user);
         //维护用户角色关联信息
         boolean flag2 = this.maintainUserRole(user);
-        return flag1 && flag2;
+        return flag1 ;
     }
 
     /**

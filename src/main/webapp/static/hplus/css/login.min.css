@@ -9,7 +9,7 @@ body.signin {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    color: rgba(255, 255, 255, .95);
+    /*color: rgba(255, 255, 255, .95);*/
 }
 
 .signinpanel {

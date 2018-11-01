@@ -51,9 +51,21 @@ public class Menu extends DataEntity<Menu> {
 
     /****************其他信息**************************/
 
+
+    /**
+     * parentId
+     */
+    private String parentName;
+
+    /**
+     * 是否选中
+     */
     private boolean checked;
 
 
+    /**
+     * 角色Id
+     */
     private String roleId;
 
 

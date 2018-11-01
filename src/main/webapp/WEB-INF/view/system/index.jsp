@@ -35,7 +35,7 @@
                         <span><img alt="image" class="img-circle"
                                    src="${ctxStatic}/images/head/${fns:getCurrentUser().avatar}" width="65px"/>
                         </span>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <a data-toggle="dropdown" class="dropdown-toggle" data-hover="dropdown" href="#">
                             <span class="clear">
                                 <span class="block m-t-xs">
                                     <strong class="font-bold"> ${currentUser.realName}</strong>
@@ -68,7 +68,10 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="${ctx}/index_v1" data-index="0">主页一</a>
+                            <a class="J_menuItem" href="${ctx}/index_v1" data-index="0">主页</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" href="${ctx}/modules/chart/toChart" data-index="0">图表统计</a>
                         </li>
                     </ul>
                 </li>
@@ -93,7 +96,7 @@
                             <a class="J_menuItem" href="${ctx}/modules/logger/toList">日志监控</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="${ctx}/druid">数据库监控</a>
+                            <a class="J_menuItem" href="${ctx}/druid">数据源监控</a>
                         </li>
                         <li>
                             <a class="J_menuItem" href="${ctx}/modules/job/toList">定时任务管理</a>
@@ -111,13 +114,13 @@
                             <a class="J_menuItem" href="#">代码生成器</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="#">接口文档</a>
+                            <a class="J_menuItem" href="/doc.html">Swagger2接口文档</a>
                         </li>
                         <%--<li>--%>
-                            <%--<a class="J_menuItem" href="${ctx}/tools/bootstrap-star-rating">bootstrap-star-rating</a>--%>
+                        <%--<a class="J_menuItem" href="${ctx}/tools/bootstrap-star-rating">bootstrap-star-rating</a>--%>
                         <%--</li>--%>
                         <%--<li>--%>
-                            <%--<a class="J_menuItem" href="${ctx}/tools/bootstrap-step">bootstrap-step</a>--%>
+                        <%--<a class="J_menuItem" href="${ctx}/tools/bootstrap-step">bootstrap-step</a>--%>
                         <%--</li>--%>
                     </ul>
                 </li>
@@ -527,6 +530,7 @@
 </div>
 <script src="${ctxStatic}/hplus/js/plugins/jquery/2.1.4/jquery.min.js"></script>
 <script src="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<%--<script src="${ctxStatic}/hplus/js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"></script>--%>
 <script src="${ctxStatic}/hplus/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="${ctxStatic}/hplus/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="${ctxStatic}/hplus/js/plugins/layer/layer.min.js" type="text/javascript"></script>
@@ -534,19 +538,32 @@
 <script src="${ctxStatic}/hplus/js/hplus.min.js?v=4.1.0"></script>
 <script src="${ctxStatic}/hplus/js/contabs.min.js"></script>
 <script src="${ctxStatic}/hplus/js/plugins/pace/pace.min.js"></script>
-<%--<script src="${ctxStatic}/custom/dyfSama.js"></script>--%>
+<%-- icheck --%>
+<link href="${ctxStatic}/hplus/js/plugins/iCheck/skins/all.css" rel="stylesheet">
+<%-- icheck --%>
+<script src="${ctxStatic}/hplus/js/plugins/iCheck/icheck.min.js"></script>
+<script src="${ctxStatic}/custom/dyfSama.js"></script>
 </body>
 <script type="text/javascript">
     $(function () {
-        $('.logout').click(function () {
-            layer.msg("正在清除用户信息...", {time: 1000}, function () {
-                    window.location.href = "${ctx}/logout";
-                }
-            );
-            // $.modal.confirm("确定注销吗?", function () {
-            //
-            // });
-        });
+       /* var currentUser = '${fns:getCurrentUser()}';
+        var userName = currentUser.userName;
+        if (userName === "" || userName === undefined || userName === null){
+            layer.msg('检测到您的用户信息不完善,赶快完善一下吧!', {
+                icon:1,
+                time: 20000, //20s后自动关闭
+                btn: ['好的', '之后再说']
+            });
+        }*/
+            $('.logout').click(function () {
+                $.modal.confirm("确定注销吗?", function () {
+
+                    layer.msg("正在清除用户信息...", {time: 1000}, function () {
+                            window.location.href = "${ctx}/logout";
+                        }
+                    );
+                });
+            });
     })
 </script>
 </html>

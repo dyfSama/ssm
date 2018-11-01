@@ -23,7 +23,7 @@
         <description>过去当前登录用户</description>
         <name>getCurrentUser</name>
         <function-class>com.dyf.common.utils.SystemUtils</function-class>
-        <function-signature>com.dyf.modules.user.pojo.User getCurrentUser()</function-signature>
+        <function-signature>com.dyf.modules.user.entity.User getCurrentUser()</function-signature>
         <example>${fns:getCurrentUser}</example>
     </function>
 

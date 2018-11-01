@@ -47,7 +47,7 @@
                                     </select>
                                 </div>
                                 <div class="col-sm-4" style="text-align:left;">
-                                    <button type="button"  class="btn btn-primary btn-query">
+                                    <button type="button" class="btn btn-primary btn-query">
                                         <i class="fa fa-search" aria-hidden="true"></i> 查询
                                     </button>
                                     <button type="reset" class="btn btn-reset">
@@ -204,11 +204,11 @@
                     field: 'remarks',
                     title: '备注',
                     align: 'center',
-                    width: '15%'
+                    width: '10%'
                 },
                 {
                     title: '操作',
-                    width: 150,
+                    width: '200px',
                     align: 'center',
                     clickToSelect: false,
                     events: operateEvents,
@@ -260,15 +260,21 @@
         },
         'click .RoleOfedit': function (e, value, row, index) {
             $.modal.edit("编辑用户", "${ctx}/modules/user/toForm", "50%", "90%", row.id);
+        },
+        'click .RoleOfreset': function (e, value, row, index) {
+            $.modal.edit("重置密码", "${ctx}/modules/userInfo/toPassword", "25%", "36%", row.id);
         }
     };
 
     //长度格式化
     function lengthFormatter(value, row, index) {
-        if (value.length > 10) {
-            return "<span title='" + value + "'>" + value.substring(0, 10) + "..." + "</span>";
-        } else {
-            return "<span title='" + value + "'>" + value.substring(0, value.length) + "</span>";
+        if(value !=null ){
+            if (value.length > 10) {
+                return "<span title='" + value + "'>" + value.substring(0, 10) + "..." + "</span>";
+            } else {
+                return "<span title='" + value + "'>" + value.substring(0, value.length) + "</span>";
+            }
+
         }
     }
 
@@ -289,7 +295,8 @@
     // 格式化按钮
     function operateFormatter(value, row, index) {
         return [
-            '<button type="button" class="RoleOfedit btn btn-xs  btn-info" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;编辑</button>',
+            '<button type="button" class="RoleOfreset btn btn-xs  btn-info" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;重置</button>',
+            '<button type="button" class="RoleOfedit btn btn-xs  btn-success" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;编辑</button>',
             '<button type="button" class="RoleOfdelete btn btn-xs  btn-danger" style="margin-right:15px;"><i class="fa fa-trash-o" ></i>&nbsp;删除</button>'
         ].join('');
     }

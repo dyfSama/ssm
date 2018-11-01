@@ -4,6 +4,7 @@ import com.dyf.base.SpringTestBase;
 import com.dyf.modules.logger.service.LoggerService;
 import com.dyf.modules.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.web.util.WebUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

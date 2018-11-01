@@ -8,6 +8,7 @@ import com.dyf.modules.user.entity.User;
 import com.dyf.modules.user.service.UserService;
 import com.dyf.system.aspect.annotation.Log;
 import com.dyf.system.aspect.enums.BusinessType;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -97,6 +98,7 @@ public class UserController extends BaseController {
     @RequiresRoles({"admin"})
     @RequestMapping("/delete")
     @Log(moduleName = "用户管理", businessType = BusinessType.DELETE)
+    @ApiOperation(value = "根据ID删除用户", httpMethod = "GET", response = MsgInfo.class, notes = "根据ID删除用户")
     public MsgInfo delete(User user) {
         return getMsgInfo(userService.deleteById(user.getId()), MsgInfo.OPT_DEL);
     }

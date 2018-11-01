@@ -191,8 +191,8 @@
 					target.append(tbody);
 					//动态设置表头宽度
 					thead.css("width", tbody.children(":first").css("width"));
-					// 行点击选中事件
-					target.find("tbody").find("tr").click(function(){
+					//行点击选中事件
+					/*target.find("tbody").find("tr").click(function(){
 						if(hasSelectItem){
 							var _ipt = $(this).find("input[name='select_item']");
 							if(_ipt.attr("type")=="radio"){
@@ -209,7 +209,7 @@
 								}
 							}
 						}
-					});
+					});*/
 					// 小图标点击事件--展开缩起
 					target.find("tbody").find("tr").find(".treetable-expander").click(function(){
 						var _flag = $(this).hasClass(options.expanderExpandedClass);

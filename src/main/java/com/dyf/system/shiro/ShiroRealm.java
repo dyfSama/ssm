@@ -40,7 +40,7 @@ public class ShiroRealm extends AuthorizingRealm {
     }
 
     /**
-     * 登录认证
+     * 登录认证(subject.login(token)时触发该方法)
      *
      * @param token
      * @return
@@ -55,15 +55,12 @@ public class ShiroRealm extends AuthorizingRealm {
             throw new AccountException("用户名不能为空!");
         }
         User user = userService.getByUserName(username);
-
         if (null == user) {
             throw new UnknownAccountException("用户[ " + username + " ]不存在!");
         }
-
         if (Contants.STATUS_LOCKED.equals(user.getStatus())) {
             throw new LockedAccountException("用户[ " + username + " ]已被停用!");
         }
-
         /**
          * principal   认证实体信息
          * credentials  密码

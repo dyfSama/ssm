@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class=" ibox float-e-margins">
-                <div class="ibox-content">
+                <div class="ibox-content queryForm">
                     <form id="formSearch" class="form-horizontal">
                         <div class="form-group" style="margin-top:5px;margin-bottom: -10px">
                             <label class="control-label col-sm-1" for="roleName">角色名称</label>
@@ -50,6 +50,9 @@
                             </button>
                             <button type="button" class="btn btn-outline btn-danger" id="batchDel">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i> 批量删除
+                            </button>
+                            <button type="button" class="btn btn-outline btn-info queryFormToggle">
+                                <i class="fa fa-search-plus" aria-hidden="true"></i>
                             </button>
                         </div>
                     </shiro:hasRole>
@@ -184,7 +187,7 @@
         return [
             // '<button type="button" class="RoleOfassign btn btn-xs  btn-default" style="margin-right:15px;"><i class="fa fa-user" ></i>&nbsp;分配</button>',
             // '<button type="button" class="RoleOfauthorize btn btn-xs  btn-success" style="margin-right:15px;"><i class="fa fa-hand-o-left" ></i>&nbsp;授权</button>',
-            '<button type="button" class="RoleOfedit btn btn-xs  btn-info" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;编辑</button>',
+            '<button type="button" class="RoleOfedit btn btn-xs  btn-success" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;编辑</button>',
             '<button type="button" class="RoleOfdelete btn btn-xs  btn-danger" style="margin-right:15px;"><i class="fa fa-trash-o" ></i>&nbsp;删除</button>'
         ].join('');
     }

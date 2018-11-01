@@ -54,6 +54,12 @@ public class Contants {
     public static final String SPLIT_1 = ",";
 
 
+    public static final String  IMG_CODE_SESSIO_KEY="imgVCode";
+
+    public static final String  MAIL_CODE_SESSION_KEY="mailVCode";
+
+
+
     /* *//**
      * 成功
      *//*

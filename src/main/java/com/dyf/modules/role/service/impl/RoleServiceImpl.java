@@ -23,7 +23,7 @@ public class RoleServiceImpl extends CrudService<RoleMapper, Role> implements Ro
     public boolean saveOrUpdate(Role entity) {
         boolean flag1 = super.saveOrUpdate(entity);
         boolean flag2 = this.maintainRoleMenu(entity);
-        return flag1 && flag2;
+        return flag1 ;
     }
 
     /**

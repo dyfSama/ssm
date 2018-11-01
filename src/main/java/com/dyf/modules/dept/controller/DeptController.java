@@ -100,7 +100,9 @@ public class DeptController extends BaseController {
     @RequestMapping("/getById")
     public Dept getById(Dept entity) {
         Dept dept = deptService.getById(entity.getId());
-        dept.setParentName(deptService.getById(dept.getParentId()).getDeptName());
+        if(!"0".equals(dept.getParentId())){
+            dept.setParentName(deptService.getById(dept.getParentId()).getDeptName());
+        }
         return dept;
     }
 

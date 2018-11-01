@@ -41,13 +41,14 @@ public class MenuController extends BaseController {
     }
 
     @RequestMapping("/toMenuTree")
-    public String menuTree(Menu entity,Model model) {
+    public String menuTree(Menu entity, Model model) {
         model.addAttribute("entityId", entity.getId());
         return "modules/menu/menuTree";
     }
 
     /**
      * 菜单树
+     *
      * @param entity
      * @return
      */
@@ -59,6 +60,7 @@ public class MenuController extends BaseController {
 
     /**
      * 菜单列表
+     *
      * @param entity
      * @return
      */
@@ -70,19 +72,20 @@ public class MenuController extends BaseController {
 
     /**
      * 保存更新
+     *
      * @param entity
      * @return
      */
     @ResponseBody
     @RequestMapping("/save")
-    @Log(moduleName = "菜单管理",businessType = BusinessType.INSERT)
+    @Log(moduleName = "菜单管理", businessType = BusinessType.INSERT)
     public MsgInfo save(Menu entity) {
         return getMsgInfo(menuService.saveOrUpdate(entity), MsgInfo.OPT_SAVE);
     }
 
     @ResponseBody
     @RequestMapping("/delete")
-    @Log(moduleName = "菜单管理",businessType = BusinessType.DELETE)
+    @Log(moduleName = "菜单管理", businessType = BusinessType.DELETE)
     public MsgInfo delete(Menu entity) {
         return getMsgInfo(menuService.deleteById(entity.getId()), MsgInfo.OPT_DEL);
     }
@@ -90,7 +93,11 @@ public class MenuController extends BaseController {
     @ResponseBody
     @RequestMapping("/getById")
     public Menu getById(Menu entity) {
-        return menuService.getById(entity.getId());
+        Menu menu = menuService.getById(entity.getId());
+        if (!"0".equals(menu.getParentId())) {
+            menu.setParentName(menuService.getById(menu.getParentId()).getMenuName());
+        }
+        return menu;
     }
 
 

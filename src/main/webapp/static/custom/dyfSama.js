@@ -149,6 +149,7 @@
                         layer.closeAll('loading');
                         if (data.status === "0") {
                             $.table.refresh();
+                            $.treeTable.refresh();//刷新父页面
                             $.modal.msg_success(data.message);
                         } else {
                             $.modal.msg_fail(data.message);
@@ -241,6 +242,16 @@
                     content: _url + "?id=" + _id
                 });
             },
+            addChild: function (_title, _url, _width, _height, _parentId) { //树结构添加子菜单弹出框
+                layer.open({
+                    type: 2,
+                    title: _title,
+                    maxmin: true,
+                    area: [_width, _height],
+                    shadeClose: true,//点击遮罩关闭
+                    content: _url + "?parentId=" + _parentId
+                });
+            },
             confirm: function (_msg, callBack) {
                 layer.confirm(_msg,
                     {skin: 'layui-layer-molv', icon: 3, title: '系统提示', anim: 6}, function (index) {
@@ -295,7 +306,7 @@ function indexFormatter(value, row, index) {
 $(function () {
 
     $('.queryFormToggle').click(function () {
-        $('.queryForm').toggle();
+        $('.queryForm').slideToggle(300);
     });
 
 

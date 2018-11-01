@@ -17,7 +17,7 @@
 <div class="row wrapper wrapper-content animated fadeInRight">
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
-            <div class="ibox-content">
+            <div class="ibox-content queryForm">
                 <form id="formSearch" class="form-horizontal">
                     <div class="form-group" style="margin-top:5px;margin-bottom: -10px">
                         <label class="control-label col-sm-1" for="deptName">机构名称</label>
@@ -48,11 +48,8 @@
                     <button type="button" class="RoleOfadd btn btn-outline btn-success" id="add">
                         <i class="fa fa-plus-square-o" aria-hidden="true"></i> 添加
                     </button>
-                    <button type="button" class="btn btn-outline btn-primary" id="edit">
-                        <i class="fa fa-trash-o" aria-hidden="true"></i> 编辑
-                    </button>
-                    <button type="button" class="btn btn-outline btn-danger" id="delete">
-                        <i class="fa fa-trash-o" aria-hidden="true"></i> 删除
+                    <button type="button" class="btn btn-outline btn-info queryFormToggle">
+                        <i class="fa fa-search-plus" aria-hidden="true"></i>
                     </button>
                 </div>
                 <table id="tree-table" data-classes="table table-no-bordered"></table>
@@ -78,7 +75,7 @@
                     title: '机构名称',
                     width: "8%"
                 },
-                {
+               /* {
                     field: 'id',
                     title: '机构编号',
                     width: "5%",
@@ -91,7 +88,7 @@
                     width: "5%",
                     sortable: true,
                     align: 'center'
-                },
+                },*/
                 {
                     field: 'deptSort',
                     title: '排序',
@@ -114,9 +111,9 @@
                     field: 'operate',
                     title: '操作',
                     align: 'center',
-                    width: '250px',
+                    width: '100px',
                     clickToSelect: false,
-                    events: operateEvents,
+                    // events: operateEvents,
                     formatter: operateFormatter
                 }
             ]
@@ -136,20 +133,22 @@
         $('#add').click(function () {
             $.modal.add("新增机构", "${ctx}/modules/dept/toForm", "50%", "90%");
         });
-        $('#edit').click(function () {
-            $.modal.edit("编辑机构", "${ctx}/modules/dept/toForm", "50%", "90%","120");
-        });
 
     });
 
 
     // 格式化按钮
     function operateFormatter(value, row, index) {
-        return [
+        var actions = [];
+        // actions.push('<a class="btn btn-primary btn-xs " href="#" onclick="addChild(\'' + row.id + '\')"><i class="fa fa-plus"></i>新增下级菜单</a>&nbsp; ');
+        actions.push('<a class="btn btn-success btn-xs " href="#" onclick="edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> &nbsp;');
+        actions.push('<a class="btn btn-danger btn-xs " href="#" onclick="del(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>&nbsp;');
+        return actions.join('');
+       /* return [
             '<button type="button" class="RoleOfadd btn btn-xs   btn-primary" style="margin-right:15px;"><i class="fa fa-plus" ></i>&nbsp;新增下级机构</button>',
             '<button type="button" class="RoleOfedit btn btn-xs   btn-success" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;编辑</button>',
             '<button type="button" class="RoleOfdelete btn btn-xs   btn-danger" style="margin-right:15px;"><i class="fa fa-trash-o" ></i>&nbsp;删除</button>'
-        ].join('');
+        ].join('');*/
 
     }
 
@@ -165,10 +164,11 @@
 
     // 是否显示
     function isShowFormatter(value, row, index) {
+        console.info(value)
         if (value === '0') {
-            return '<span class="label label-success">隐藏</span>';
+            return '<span class="label label-success">显示</span>';
         } else {
-            return '<span class="label label-info">显示</span>';
+            return '<span class="label label-info">隐藏</span>';
         }
     }
 
@@ -182,16 +182,27 @@
     }
 
 
-    $('#delete').click(function () {
-        var checkData = $("#bootstrap-table").bootstrapTable('getSelections');
-        console.info(checkData);
-    });
 
-    //初始化操作按钮的方法
-    window.operateEvents = {
-        'click .RoleOfadd': function (e, value, row, index) {
+    function addChild(parentId) {
+        $.modal.edit("新增下级机构", "${ctx}/modules/dept/toForm", "50%", "90%", parentId);
+    }
 
-            $.modal.edit("新增机构", "${ctx}/menu/form", "50%", "90%", row.id);
+    function edit(id) {
+        $.modal.edit("编辑机构", "${ctx}/modules/dept/toForm", "50%", "90%", id);
+
+    }
+
+    function del(id) {
+        $.operator.delete("${ctx}/modules/dept/delete", id);
+
+    }
+
+
+    /*  //初始化操作按钮的方法
+      window.operateEvents = {
+          'click .RoleOfadd': function (e, value, row, index) {
+
+              $.modal.edit("新增机构", "${ctx}/menu/form", "50%", "90%", row.id);
         },
         'click .RoleOfdelete': function (e, value, row, index) {
             $.operator.delete("${ctx}/menu/delete", row.id);
@@ -200,7 +211,7 @@
         'click .RoleOfedit': function (e, value, row, index) {
             $.modal.edit("编辑机构", "${ctx}/menu/form", "50%", "90%", row.id);
         }
-    };
+    };*/
 
 
 </script>

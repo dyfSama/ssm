@@ -128,4 +128,38 @@
 
         <bean id="task" class="com.dyf.system.job.controller.SpringTaskXml"></bean>-->
 
+
+
+    <!-- 图形验证码工具类 -->
+    <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <!--边框配置 ,不要了-->
+                        <prop key="kaptcha.border">no</prop>
+                        <!--<prop key="kaptcha.border.thickness">2</prop>
+                        <prop key="kaptcha.border.color">105,179,90</prop>-->
+                        <prop key="kaptcha.textproducer.font.color">blue</prop>
+                        <prop key="kaptcha.image.width">100</prop>
+                        <prop key="kaptcha.image.height">35</prop>
+                        <prop key="kaptcha.textproducer.font.size">28</prop>
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
+                        <prop key="kaptcha.textproducer.char.space">4</prop>
+                        <prop key="kaptcha.textproducer.font.names">微软雅黑</prop>
+                        <!-- 不要干扰线 -->
+                        <prop key="kaptcha.noise.impl">com.google.code.kaptcha.impl.NoNoise</prop>
+                        <!-- 图片样式:阴影[水纹,鱼眼,阴影] -->
+                        <prop key="kaptcha.obscurificator.impl">com.google.code.kaptcha.impl.ShadowGimpy</prop>
+                        <prop key="kaptcha.session.key">imgCode</prop><!-- sessionkey -->
+                        <prop key="kaptcha.session.date">10</prop><!-- session有效时间 -->
+                        <!-- 验证码的来源 -->
+                        <prop key="kaptcha.textproducer.char.string">23456789ABCEFGHJKLMNPRSTUVWXY</prop>
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+
 </beans>

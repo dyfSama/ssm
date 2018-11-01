@@ -19,16 +19,13 @@ public class FilterChainDefinitionMapBuilder {
 
         //顺序不是随意的
         linkedHashMap.put("/static/**", "anon");
-        linkedHashMap.put("/shiroLogin", "anon");
-        linkedHashMap.put("/user/toRegister", "anon");
-        linkedHashMap.put("/user/register", "anon");
-        linkedHashMap.put("/user/toForget", "anon");
-        linkedHashMap.put("/logout", "logout");
+        linkedHashMap.put("/shiroLogin", "anon");//登录验证
+        linkedHashMap.put("/modules/userInfo/**", "anon");//注册时的
+        linkedHashMap.put("/system/mailSender/**", "anon");//注册时发送邮件验证码
+        linkedHashMap.put("/logout", "logout");//登录
         linkedHashMap.put("/druid", "user,roles[admin]");
         linkedHashMap.put("/index_v1", "roles[user]");
         linkedHashMap.put("/**", "user");
-//        linkedHashMap.put("/**", "authc");
-
         return linkedHashMap;
     }
 }

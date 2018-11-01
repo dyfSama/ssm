@@ -46,7 +46,7 @@
                     <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势五</li>
                 </ul>
                 <strong>还没有账号？
-                    <a href="${ctx}/user/toRegister">立即注册&raquo;</a>
+                    <a href="#" id="toRegister">立即注册&raquo;</a>
                     <%--<a href="https://www.baidu.com">立即注册&raquo;</a>--%>
                 </strong>
             </div>
@@ -55,22 +55,24 @@
             <form id="formId">
                 <h4 class="no-margins">登录：</h4>
                 <p class="m-t-md">登录ssm</p>
-                <input type="text" class="form-control uname" name="userName" id='userName' placeholder="用户名"/>
+                <input type="text" class="form-control uname" name="username" id='username' placeholder="用户名"/>
                 <input type="password" class="form-control pword m-b" name="password" placeholder="密码"/>
                 <div class="row" style="margin-top: -12px">
                     <div class="col-xs-6">
-                        <input type="text" class="form-control" name="vercode" placeholder="验证码" style="width: 125px"/>
+                        <input type="text" class="form-control" name="verifyCode" placeholder="验证码"
+                               style="width: 125px"/>
                     </div>
                     <div class="col-xs-6">
-                        <img src="https://www.oschina.net/action/user/captcha" style="width: 90%;margin-top: 17.5px">
+                        <img src="${pageContext.request.contextPath}/modules/userInfo/getVerifyCode" id="refreshVerifyCode"
+                             style="width: 90%;margin-top: 17.5px">
                     </div>
                 </div>
                 <div class="checkbox i-checks">
                     <input class="i-checks" type="checkbox" name="rememberMe" value="true" title="记住我"/>&nbsp;&nbsp;记住我&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="${ctx}/user/forget">忘记密码?</a>
+                    <a href="#">忘记密码?</a>
                 </div>
 
-                <button class="btn btn-success btn-block" lay-submit type="submit" lay-filter="login">登录</button>
+                <button class="btn btn-success btn-block" type="submit">登录</button>
             </form>
         </div>
     </div>
@@ -98,18 +100,34 @@
             increaseArea: '20%' // optional
         });
 
+        var refreshVerifyCode = $('#refreshVerifyCode');
+
+        refreshVerifyCode.on('click', function () {
+            $(this).attr("src", "${pageContext.request.contextPath}/modules/userInfo/getVerifyCode?t=" + Math.random());
+        });
+
+        $('#toRegister').click(function () {
+            layer.msg("正在跳转到注册页面...", {time: 500}, function () {
+                    window.location.href = "${pageContext.request.contextPath}/modules/userInfo/toRegister";
+                }
+            );
+        });
     });
     $("#formId").validate({
         rules: {
-            userName: {required: true},
-            password: {required: true}
+            username: {required: true},
+            password: {required: true},
+            verifyCode: {required: true}
         },
         messages: {
-            userName: {required: "请输入用户名"},
-            password: {required: "请输入密码"}
+            username: {required: "请输入用户名"},
+            password: {required: "请输入密码"},
+            verifyCode: {required: "请输入验证码"}
         },
         errorPlacement: function (error, element) {
-            layer.tips("必填项", element);
+            layer.tips("必填项", element, {
+                tipsMore: true, time: 1000
+            });
         },
         submitHandler: function (form) {
             $.ajax({
@@ -118,20 +136,23 @@
                 dataType: "json",
                 data: $('#formId').serialize(),
                 beforeSend: function () {
-                    // layer.msg("正在验证中...", {icon: 6, offset: "t", time: 10000});
                     layer.msg("正在验证中...", {time: 10000});
                 },
                 success: function (data) {
                     layer.closeAll();
                     if (data.status === "0") {
-                        layer.msg("验证成功,正在跳转到首页...", {time: 500}, function () {
+                        layer.msg("认证成功,正在跳转到首页...", {time: 500}, function () {
                                 window.location.href = "${pageContext.request.contextPath}/index";
                             }
                         );
                     } else {
-                        $('.form-control').val("");
-                        layer.msg("验证失败: " + data.message, {time: 3000, anim: 6});
+                        $('#refreshVerifyCode').val("");
+                        $('#refreshVerifyCode').attr("src", "${pageContext.request.contextPath}/modules/userInfo/getVerifyCode?t=" + Math.random());
+                        layer.msg("认证失败: " + data.message, {time: 3000, anim: 6});
                     }
+                },
+                error: function () {
+                    layer.msg("系统错误: " + data.message, {time: 3000, anim: 6});
                 }
             });
         }

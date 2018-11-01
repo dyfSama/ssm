@@ -22,11 +22,12 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <form method="post" class="form-horizontal" id="formId">
+                    <input type="hidden" name="id">
                     <input type="hidden" name="parentId" id="parentId">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">上级菜单</label>
                         <div class="col-sm-8">
-                            <input type="input" class="form-control" id="parentName" placeholder="点击选择上级菜单" readonly>
+                            <input type="input" class="form-control" id="parentName" name="parentName" placeholder="点击选择上级菜单" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -41,7 +42,7 @@
                         </label>
                         <div class="col-sm-8">
                             <div class="radio i-checks">
-                                <input type="radio" value="0" name="isShow" checked> <i></i> 是&nbsp;&nbsp;&nbsp;
+                                <input type="radio" value="0" name="isShow" > <i></i> 是&nbsp;&nbsp;&nbsp;
                                 <input type="radio" value="1" name="isShow"> <i></i> 否
                             </div>
                         </div>
@@ -68,8 +69,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">图标</label>
-
+                        <label class="col-sm-2 control-label">图标 &nbsp;<span><i id="menuIcon"  ></i></span></label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" name="icon">
                         </div>
@@ -79,7 +79,7 @@
                         <label class="col-sm-2 control-label">菜单类型</label>
                         <div class="col-sm-8">
                             <select class="form-control m-b" name="menuType">
-                                <option value="M" selected>菜单</option>
+                                <option value="M" >菜单</option>
                                 <option value="C">目录</option>
                                 <option value="B">按钮</option>
                             </select>
@@ -91,7 +91,7 @@
                         </label>
                         <div class="col-sm-8">
                             <div class="radio i-checks">
-                                <input type="radio" value="0" name="status" checked> <i></i> 启用&nbsp;&nbsp;&nbsp;
+                                <input type="radio" value="0" name="status" > <i></i> 启用&nbsp;&nbsp;&nbsp;
                                 <input type="radio" value="1" name="status"> <i></i> 停用
                             </div>
                         </div>
@@ -126,8 +126,39 @@
     });
 
     $(function () {
+        $.ajax({
+            url: "${ctx}/modules/menu/getById?id=${entityId}",
+            type: "post",
+            dataType: "json",
+            success: function (data) {
+                console.info(data);
+                //基本字段
+                $("input[name='parentId']").val(data.parentId);
+                $("input[name='parentName']").val(data.parentName);
+                $("input[name='id']").val(data.id);
+                $("input[name='menuName']").val(data.menuName);
+                $("input[name='permission']").val(data.permission);
+                $("input[name='menuSort']").val(data.menuSort);
+                var menuType = data.menuType;
+                $("input[name='menuType']").find("option[text='C']").attr("selected",true);
+                $("input[name='url']").val(data.url);
+                if (data.status === "2") {
+                    $("input[name='status'][value='2']").iCheck('check');
+                } else {
+                    $("input[name='status'][value='0']").iCheck('check');
+                }
+                if (data.status === "1") {
+                    $("input[name='isShow'][value='1']").iCheck('check');
+                } else {
+                    $("input[name='isShow'][value='0']").iCheck('check');
+                }
+                //图标
+                $("#menuIcon").addClass(data.icon);
+                $("input[name='icon']").val(data.icon);
+            }
+        });
         $('#parentName').focus(function () {
-            $.modal.open('选择菜单', '${ctx}/menu/toMenuTree', '250px', '500px');
+            $.modal.open('选择菜单', '${ctx}/modules/menu/toMenuTree', '250px', '500px');
         });
 
         var e = "<i class='fa fa-times-circle'></i> ";
@@ -144,7 +175,7 @@
                 menuSort: {required: e + "请输入菜单排序"}
             },
             submitHandler: function (form) {
-                $.operator.save("${ctx}/menu/save");
+                $.operator.save("${ctx}/modules/menu/save");
             }
         });
     });

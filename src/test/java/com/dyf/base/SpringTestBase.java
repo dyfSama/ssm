@@ -7,7 +7,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring/spring-context.xml"})
+@ContextConfiguration(locations = {
+        "classpath:spring/spring-context.xml",
+        "classpath:spring/spring-mail.xml"})
 @WebAppConfiguration
 @Slf4j
 public class SpringTestBase {
