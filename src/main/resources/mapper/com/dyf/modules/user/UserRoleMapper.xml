@@ -6,7 +6,7 @@
 <mapper namespace="com.dyf.modules.user.mapper.UserRoleMapper">
 
     <!-- 引用redis缓存 使用第三方内存数据库Redis作为二级缓存 -->
-    <!--<cache type="com.dyf.system.redis.RedisCache"/>-->
+    <cache type="com.dyf.system.redis.RedisCache"/>
 
     <!-- user and role 关联信息  -->
     <insert id="insertUserRole" parameterType="user">

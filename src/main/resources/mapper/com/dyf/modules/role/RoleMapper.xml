@@ -3,7 +3,7 @@
 <mapper namespace="com.dyf.modules.role.mapper.RoleMapper">
 
     <!-- 引用redis缓存 使用第三方内存数据库Redis作为二级缓存 -->
-    <!--<cache type="com.dyf.system.redis.RedisCache"/>-->
+    <cache type="com.dyf.system.redis.RedisCache"/>
 
     <resultMap id="BaseResultMap" type="com.dyf.modules.role.entity.Role">
         <id column="id" property="id" jdbcType="VARCHAR"/>

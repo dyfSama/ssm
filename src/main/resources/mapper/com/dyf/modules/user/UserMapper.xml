@@ -2,7 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyf.modules.user.mapper.UserMapper">
 
-    <!-- 引用redis缓存 使用第三方内存数据库Redis作为二级缓存 -->
+<!--
+     引用redis缓存 使用第三方内存数据库Redis作为二级缓存
+-->
     <cache type="com.dyf.system.redis.RedisCache"/>
 
 
