@@ -152,7 +152,7 @@
                         <!-- 图片样式:阴影[水纹,鱼眼,阴影] -->
                         <prop key="kaptcha.obscurificator.impl">com.google.code.kaptcha.impl.ShadowGimpy</prop>
                         <prop key="kaptcha.session.key">imgCode</prop><!-- sessionkey -->
-                        <prop key="kaptcha.session.date">10</prop><!-- session有效时间 -->
+                        <prop key="kaptcha.session.date">30</prop><!-- session有效时间 -->
                         <!-- 验证码的来源 -->
                         <prop key="kaptcha.textproducer.char.string">23456789ABCEFGHJKLMNPRSTUVWXY</prop>
                     </props>

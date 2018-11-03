@@ -158,14 +158,14 @@
                     width: '8%',
                     formatter: lengthFormatter
                 },
-                {
+               /* {
                     field: "avatar",
                     title: "头像",
                     align: 'center',
                     width: '5%',
                     clickToSelect: false,
                     formatter: avatarFormatter
-                },
+                },*/
                 {
                     field: 'gender',
                     title: '性别',
@@ -258,8 +258,8 @@
         'click .RoleOfdelete': function (e, value, row, index) {
             $.operator.delete("${ctx}/modules/user/delete", row.id);
         },
-        'click .RoleOfreset': function (e, value, row, index) {
-            $.modal.edit("重置密码", "${ctx}/modules/userInfo/toPassword", "25%", "36%", row.id);
+        'click .RoleOfedit': function (e, value, row, index) {
+            $.modal.edit("编辑用户", "${ctx}/modules/user/toForm", "50%", "90%", row.id);
         }
     };
 

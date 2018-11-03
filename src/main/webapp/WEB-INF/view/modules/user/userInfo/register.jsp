@@ -113,7 +113,7 @@
             }
             $vcode.attr("disabled", "true");
             $.ajax({
-                url: "${pageContext.request.contextPath}/system/mailSender/sendMailCode?to=" + email,
+                url: "${pageContext.request.contextPath}/system/mailSender/sendMailVerifyCode?to=" + email,
                 type: "post",
                 dataType: "json",
                 beforeSend: function () {

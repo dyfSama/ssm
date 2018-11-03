@@ -59,6 +59,12 @@ public class Contants {
     public static final String  MAIL_CODE_SESSION_KEY="mailVCode";
 
 
+    /**
+     * 邮件接收数组最大10
+     */
+    public static final int MAIL_TOADDRESS_MAX_LENGTH = 10;
+
+
 
     /* *//**
      * 成功

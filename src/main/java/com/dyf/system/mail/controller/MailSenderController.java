@@ -4,6 +4,7 @@ import com.dyf.common.contant.Contants;
 import com.dyf.common.controller.BaseController;
 import com.dyf.common.msg.MsgInfo;
 import com.dyf.system.mail.service.MailSenderService;
+import com.google.code.kaptcha.Producer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -31,15 +32,29 @@ public class MailSenderController extends BaseController {
     @Autowired
     private MailSenderService mailSenderService;
 
+
+    @Autowired
+    private Producer producer;
+
+
+    /**
+     * 注册发送邮件验证码
+     *
+     * @param entity
+     * @return
+     */
     @ResponseBody
-    @RequestMapping("/sendMailCode")
-    public MsgInfo sendMailCode(SimpleMailMessage message, HttpServletRequest request) {
-        String mailCode = mailSenderService.sendSimpleMail(message);
-        if (null != mailCode) {
-            request.getSession().setAttribute(Contants.MAIL_CODE_SESSION_KEY, mailCode);
-            log.info("mailcode===============" + request.getSession().getAttribute(Contants.MAIL_CODE_SESSION_KEY));
-            return MsgInfo.success();
+    @RequestMapping("/sendMailVerifyCode")
+    public MsgInfo sendMailVerifyCode(SimpleMailMessage simpleMailMessage, HttpServletRequest request) {
+        //获取验证码
+        String verifyCode = producer.createText();
+        simpleMailMessage.setSubject("ssm注册验证码");
+        simpleMailMessage.setText("验证码:" + verifyCode);
+        try {
+            mailSenderService.sendSimpleMail(simpleMailMessage);
+        } catch (Exception e) {
+            return MsgInfo.error();
         }
-        return MsgInfo.error();
+        return MsgInfo.success();
     }
 }

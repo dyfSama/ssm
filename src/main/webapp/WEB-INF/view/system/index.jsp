@@ -88,10 +88,10 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="#">基本信息</a>
+                            <a class="J_menuItem" href="javascript:void(0);">基本信息</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="${ctx}/modules/userInfo/toAvatar?id=${fns:getCurrentUser().id}">修改头像</a>
+                            <a class="J_menuItem" href="javascript:void(0);">修改头像</a>
                         </li>
                         <%-- <li>
                              <a class="J_menuItem" href="#">列表2</a>
@@ -110,7 +110,7 @@
                              <a class="J_menuItem" href="/static/hplus/form_builder.html">表单构建器</a>
                          </li>--%>
                         <li>
-                            <a class="J_menuItem" href="#">代码生成器</a>
+                            <a class="J_menuItem" href="javascript:void(0);">代码生成器</a>
                         </li>
                         <li>
                             <a class="J_menuItem" href="${ctx}/doc.html">接口文档</a>
@@ -135,10 +135,10 @@
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
                     </a>
                     <%--<form role="search" class="navbar-form-custom" method="post" action="search_results.html">--%>
-                        <%--<div class="form-group">--%>
-                            <%--<input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search"--%>
-                                   <%--id="top-search">--%>
-                        <%--</div>--%>
+                    <%--<div class="form-group">--%>
+                    <%--<input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search"--%>
+                    <%--id="top-search">--%>
+                    <%--</div>--%>
                     <%--</form>--%>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">

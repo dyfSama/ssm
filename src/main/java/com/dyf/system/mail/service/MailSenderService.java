@@ -1,6 +1,9 @@
 package com.dyf.system.mail.service;
 
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
+
+import java.io.File;
 
 /**
  * <p>
@@ -11,6 +14,20 @@ import org.springframework.mail.SimpleMailMessage;
  * @date: 2018/10/31 22:13
  */
 public interface MailSenderService {
+    /**
+     * 简单纯文本邮件
+     *
+     * @param message
+     */
+    void sendSimpleMail(SimpleMailMessage simpleMailMessage);
 
-    public String sendSimpleMail(SimpleMailMessage message);
+
+    /**
+     * 带附件的邮件
+     *
+     * @param message
+     * @param file
+     */
+    void sendAttachmentMail(SimpleMailMessage simpleMailMessage, File file);
+
 }

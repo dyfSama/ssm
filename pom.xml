@@ -281,17 +281,17 @@
         </dependency>-->
 
         <!--zkclient-->
-       <!-- <dependency>
-            <groupId>com.101tec</groupId>
-            <artifactId>zkclient</artifactId>
-            <version>0.10</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>slf4j-log4j12</artifactId>
-                    <groupId>org.slf4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>com.101tec</groupId>
+             <artifactId>zkclient</artifactId>
+             <version>0.10</version>
+             <exclusions>
+                 <exclusion>
+                     <artifactId>slf4j-log4j12</artifactId>
+                     <groupId>org.slf4j</groupId>
+                 </exclusion>
+             </exclusions>
+         </dependency>-->
         <!-- 第五部分 dubbo end-->
 
         <!-- 第六部分 shiro框架(共13个) start-->
@@ -417,11 +417,11 @@
 
         <!-- swagger-ui为项目提供api展示及测试的界面 -->
 
-       <!-- <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.6.1</version>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>io.springfox</groupId>
+             <artifactId>springfox-swagger-ui</artifactId>
+             <version>2.6.1</version>
+         </dependency>-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
@@ -431,13 +431,8 @@
         <!-- 邮件-->
         <dependency>
             <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.6.0</version>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
         </dependency>
 
         <!-- 验证码工具类 -->
