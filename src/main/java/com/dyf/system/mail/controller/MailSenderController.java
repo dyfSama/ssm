@@ -8,6 +8,7 @@ import com.google.code.kaptcha.Producer;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * <p>
@@ -52,6 +54,9 @@ public class MailSenderController extends BaseController {
         simpleMailMessage.setText("验证码:" + verifyCode);
         try {
             mailSenderService.sendSimpleMail(simpleMailMessage);
+            HttpSession session =request.getSession();
+            session.setAttribute(Contants.MAIL_CODE_SESSION_KEY, verifyCode);
+            session.setMaxInactiveInterval(50);
         } catch (Exception e) {
             return MsgInfo.error();
         }

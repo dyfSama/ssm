@@ -148,9 +148,9 @@
                     success: function (data) {
                         layer.closeAll('loading');
                         if (data.status === "0") {
+                            $.modal.msg_success(data.message);
                             $.table.refresh();
                             $.treeTable.refresh();//刷新父页面
-                            $.modal.msg_success(data.message);
                         } else {
                             $.modal.msg_fail(data.message);
                         }
