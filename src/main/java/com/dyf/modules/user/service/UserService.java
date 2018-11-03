@@ -10,4 +10,6 @@ public interface UserService  extends BaseSerivce<User> {
     User getByUserName(String userName);
 
     boolean maintainUserRole(User user);
+
+    User getAvatarById(String id);
 }

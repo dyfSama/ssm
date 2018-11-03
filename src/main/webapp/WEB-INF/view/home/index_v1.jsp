@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/view/include/taglib.jsp" %>
 <!DOCTYPE html>
 <html>
 
@@ -12,12 +13,12 @@
 
     <title>H+ 后台主题UI框架 - 主页示例</title>
 
-<link rel="shortcut icon" href="${pageContext.request.contextPath}/static/hplus/images/favicon.ico">
-    <link href="${pageContext.request.contextPath}/static/hplus/js/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/static/hplus/cdn/font-awesome.css" rel="stylesheet">
+    <link rel="shortcut icon" href="${ctxStatic}/hplus/images/favicon.ico">
+    <link href="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ctxStatic}/hplus/js/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="${pageContext.request.contextPath}/static/hplus/js/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/static/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${ctxStatic}/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
 
 
 </head>
@@ -51,7 +52,8 @@
             <b>定价：</b><span class="label label-warning">&yen;988（不开发票，不议价）</span>
         </p><br>
         <p>
-            <a class="btn btn-success btn-outline" href="http://wpa.qq.com/msgrd?v=3&uin=516477188&site=qq&menu=yes" target="_blank">
+            <a class="btn btn-success btn-outline" href="http://wpa.qq.com/msgrd?v=3&uin=516477188&site=qq&menu=yes"
+               target="_blank">
                 <i class="fa fa-qq"> </i> 联系我
             </a>
             <a class="btn btn-white btn-bitbucket" href="http://www.zi-han.net" target="_blank">
@@ -658,10 +660,10 @@
         </div>
     </div>
 </script>
-<script src="${pageContext.request.contextPath}/static/hplus/js/plugins/jquery/2.1.4/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/hplus/js/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/hplus/js/plugins/layer/layer.min.js"></script>
-<script src="${pageContext.request.contextPath}/static/hplus/js/content.min.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/jquery/2.1.4/jquery.min.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="${ctxStatic}/hplus/js/content.min.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/layer-v3.1.1/layer.js" type="text/javascript"></script>
 
 </body>
 

@@ -32,7 +32,7 @@
 <%-- nprogress --%>
 <link href="${ctxStatic}/hplus/css/plugins/nprogress/nprogress.css" rel="stylesheet">
 <%--ztree --%>
-<link rel="stylesheet" href="${ctxStatic}/ztree/css/metroStyle/metroStyle.css" type="text/css">
+<link rel="stylesheet" href="${ctxStatic}/hplus/js/plugins/ztree/css/metroStyle/metroStyle.css" type="text/css">
 
 
 <%-- =====================js==================== --%>
@@ -65,7 +65,7 @@
 <%-- laydate --%>
 <script src="${ctxStatic}/hplus/js/plugins/laydate/laydate.js"></script>
 <%-- layer --%>
-<script src="${ctxStatic}/hplus/plugins/layer-v3.1.1/layer.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/layer-v3.1.1/layer.js"></script>
 <%-- jqueryValidate --%>
 <script src="${ctxStatic}/hplus/js/plugins/validate/jquery.validate.min.js"></script>
 <script src="${ctxStatic}/hplus/js/plugins/validate/messages_zh.min.js"></script>
@@ -78,10 +78,10 @@
 <%-- custom --%>
 <script src="${ctxStatic}/custom/dyfSama.js"></script>
 <%-- ztree --%>
-<script type="text/javascript" src="${ctxStatic}/ztree/js/jquery.ztree.core.js"></script>
-<script type="text/javascript" src="${ctxStatic}/ztree/js/jquery.ztree.excheck.js"></script>
-<script type="text/javascript" src="${ctxStatic}/ztree/js/jquery.ztree.exedit.js"></script>
-<script type="text/javascript" src="${ctxStatic}/ztree/js/jquery.ztree.exhide.js"></script>
-<script type="text/javascript" src="${ctxStatic}/ztree/js/fuzzysearch.js"></script>
+<script type="text/javascript" src="${ctxStatic}/hplus/js/plugins/ztree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${ctxStatic}/hplus/js/plugins/ztree/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="${ctxStatic}/hplus/js/plugins/ztree/js/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="${ctxStatic}/hplus/js/plugins/ztree/js/jquery.ztree.exhide.js"></script>
+<script type="text/javascript" src="${ctxStatic}/hplus/js/plugins/ztree/js/fuzzysearch.js"></script>
 
 

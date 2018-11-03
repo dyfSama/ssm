@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dyf.modules.user.mapper.UserMapper">
 
-<!--
-     引用redis缓存 使用第三方内存数据库Redis作为二级缓存
--->
+    <!--
+         引用redis缓存 使用第三方内存数据库Redis作为二级缓存
+    -->
     <cache type="com.dyf.system.redis.RedisCache"/>
 
 
@@ -61,8 +61,8 @@
         mobile,
         email,
         gender,
-        avatar,
-        birthday,
+/*        avatar,
+*/        birthday,
         status,
         create_by,
         create_date,
@@ -117,6 +117,13 @@
     <select id="selectOneById" parameterType="string" resultMap="userRoleDeptMap">
         select
         <include refid="Base_Column_List"/>
+        from sys_user where status != '1' and id = #{id}
+    </select>
+
+    <!-- 查询用户头像 -->
+    <select id="getAvatarById" parameterType="string" resultMap="BaseResultMap">
+        select
+        id , avatar
         from sys_user where status != '1' and id = #{id}
     </select>
 

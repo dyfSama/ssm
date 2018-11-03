@@ -268,7 +268,7 @@
 
         <!-- 第五部分 dubbo start-->
         <!--dubbo 包-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
             <version>${dubbo.version}</version>
@@ -278,10 +278,10 @@
                     <artifactId>spring</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
 
         <!--zkclient-->
-        <dependency>
+       <!-- <dependency>
             <groupId>com.101tec</groupId>
             <artifactId>zkclient</artifactId>
             <version>0.10</version>
@@ -291,7 +291,7 @@
                     <groupId>org.slf4j</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>-->
         <!-- 第五部分 dubbo end-->
 
         <!-- 第六部分 shiro框架(共13个) start-->

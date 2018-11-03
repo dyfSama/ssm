@@ -15,11 +15,12 @@
 
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html"/><![endif]-->
-
     <link rel="shortcut icon" href="${ctxStatic}/images/login/favicon.ico">
     <link href="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${ctxStatic}/hplus/cdn/font-awesome.css" rel="stylesheet">
+    <link href="${ctxStatic}/hplus/js/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="${ctxStatic}/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <%-- nprogress --%>
+    <link href="${ctxStatic}/hplus/css/plugins/nprogress/nprogress.css" rel="stylesheet">
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -34,18 +35,8 @@
                     <div class="dropdown profile-element">
                         <span><img alt="image" class="img-circle"
                                    src="${ctx}/modules/userInfo/getAvatarById?id=${fns:getCurrentUser().id}"
-                                   width="60px"/>
+                                   width="110px"/>
                         </span>
-                        <a data-toggle="dropdown" class="dropdown-toggle" data-hover="dropdown" href="#">
-                            <span class="clear">
-                                <span class="block m-t-xs">
-                                    <strong class="font-bold"> ${fns:getCurrentUser().userName}</strong>
-                                </span>
-                                <span class="text-muted text-xs block">
-                                    ${fns:getCurrentUser().dept.deptName}<b class="caret"></b>
-                                </span>
-                            </span>
-                        </a>
                     </div>
                     <div class="logo-element">H+
                     </div>
@@ -59,7 +50,7 @@
                             <a class="J_menuItem" href="${ctx}/index_v1" data-index="0">主页</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="${ctx}/modules/chart/toChart" data-index="0">图表统计</a>
+                            <a class="J_menuItem" href="${ctx}/modules/chart/toChart" data-index="0">数据统计</a>
                         </li>
                     </ul>
                 </li>
@@ -86,9 +77,9 @@
                         <li>
                             <a class="J_menuItem" href="${ctx}/druid">数据源监控</a>
                         </li>
-                        <li>
+                        <%--<li>
                             <a class="J_menuItem" href="${ctx}/modules/job/toList">定时任务管理</a>
-                        </li>
+                        </li>--%>
                     </ul>
                 </li>
                 <li>
@@ -102,12 +93,12 @@
                         <li>
                             <a class="J_menuItem" href="${ctx}/modules/userInfo/toAvatar?id=${fns:getCurrentUser().id}">修改头像</a>
                         </li>
-                        <li>
-                            <a class="J_menuItem" href="#">列表2</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="#">列表3</a>
-                        </li>
+                        <%-- <li>
+                             <a class="J_menuItem" href="#">列表2</a>
+                         </li>
+                         <li>
+                             <a class="J_menuItem" href="#">列表3</a>
+                         </li>--%>
                     </ul>
                 </li>
                 <li>
@@ -115,21 +106,21 @@
                         <i class="fa fa-cutlery"></i> <span class="nav-label">工具</span> <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="/static/hplus/form_builder.html">表单构建器</a>
-                        </li>
+                        <%-- <li>
+                             <a class="J_menuItem" href="/static/hplus/form_builder.html">表单构建器</a>
+                         </li>--%>
                         <li>
                             <a class="J_menuItem" href="#">代码生成器</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" href="/doc.html">Swagger2接口文档</a>
+                            <a class="J_menuItem" href="${ctx}/doc.html">接口文档</a>
                         </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/tools/template">Swagger2接口文档</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/modules/userInfo/info">Swagger2接口文档</a>
-                        </li>
+                        <%--  <li>
+                              <a class="J_menuItem" href="${ctx}/tools/template">Swagger2接口文档</a>
+                          </li>
+                          <li>
+                              <a class="J_menuItem" href="${ctx}/modules/userInfo/info">Swagger2接口文档</a>
+                          </li>--%>
                     </ul>
                 </li>
             </ul>
@@ -143,12 +134,12 @@
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
                     </a>
-                    <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
-                        <div class="form-group">
-                            <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search"
-                                   id="top-search">
-                        </div>
-                    </form>
+                    <%--<form role="search" class="navbar-form-custom" method="post" action="search_results.html">--%>
+                        <%--<div class="form-group">--%>
+                            <%--<input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search"--%>
+                                   <%--id="top-search">--%>
+                        <%--</div>--%>
+                    <%--</form>--%>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown hidden-xs">
@@ -199,7 +190,7 @@
         </div>
         <div class="footer">
             <div class="pull-right">&copy; 2018
-                <a href="" target="_blank">...</a>
+                <a href="https://github.com/dyfSama" target="_blank">dyfSam</a>
             </div>
         </div>
     </div>
@@ -249,22 +240,39 @@
 </div>
 <script src="${ctxStatic}/hplus/js/plugins/jquery/2.1.4/jquery.min.js"></script>
 <script src="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<%--<script src="${ctxStatic}/hplus/js/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"></script>--%>
 <script src="${ctxStatic}/hplus/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="${ctxStatic}/hplus/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="${ctxStatic}/hplus/js/plugins/layer/layer.min.js" type="text/javascript"></script>
-<%--<script src="${ctxStatic}/hplus/plugins/layer-v3.1.1/layer.js" type="text/javascript"></script>--%>
+<script src="${ctxStatic}/hplus/js/plugins/layer-v3.1.1/layer.js" type="text/javascript"></script>
 <script src="${ctxStatic}/hplus/js/hplus.min.js?v=4.1.0"></script>
 <script src="${ctxStatic}/hplus/js/contabs.min.js"></script>
-<script src="${ctxStatic}/hplus/js/plugins/pace/pace.min.js"></script>
 <%-- icheck --%>
 <link href="${ctxStatic}/hplus/js/plugins/iCheck/skins/all.css" rel="stylesheet">
 <%-- icheck --%>
 <script src="${ctxStatic}/hplus/js/plugins/iCheck/icheck.min.js"></script>
 <script src="${ctxStatic}/custom/dyfSama.js"></script>
+<%-- nprogress --%>
+<script src="${ctxStatic}/hplus/js/plugins/nprogress/nprogress.js"></script>
 </body>
 <script type="text/javascript">
+    NProgress.start();
+    window.onload = function () {
+        NProgress.done();
+    };
     $(function () {
+        //修改头像
+        var $avatar = $('.img-circle');
+        $avatar.mouseover(function () {
+            layer.tips("点击修改头像", this, {
+                tipsMore: true, time: 1000
+            });
+        });
+        $avatar.click(function () {
+            var id = '${fns:getCurrentUser().id}';
+            var realName = '${fns:getCurrentUser().realName}';
+            $.modal.edit("修改 [ " + realName + " ] 的头像", "${ctx}/modules/userInfo/toAvatar", "510px", "630px", id);
+        });
+
+        //退出操作
         $('.logout').click(function () {
             $.modal.confirm("确定注销吗?", function () {
 

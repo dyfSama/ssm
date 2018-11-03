@@ -15,7 +15,6 @@
 
     <link rel="shortcut icon" href="${ctxStatic}/images/login/favicon.ico">
     <link href="${ctxStatic}/hplus/css/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${ctxStatic}/hplus/js/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="${ctxStatic}/hplus/js/plugins/iCheck/skins/all.css" rel="stylesheet">
     <link href="${ctxStatic}/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
     <script>if (window.top !== window.self) {
@@ -65,7 +64,7 @@
 
             <p class="text-muted text-center">
                 <small>已经有账户了？</small>
-                <a href="/">点此登录</a>
+                <a href="${pageContext.request.contextPath}">点此登录</a>
             </p>
         </form>
     </div>
@@ -75,7 +74,7 @@
 <%-- 下面这俩顺序不能变 --%>
 <script src="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 <%-- layer --%>
-<script src="${ctxStatic}/hplus/plugins/layer-v3.1.1/layer.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/layer-v3.1.1/layer.js"></script>
 <%-- icheck --%>
 <script src="${ctxStatic}/hplus/js/plugins/iCheck/icheck.min.js"></script>
 <%-- jqueryValidate --%>

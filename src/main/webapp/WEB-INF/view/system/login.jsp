@@ -12,7 +12,6 @@
     <meta name="description" content="dericsdfsddemo">
     <link rel="shortcut icon" href="${ctxStatic}/images/login/favicon.ico">
     <link href="${ctxStatic}/hplus/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${ctxStatic}/hplus/cdn/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="${ctxStatic}/hplus/css/style.min.css" rel="stylesheet">
     <link href="${ctxStatic}/hplus/css/login.min.css" rel="stylesheet">
     <%-- icheck --%>
@@ -63,7 +62,8 @@
                                style="width: 125px"/>
                     </div>
                     <div class="col-xs-6">
-                        <img src="${pageContext.request.contextPath}/modules/userInfo/getVerifyCode" id="refreshVerifyCode"
+                        <img src="${pageContext.request.contextPath}/modules/userInfo/getVerifyCode"
+                             id="refreshVerifyCode"
                              style="width: 90%;margin-top: 17.5px">
                     </div>
                 </div>
@@ -78,7 +78,7 @@
     </div>
     <div class="signup-footer">
         <div class="pull-left">
-            &copy; 2015 All Rights Reserved. H+
+            &copy; 2018 All Rights Reserved. dyfSama
         </div>
     </div>
 </div>
@@ -88,7 +88,8 @@
 <%-- icheck --%>
 <script src="${ctxStatic}/hplus/js/plugins/iCheck/icheck.min.js"></script>
 <%-- layer --%>
-<script src="${ctxStatic}/hplus/plugins/layer-v3.1.1/layer.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/layer-v3.1.1/layer.js"></script>
+<%-- jqueryValidate --%>
 <script src="${ctxStatic}/hplus/js/plugins/validate/jquery.validate.min.js"></script>
 <script src="${ctxStatic}/hplus/js/plugins/validate/messages_zh.min.js"></script>
 <%--<script src="${ctxStatic}/layuiadmin/dist/layuiadmin/layui/layui.js"></script>--%>

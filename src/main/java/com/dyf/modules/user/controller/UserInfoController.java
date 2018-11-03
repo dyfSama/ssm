@@ -133,7 +133,7 @@ public class UserInfoController extends BaseController {
      */
     @RequestMapping("/getAvatarById")
     public void getAvatarById(User entity, HttpServletResponse response) {
-        User user = userService.getById(entity.getId());
+        User user = userService.getAvatarById(entity.getId());
         byte[] data = user.getAvatar();
         if (data != null && data.length > 0) {
             try {

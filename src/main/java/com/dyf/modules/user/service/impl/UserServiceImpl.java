@@ -65,4 +65,9 @@ public class UserServiceImpl extends CrudService<UserMapper, User> implements Us
         return  flag2;
     }
 
+    @Override
+    public User getAvatarById(String id) {
+        return userMapper.getAvatarById(id);
+    }
+
 }

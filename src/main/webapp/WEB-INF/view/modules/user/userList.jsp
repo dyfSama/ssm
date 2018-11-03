@@ -205,11 +205,11 @@
                     field: 'remarks',
                     title: '备注',
                     align: 'center',
-                    width: '8%'
+                    width: '10%'
                 },
                 {
                     title: '操作',
-                    width: '300px',
+                    width: '100px',
                     align: 'center',
                     clickToSelect: false,
                     events: operateEvents,
@@ -245,12 +245,11 @@
 
     });
 
-    //点击方法最好用Up
+    //点击方法
     function zTreeOnClick(event, treeId, treeNode) {
         if (treeNode !== undefined) {
             $('#deptId').val(treeNode.id);
             $.table.refresh();
-            // $.fn.zTree.destroy('treeDemo');
         }
     }
 
@@ -259,14 +258,8 @@
         'click .RoleOfdelete': function (e, value, row, index) {
             $.operator.delete("${ctx}/modules/user/delete", row.id);
         },
-        'click .RoleOfedit': function (e, value, row, index) {
-            $.modal.edit("编辑用户", "${ctx}/modules/user/toForm", "50%", "90%", row.id);
-        },
         'click .RoleOfreset': function (e, value, row, index) {
             $.modal.edit("重置密码", "${ctx}/modules/userInfo/toPassword", "25%", "36%", row.id);
-        },
-        'click .RoleOfavatar': function (e, value, row, index) {
-            $.modal.edit("修改 [ " + row.realName + " ] 的头像", "${ctx}/modules/userInfo/toAvatar", "510px", "630px", row.id);
         }
     };
 
@@ -284,14 +277,8 @@
 
     //头像格式化
     function avatarFormatter(value, row, index) {
-        if (value === undefined || value === "" || value === null) {
-            return "";
-        } else {
-            var url = "${ctx}/modules/userInfo/getAvatarById?id=" + row.id + "&t=" + Math.random();
-            return '<img style="width:20px;" src="' + url + '">';
-        }
-
-
+        var url = "${ctx}/modules/userInfo/getAvatarById?id=" + row.id + "&t=" + Math.random();
+        return '<img style="width:20px;" src="' + url + '">';
     }
 
     //性别格式化
@@ -302,8 +289,7 @@
     // 格式化按钮
     function operateFormatter(value, row, index) {
         return [
-            '<button type="button" class="RoleOfavatar btn btn-xs  btn-primary" style="margin-right:15px;"><i class="fa fa-user" ></i>&nbsp;修改头像</button>',
-            '<button type="button" class="RoleOfreset btn btn-xs  btn-info" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;重置</button>',
+            // '<button type="button" class="RoleOfreset btn btn-xs  btn-info" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;重置</button>',
             '<button type="button" class="RoleOfedit btn btn-xs  btn-success" style="margin-right:15px;"><i class="fa fa-pencil-square-o" ></i>&nbsp;编辑</button>',
             '<button type="button" class="RoleOfdelete btn btn-xs  btn-danger" style="margin-right:15px;"><i class="fa fa-trash-o" ></i>&nbsp;删除</button>'
         ].join('');

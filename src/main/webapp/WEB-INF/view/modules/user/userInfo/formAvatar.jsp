@@ -95,8 +95,8 @@
                 success: function (data) {
                     if (data.status === '0') {
                         parent.layer.close(parentIndex);//关闭弹出层
-                        parent.$.modal.msg_success(data.message);//父页面提示信息
-                        parent.$.table.refresh();//刷新父页面
+                        parent.$.modal.msg_success("头像更新成功!");//父页面提示信息
+                        parent.$('.img-circle').attr("src", "${ctx}/modules/userInfo/getAvatarById?id=" + id + "&t=" + Math.random());
                     } else {
                         $.modal.msg_fail(data.message);
                     }
