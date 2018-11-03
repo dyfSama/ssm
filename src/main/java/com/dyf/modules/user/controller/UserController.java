@@ -1,9 +1,10 @@
 package com.dyf.modules.user.controller;
 
+import com.dyf.common.contant.Contants;
 import com.dyf.common.controller.BaseController;
 import com.dyf.common.msg.MsgInfo;
 import com.dyf.common.page.TableDataInfo;
-import com.dyf.common.utils.IdGen;
+import com.dyf.common.utils.SystemUtils;
 import com.dyf.modules.user.entity.User;
 import com.dyf.modules.user.service.UserService;
 import com.dyf.system.aspect.annotation.Log;
@@ -11,18 +12,15 @@ import com.dyf.system.aspect.enums.BusinessType;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -39,7 +37,7 @@ public class UserController extends BaseController {
      * @return
      */
     @RequestMapping("/toList")
-    public String list() {
+    public String list(Model model) {
         return "modules/user/userList";
     }
 
@@ -69,6 +67,7 @@ public class UserController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/list")
+    @RequiresPermissions("module:user:list")
     public TableDataInfo getList(HttpServletRequest request, User user) {
         startPage(request);
         List<User> userList = userService.findList(user);
@@ -78,14 +77,18 @@ public class UserController extends BaseController {
     /**
      * 保存更新
      *
-     * @param user
+     * @param entity
      * @return
      */
     @ResponseBody
     @RequestMapping("/save")
-    @Log(moduleName = "用户管理", businessType = BusinessType.INSERT)
-    public MsgInfo save(User user) {
-        return getMsgInfo(userService.saveOrUpdate(user), MsgInfo.OPT_SAVE);
+    @RequiresPermissions("module:user:edit")
+    @Log(moduleName = "用户管理", businessType = BusinessType.INSERT_UPDATE)
+    public MsgInfo save(User entity) {
+        if (SystemUtils.isSuperAdmin(entity) && !SystemUtils.isSuperAdmin(SystemUtils.getCurrentUser())) {
+            return MsgInfo.error("普通用户不允许修改超级管理员用户");
+        }
+        return getMsgInfo(userService.saveOrUpdate(entity), MsgInfo.OPT_SAVE);
     }
 
     /**
@@ -95,11 +98,14 @@ public class UserController extends BaseController {
      * @return
      */
     @ResponseBody
-    @RequiresRoles({"admin"})
     @RequestMapping("/delete")
+    @RequiresPermissions("module:user:delete")
     @Log(moduleName = "用户管理", businessType = BusinessType.DELETE)
     @ApiOperation(value = "根据ID删除用户", httpMethod = "GET", response = MsgInfo.class, notes = "根据ID删除用户")
     public MsgInfo delete(User user) {
+        if (SystemUtils.isSuperAdmin(user)) {
+            return MsgInfo.error("不允许删除超级管理员用户");
+        }
         return getMsgInfo(userService.deleteById(user.getId()), MsgInfo.OPT_DEL);
     }
 
@@ -111,21 +117,13 @@ public class UserController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/batchDelete")
+    @RequiresPermissions("module:user:delete")
     @Log(moduleName = "用户管理", businessType = BusinessType.DELETE_BATCH)
     public MsgInfo batchDelete(User user) {
+        if (user.getId().contains(Contants.ADMIN_ID)) {
+            return MsgInfo.error("不允许删除超级管理员用户");
+        }
         return getMsgInfo(userService.deleteByIds(user.getId()), MsgInfo.OPT_DEL);
-    }
-
-    /**
-     * 检查用户名唯一
-     *
-     * @param user
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("/checkUserName")
-    public boolean checkUserName(User user) {
-        return userService.getByUserName(user.getUserName()) == null;
     }
 
     /**

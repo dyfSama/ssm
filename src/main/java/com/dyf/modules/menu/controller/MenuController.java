@@ -8,6 +8,7 @@ import com.dyf.system.aspect.annotation.Log;
 import com.dyf.system.aspect.enums.BusinessType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,13 +79,15 @@ public class MenuController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/save")
-    @Log(moduleName = "菜单管理", businessType = BusinessType.INSERT)
+    @RequiresPermissions("module:menu:edit")
+    @Log(moduleName = "菜单管理", businessType = BusinessType.INSERT_UPDATE)
     public MsgInfo save(Menu entity) {
         return getMsgInfo(menuService.saveOrUpdate(entity), MsgInfo.OPT_SAVE);
     }
 
     @ResponseBody
     @RequestMapping("/delete")
+    @RequiresPermissions("module:menu:delete")
     @Log(moduleName = "菜单管理", businessType = BusinessType.DELETE)
     public MsgInfo delete(Menu entity) {
         return getMsgInfo(menuService.deleteById(entity.getId()), MsgInfo.OPT_DEL);

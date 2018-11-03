@@ -59,22 +59,20 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <shiro:hasRole name="admin">
-                        <div class="btn-group hidden-xs" id="talbeToolbar" role="group">
-                            <button type="button" class="btn btn-white toggleTree">
-                                <i class="glyphicon glyphicon-chevron-left toggleI"></i>
-                            </button>
-                            <button type="button" class="RoleOfadd btn btn-outline btn-success" id="add">
-                                <i class="fa fa-plus-square-o" aria-hidden="true"></i> 添加
-                            </button>
-                            <button type="button" class="btn btn-outline btn-danger" id="batchDel">
-                                <i class="fa fa-trash-o" aria-hidden="true"></i> 批量删除
-                            </button>
-                            <button type="button" class="btn btn-outline btn-info queryFormToggle">
-                                <i class="fa fa-search-plus" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </shiro:hasRole>
+                    <div class="btn-group hidden-xs" id="talbeToolbar" role="group">
+                        <button type="button" class="btn btn-white toggleTree">
+                            <i class="glyphicon glyphicon-chevron-left toggleI"></i>
+                        </button>
+                        <button type="button" class="RoleOfadd btn btn-outline btn-success" id="add">
+                            <i class="fa fa-plus-square-o" aria-hidden="true"></i> 添加
+                        </button>
+                        <button type="button" class="btn btn-outline btn-danger" id="batchDel">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i> 批量删除
+                        </button>
+                        <button type="button" class="btn btn-outline btn-info queryFormToggle">
+                            <i class="fa fa-search-plus" aria-hidden="true"></i>
+                        </button>
+                    </div>
                     <table id="bootstrap-table" data-toggle="bootstrap-table" data-classes="table table-no-bordered">
                     </table>
                 </div>
@@ -158,14 +156,14 @@
                     width: '8%',
                     formatter: lengthFormatter
                 },
-               /* {
-                    field: "avatar",
-                    title: "头像",
-                    align: 'center',
-                    width: '5%',
-                    clickToSelect: false,
-                    formatter: avatarFormatter
-                },*/
+                /* {
+                     field: "avatar",
+                     title: "头像",
+                     align: 'center',
+                     width: '5%',
+                     clickToSelect: false,
+                     formatter: avatarFormatter
+                 },*/
                 {
                     field: 'gender',
                     title: '性别',

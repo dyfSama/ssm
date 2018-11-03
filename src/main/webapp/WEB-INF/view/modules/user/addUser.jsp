@@ -39,6 +39,20 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-2 control-label">角色</label>
+                    <div class="col-sm-8">
+                        <select class="selectpicker" name="roleIds" multiple data-live-search="true"
+                                data-style="btn-white">
+                            <option value="0">超级管理员</option>
+                            <option value="1">主公</option>
+                            <option value="2">将军</option>
+                            <option value="3">谋士</option>
+                            <option value="4">佳人</option>
+                            <option value="9999">游客</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-2 control-label">性别</label>
                     <div class="col-sm-8">
                         <div class="radio i-checks">
@@ -63,20 +77,6 @@
                     <label class="col-sm-2 control-label">生日</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" name="birthday" id="birthday" placeholder="选择生日">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">角色</label>
-                    <div class="col-sm-8">
-                        <select class="selectpicker" name="roleIds" multiple data-live-search="true"
-                                data-style="btn-white">
-                            <option value="0">超级管理员</option>
-                            <option value="1">主公</option>
-                            <option value="2">将军</option>
-                            <option value="3">谋士</option>
-                            <option value="4">佳人</option>
-                            <option value="9999">游客</option>
-                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -130,7 +130,7 @@
         $("#formId").validate({
             rules: {
                 email: {required: true, email: true},
-                userName: {required: true, minlength: 2, remote: "${ctx}/modules/user/checkUserName"},
+                userName: {required: true, minlength: 2, remote: "${ctx}/modules/userInfo/checkUserName"},
                 realName: {required: true, minlength: 2},
                 mobile: {required: true, rangelength: [11, 11]},
                 birthday: {required: true},

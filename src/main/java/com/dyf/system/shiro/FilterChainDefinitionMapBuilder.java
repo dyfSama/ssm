@@ -23,8 +23,6 @@ public class FilterChainDefinitionMapBuilder {
         linkedHashMap.put("/modules/userInfo/**", "anon");//注册时的
         linkedHashMap.put("/system/mailSender/**", "anon");//注册时发送邮件验证码
         linkedHashMap.put("/logout", "logout");//登录
-        linkedHashMap.put("/druid", "user,roles[admin]");
-        linkedHashMap.put("/index_v1", "roles[user]");
         linkedHashMap.put("/**", "user");
         return linkedHashMap;
     }

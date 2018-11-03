@@ -12,13 +12,10 @@ public interface RoleMapper extends BaseMapper<Role> {
 
     List<Role> findList(Role entity);
 
-    int delete(String id);
 
     int insert(Role entity);
 
     int update(Role entity);
-
-    int batchDelete(List<String> idList);
 
 
     List<Role> getRoleListByUserId(String id);

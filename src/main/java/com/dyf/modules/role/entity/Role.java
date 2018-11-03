@@ -45,5 +45,7 @@ public class Role extends DataEntity<Role> {
         super();
     }
 
-
+    public Role(String id) {
+        super(id);
+    }
 }

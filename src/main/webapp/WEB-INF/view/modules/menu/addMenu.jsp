@@ -33,7 +33,31 @@
                         <label class="col-sm-2 control-label">菜单名称</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="menuName">
+                            <input type="text" class="form-control" name="menuName" placeholder="请输入菜单名称">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">菜单类型</label>
+                        <div class="col-sm-8">
+                            <div class="radio i-checks">
+                                <input type="radio" value="M" name="menuType" checked> <i></i> 菜单&nbsp;&nbsp;&nbsp;
+                                <input type="radio" value="C" name="menuType"> <i></i> 目录&nbsp;&nbsp;&nbsp;
+                                <input type="radio" value="B" name="menuType"> <i></i> 按钮
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">权限标识</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="permission" placeholder="请输入权限标识">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">菜单排序</label>
+
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="menuSort" placeholder="请输入权限菜单排序">
                         </div>
                     </div>
                     <div class="form-group">
@@ -50,41 +74,18 @@
                         <label class="col-sm-2 control-label">请求地址</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="url">
+                            <input type="text" class="form-control" name="url" placeholder="请输入请求地址">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">权限标识</label>
 
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="permission">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">菜单排序</label>
-
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="menuSort">
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">图标</label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="icon">
+                            <input type="text" class="form-control" name="icon" placeholder="点击选择菜单图标" readonly>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">菜单类型</label>
-                        <div class="col-sm-8">
-                            <select class="form-control m-b" name="menuType">
-                                <option value="M" selected>菜单</option>
-                                <option value="C">目录</option>
-                                <option value="B">按钮</option>
-                            </select>
-                        </div>
-                    </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">启用状态<br/>
@@ -135,12 +136,10 @@
             rules: {
                 menuName: {required: true, minlength: 2},
                 <%--userName: {required: true, minlength: 2, remote: "${ctx}/user/checkMenuName"},--%>
-                url: {required: true},
                 menuSort: {required: true}
             },
             messages: {
                 menuName: {required: e + "请输入菜单名字", minlength: e + "用户名必须两个字符以上"},
-                url: {required: e + "请输入url"},
                 menuSort: {required: e + "请输入菜单排序"}
             },
             submitHandler: function (form) {

@@ -38,7 +38,21 @@
                         <input type="text" class="form-control" name="realName" placeholder="请输入真实姓名">
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">角色</label>
+                    <div class="col-sm-8">
+                        <select class="selectpicker" name="roleIds" multiple data-live-search="true"
+                                data-placeholder="请选择角色" data-style="btn-white" style="width: 400px">
+                            <%--<option value="" selected></option>--%>
+                            <option value="0">超级管理员</option>
+                            <option value="1">主公</option>
+                            <option value="2">将军</option>
+                            <option value="3">谋士</option>
+                            <option value="4">佳人</option>
+                            <option value="9999">游客</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">性别</label>
                     <div class="col-sm-8">
@@ -64,21 +78,6 @@
                     <label class="col-sm-2 control-label">生日</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" name="birthday" id="birthday" placeholder="选择生日">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">角色</label>
-                    <div class="col-sm-8">
-                        <select class="selectpicker" name="roleIds" multiple data-live-search="true"
-                                data-placeholder="请选择角色" data-style="btn-white" style="width: 400px">
-                            <%--<option value="" selected></option>--%>
-                            <option value="0">超级管理员</option>
-                            <option value="1">主公</option>
-                            <option value="2">将军</option>
-                            <option value="3">谋士</option>
-                            <option value="4">佳人</option>
-                            <option value="9999">游客</option>
-                        </select>
                     </div>
                 </div>
 
@@ -177,7 +176,6 @@
         $("#formId").validate({
             rules: {
                 email: {required: true, email: true},
-                <%--userName: {required: true, minlength: 2, remote: "${ctx}/user/checkUserName"},--%>
                 realName: {required: true, minlength: 2},
                 mobile: {required: true, rangelength: [11, 11]},
                 birthday: {required: true},
@@ -185,7 +183,6 @@
             },
             messages: {
                 email: e + "请输入您的E-mail",
-                // userName: {required: e + "请输入您的用户名", minlength: e + "用户名必须两个字符以上", remote: e + "用户已存在"},
                 realName: {required: e + "请输入您的真实姓名", minlength: e + "真实姓名必须两个字符以上"},
                 mobile: {required: e + "请输入您的手机号", rangelength: e + "手机号应该为11位"},
                 birthday: {required: e + "请选择您的生日"},

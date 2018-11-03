@@ -39,7 +39,11 @@
                         toggle: "glyphicon-list-alt",
                         columns: "glyphicon-list"
                     },
-                    onLoadSuccess: function () {  //加载成功时执行
+                    onLoadSuccess: function (data) {  //加载成功时执行
+
+                        if (data.status === "2") {
+                            $.modal.msg_fail(data.message);
+                        }
                         //查询方法
                         $('.btn-reset').click(function () {
                             $('.form-control').val('');
@@ -65,7 +69,7 @@
                     type: 'get',                   // 请求方式（*）
                     url: options.url,              // 请求后台的URL（*）
                     expandColumn: 1,// 在哪一列上面显示展开按钮
-                    expandAll: false, // 是否全部展开
+                    expandAll: true, // 是否全部展开
                     expandFirst: true, // 是否默认第一级展开--expandAll为false时生效
                     bordered: false, //边框
                     // striped: true, // 是否各行渐变色
@@ -146,6 +150,7 @@
                         layer.load("1", {shade: 0.3});
                     },
                     success: function (data) {
+                        console.info(data);
                         layer.closeAll('loading');
                         if (data.status === "0") {
                             $.modal.msg_success(data.message);
@@ -203,7 +208,7 @@
                             $.modal.msg_fail(data.message);
                         }
                     },
-                    error: function () {
+                    error: function (data) {
                         layer.closeAll('loading');
                         $.modal.msg_fail("系统错误!");
                     }
@@ -274,19 +279,21 @@
                 layer.msg(_msg, {icon: 0, time: 2000, shade: 0.5, shadeClose: true, anim: 6});
             },
             msg_success: function (_msg) {
-                // layer.msg(_msg, {icon: 6, time: 2000, anim: 0});
-                layer.open({
-                    skin: 'layui-layer-molv', type: 1, offset: 'rb', //具体配置参考：offset参数项
-                    content: '<div style="padding:40px 90px;">' + _msg + '</div>',
-                    shade: 0, time: 2000, anim: 2
-                });
+                layer.msg(_msg, {icon: 6, time: 2000, anim: 0});
+                // layer.open({
+                //     skin: 'layui-layer-molv', type: 1, offset: 'rb', //具体配置参考：offset参数项
+                //     content: '<div style="padding:40px 90px;">' + _msg + '</div>',
+                //     shade: 0, time: 2000, anim: 2
+                // });
             },
             msg_fail: function (_msg) {
-                layer.msg(_msg, {icon: 6, time: 2000, shade: 0.5, shadeClose: true, anim: 6});
+                // layer.msg(_msg, {icon: 2, time: 2000, shade: 0.5, shadeClose: true, anim: 6});
+                layer.alert(_msg, {title: "系统提示", icon: 2, anim: 6});
             },
             msg_error: function (_msg) {
-                layer.msg(_msg, {icon: 6, time: 2000, shade: 0.5, shadeClose: true, anim: 6});
+                layer.msg(_msg, {icon: 2, time: 2000, shade: 0.5, shadeClose: true, anim: 6});
             }
+
         }
 
     });

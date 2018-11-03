@@ -11,6 +11,7 @@ import com.dyf.system.aspect.annotation.Log;
 import com.dyf.system.aspect.enums.BusinessType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,22 +45,44 @@ public class RoleController extends BaseController {
         }
     }
 
+    /**
+     * 数据列表
+     *
+     * @param request
+     * @param entity
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/list")
+    @RequiresPermissions("module:role:list")
     public TableDataInfo getList(HttpServletRequest request, Role entity) {
         startPage(request);
         return getTableInfo(roleService.findList(entity));
     }
 
+    /**
+     * 保存更新
+     *
+     * @param entity
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/save")
-    @Log(moduleName = "角色管理", businessType = BusinessType.INSERT)
+    @RequiresPermissions("module:role:edit")
+    @Log(moduleName = "角色管理", businessType = BusinessType.INSERT_UPDATE)
     public MsgInfo save(Role entity) {
         return getMsgInfo(roleService.saveOrUpdate(entity), MsgInfo.OPT_SAVE);
     }
 
+    /**
+     * 删除
+     *
+     * @param entity
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/delete")
+    @RequiresPermissions("module:role:delete")
     @Log(moduleName = "角色管理", businessType = BusinessType.DELETE)
     public MsgInfo delete(Role entity) {
         return getMsgInfo(roleService.deleteById(entity.getId()), MsgInfo.OPT_DEL);
@@ -73,6 +96,7 @@ public class RoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/batchDelete")
+    @RequiresPermissions("module:role:delete")
     @Log(moduleName = "角色管理", businessType = BusinessType.DELETE_BATCH)
     public MsgInfo batchDelete(Role entity) {
         return getMsgInfo(roleService.deleteByIds(entity.getId()), MsgInfo.OPT_DEL);

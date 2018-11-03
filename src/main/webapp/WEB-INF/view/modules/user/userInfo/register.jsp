@@ -64,7 +64,7 @@
 
             <p class="text-muted text-center">
                 <small>已经有账户了？</small>
-                <a href="${pageContext.request.contextPath}">点此登录</a>
+                <a href="${pageContext.request.contextPath}/">点此登录</a>
             </p>
         </form>
     </div>

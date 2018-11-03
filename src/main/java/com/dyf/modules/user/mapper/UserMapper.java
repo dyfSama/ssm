@@ -12,4 +12,5 @@ public interface UserMapper extends BaseMapper<User> {
     User getByUserName(String userName);
 
     User getAvatarById(String id);
+
 }

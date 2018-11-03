@@ -14,6 +14,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,7 +99,7 @@ public class LoginController extends BaseController {
      */
     private boolean checkVerifyCode(HttpServletRequest request, String verifyCode) {
         //sesiion中的验证码
-        String verifyCodeInSesion = (String) request.getSession().getAttribute(Contants.IMG_CODE_SESSIO_KEY) + "";
+        String verifyCodeInSesion = request.getSession().getAttribute(Contants.IMG_CODE_SESSIO_KEY) + "";
         return verifyCode != null && verifyCode.equalsIgnoreCase(verifyCodeInSesion);
     }
 
@@ -106,8 +107,10 @@ public class LoginController extends BaseController {
      * 注销
      */
     @RequestMapping("/logout")
+    @Log(moduleName = "用户注销", businessType = BusinessType.LOGOUT)
     public String logout(HttpServletRequest request) {
-        request.getSession().invalidate();
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
         return "redirect:/login";
     }
 
@@ -115,10 +118,9 @@ public class LoginController extends BaseController {
      * 没有权限
      */
     @RequestMapping("/unauthorized")
-    public String unauthorized(HttpServletRequest request, Model model, User user) {
+    public String unauthorized() {
         return "error/unauthorized";
     }
-
 
     /**
      * index,首页
@@ -131,15 +133,6 @@ public class LoginController extends BaseController {
 
 
     /**
-     * console
-     */
-    @RequestMapping("/console")
-    public String console(HttpServletRequest request) {
-        log.info("================================主页1 ");
-        return "home/console";
-    }
-
-    /**
      * index_v1
      */
     @RequestMapping("/index_v1")
@@ -147,15 +140,4 @@ public class LoginController extends BaseController {
         log.info("================================主页1 ");
         return "home/index_v1";
     }
-
-    /**
-     * index_v1
-     */
-    @RequestMapping("/index_v2")
-    public String index_v2(HttpServletRequest request) {
-        log.info("================================主页2 ");
-        return "home/index_v2";
-    }
-
-
 }

@@ -21,6 +21,7 @@ public class MsgInfo {
     public static final String UPLOAD_SUCCESS = "上传成功!";
     public static final String UPLOAD_FAIL = "上传失败!";
 
+
     public static final int OPT_SAVE = 0;
     public static final int OPT_UPDATE = 1;
     public static final int OPT_DEL = 2;
@@ -32,6 +33,8 @@ public class MsgInfo {
 
     private static final String SUCCESS = "0";
     private static final String ERROR = "1";
+    private static final String NO_PERM = "2";
+
     /**
      * 消息状态码
      */
@@ -85,6 +88,16 @@ public class MsgInfo {
      */
     public static MsgInfo error(String message) {
         return new MsgInfo(ERROR, message);
+    }
+
+
+    /**
+     * 权限不足的消息,自定义消息文本
+     *
+     * @return
+     */
+    public static MsgInfo noPerm(String message) {
+        return new MsgInfo(NO_PERM, "权限不足! [ " + message + " ]");
     }
 
 }

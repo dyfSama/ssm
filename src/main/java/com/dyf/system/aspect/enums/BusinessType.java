@@ -9,14 +9,9 @@ package com.dyf.system.aspect.enums;
 public enum BusinessType {
 
     /**
-     * 新增
+     * 新增/更新
      */
-    INSERT,
-
-    /**
-     * 更新
-     */
-    UPDATE,
+    INSERT_UPDATE,
 
     /**
      * 删除
@@ -39,7 +34,7 @@ public enum BusinessType {
     LOGOUT,
 
     /**
-     * 其他
+     * 代码生成
      */
     CODE_GENERATOR,
 

@@ -86,10 +86,12 @@ public class User extends DataEntity<User> {
      */
     private List<Role> roles;
 
-
     public User() {
         super();
     }
 
 
+    public User(String id) {
+        super(id);
+    }
 }

@@ -106,7 +106,7 @@
         order by update_date desc
     </select>
 
-    <!-- 通过用户姓名查询(只为登录)  -->
+    <!-- 通过用户姓名查询 -->
     <select id="getByUserName" resultMap="userRoleDeptMap" parameterType="string">
         select
         <include refid="Base_Column_List"/>

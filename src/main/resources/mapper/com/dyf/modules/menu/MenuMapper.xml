@@ -43,7 +43,7 @@
 
 
     <select id="getMenuListByRoleId" parameterType="string" resultMap="BaseResultMap">
-        select m.id, m.parent_id, m.menu_name from sys_menu m
+        select m.id, m.parent_id, m.menu_name,m.permission from sys_menu m
         left join sys_role_menu rm on m.id = rm.menu_id
         left join sys_role r on r.id = rm.role_id
         where r.id = #{id}
@@ -62,7 +62,7 @@
                 and parent_id = #{parentId}
             </if>
         </where>
-        order by id
+        order by menu_sort
     </select>
 
 
@@ -90,7 +90,7 @@
                 and menu_name like concat('%',#{menuName},'%')
             </if>
         </where>
-        order by id
+        order by menu_sort
     </select>
 
     <!--逻辑删除 -->

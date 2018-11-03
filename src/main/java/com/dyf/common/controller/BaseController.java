@@ -7,10 +7,15 @@ import com.dyf.system.aspect.annotation.Log;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.AuthorizationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
@@ -42,6 +47,19 @@ public abstract class BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 //        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), true));
     }
+
+
+    //异常处理
+    @ResponseBody
+    @ExceptionHandler(AuthorizationException.class)
+    public MsgInfo handlerAuthorizationException(AuthorizationException e) {
+
+        String message = StringUtils.substringBetween(e.getMessage(), "[", "]");
+
+        return MsgInfo.noPerm(message);
+
+    }
+
 
     /**
      * 设置分页请求数据
@@ -100,7 +118,8 @@ public abstract class BaseController {
 
     /**
      * ajax信息返回
-     * @param result 执行结果
+     *
+     * @param result  执行结果
      * @param optType 操作类型
      * @return
      */

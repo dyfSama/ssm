@@ -47,22 +47,32 @@ public class Contants {
     public static final String CURRENT_USER = "currentUser";
 
 
-
     /**
      * 逗号切割字符串
      */
     public static final String SPLIT_1 = ",";
 
 
-    public static final String  IMG_CODE_SESSIO_KEY="imgVCode";
+    public static final String IMG_CODE_SESSIO_KEY = "imgVCode";
 
-    public static final String  MAIL_CODE_SESSION_KEY="mailVCode";
+    public static final String MAIL_CODE_SESSION_KEY = "mailVCode";
 
 
     /**
      * 邮件接收数组最大10
      */
     public static final int MAIL_TOADDRESS_MAX_LENGTH = 10;
+
+
+    /**
+     * 管理员ID
+     */
+    public static final String ADMIN_ID = "0";
+
+    /**
+     * 管理员角色key
+     */
+    public static final String ADMIN_ROLE_KEY = "admin";
 
 
 

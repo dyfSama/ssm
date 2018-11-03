@@ -68,27 +68,28 @@
             columns: [
                 {
                     field: 'selectItem',
-                    radio: true
+                    radio: true,
+                    width: "2%"
                 },
                 {
                     field: 'deptName',
                     title: '机构名称',
-                    width: "8%"
+                    width: "12%"
                 },
-               /* {
+                {
                     field: 'id',
                     title: '机构编号',
-                    width: "5%",
+                    width: "10%",
                     sortable: true,
                     align: 'center'
                 },
                 {
                     field: 'parentId',
                     title: '父级编号',
-                    width: "5%",
+                    width: "10%",
                     sortable: true,
                     align: 'center'
-                },*/
+                },
                 {
                     field: 'deptSort',
                     title: '排序',
@@ -98,13 +99,15 @@
                 {
                     field: 'isShow',
                     title: '是否显示',
-                    width: "5%", align: 'center',
+                    width: "5%",
+                    align: 'center',
                     formatter: isShowFormatter
                 },
                 {
                     field: 'status',
                     title: '状态',
-                    width: '5%', align: 'center',
+                    width: "5%",
+                    align: 'center',
                     formatter: statusFormatter
                 },
                 {

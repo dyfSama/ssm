@@ -45,7 +45,7 @@ public class SystemUtils {
             /**
              * 更新密码
              */
-            if(StringUtils.isNotBlank(user.getPassword())){
+            if (StringUtils.isNotBlank(user.getPassword())) {
                 String todoPassword = user.getPassword();
                 log.info("======================用户:" + user.getUserName() + " 密码加密");
                 //加密算法
@@ -88,5 +88,18 @@ public class SystemUtils {
     public static User getCurrentUser() {
         return (User) SecurityUtils.getSubject().getSession().getAttribute(Contants.CURRENT_USER);
     }
+
+
+    /**
+     * 是否是超级管理员(id为 "0")
+     *
+     * @param user
+     * @return
+     */
+    public static boolean isSuperAdmin(User user) {
+
+        return Contants.ADMIN_ID.equals(user.getId());
+    }
+
 
 }

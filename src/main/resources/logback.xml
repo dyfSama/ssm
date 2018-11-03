@@ -87,7 +87,7 @@
         <appender-ref ref="fileErrorLog"/>
     </logger>
 
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="consoleLog"/>
         <appender-ref ref="fileInfoLog"/>
         <appender-ref ref="fileErrorLog"/>

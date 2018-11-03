@@ -1,5 +1,6 @@
 package com.dyf.modules.user.service.impl;
 
+import com.dyf.common.contant.Contants;
 import com.dyf.common.service.impl.CrudService;
 import com.dyf.common.utils.SystemUtils;
 import com.dyf.modules.role.service.RoleService;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class UserServiceImpl extends CrudService<UserMapper, User> implements UserService {
@@ -30,8 +33,28 @@ public class UserServiceImpl extends CrudService<UserMapper, User> implements Us
         return userMapper.getByUserName(userName);
     }
 
+    @Override
+    public boolean deleteById(String id) {
+        //删除用户和角色的关联信息
+        userRoleMapper.batchDeleteUserRoleByUserId(new User(id));
+        return super.deleteById(id);
+    }
+
+    @Override
+    public boolean deleteByIds(String ids) {
+        //删除用户和角色关联信息
+        String[] idArray = ids.split(Contants.SPLIT_1);
+        List<String> idList = Arrays.asList(idArray);
+        for (String id : idList) {
+            userRoleMapper.batchDeleteUserRoleByUserId(new User(id));
+        }
+        return super.deleteByIds(ids);
+    }
+
+
     /**
      * 保存用户信息,维护关联信息,加密
+     *
      * @param user
      * @return
      */
@@ -42,8 +65,8 @@ public class UserServiceImpl extends CrudService<UserMapper, User> implements Us
         //保存用户信息
         boolean flag1 = super.saveOrUpdate(user);
         //维护用户角色关联信息
-        boolean flag2 = this.maintainUserRole(user);
-        return flag1 ;
+        this.maintainUserRole(user);
+        return flag1;
     }
 
     /**
@@ -54,15 +77,15 @@ public class UserServiceImpl extends CrudService<UserMapper, User> implements Us
      */
     @Override
     public boolean maintainUserRole(User user) {
-        boolean flag1 = false;
         boolean flag2 = false;
+        //啥都不管先清空关联
+        userRoleMapper.batchDeleteUserRoleByUserId(user);
         if (user.getRoleIds() != null && user.getRoleIds().length > 0) {
-            flag1 = userRoleMapper.batchDeleteUserRoleByUserId(user) > 0;
             flag2 = userRoleMapper.insertUserRole(user) > 0;
-        }else{
+        } else {
             return true;
         }
-        return  flag2;
+        return flag2;
     }
 
     @Override

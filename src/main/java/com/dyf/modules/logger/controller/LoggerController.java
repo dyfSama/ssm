@@ -8,6 +8,7 @@ import com.dyf.modules.logger.service.LoggerService;
 import com.dyf.system.aspect.annotation.Log;
 import com.dyf.system.aspect.enums.BusinessType;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +39,7 @@ public class LoggerController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/list")
+    @RequiresPermissions("module:logger:list")
     public TableDataInfo list(HttpServletRequest request, Logger entity) {
         startPage(request);
         List<Logger> userList = loggerService.findList(entity);
@@ -53,6 +55,7 @@ public class LoggerController extends BaseController {
 
     @ResponseBody
     @RequestMapping("/delete")
+    @RequiresPermissions("module:logger:delete")
     @Log(moduleName = "日志管理", businessType = BusinessType.DELETE)
     public MsgInfo delete(Logger entity) {
         return getMsgInfo(loggerService.deleteById(entity.getId(),true), MsgInfo.OPT_DEL);
@@ -66,6 +69,7 @@ public class LoggerController extends BaseController {
      */
     @ResponseBody
     @RequestMapping("/batchDelete")
+    @RequiresPermissions("module:logger:delete")
     @Log(moduleName = "日志管理", businessType = BusinessType.DELETE_BATCH)
     public MsgInfo batchDelete(Logger entity) {
         return getMsgInfo(loggerService.deleteByIds(entity.getId()), MsgInfo.OPT_DEL);

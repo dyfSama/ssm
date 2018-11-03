@@ -1,6 +1,7 @@
 package com.dyf.modules.role.mapper;
 
 import com.dyf.common.persistence.annotaion.MyBatisDao;
+import com.dyf.modules.menu.entity.Menu;
 import com.dyf.modules.role.entity.Role;
 
 /**
@@ -14,7 +15,7 @@ public interface RoleMenuMapper {
 
     int batchDeleteRoleMenuByRoleId(Role role);
 
-    int batchDeleteRoleMenuByMenuId(Role role);
+    int batchDeleteRoleMenuByMenuId(Menu menu);
 
     int insertRoleMenu(Role role);
 

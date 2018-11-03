@@ -4,6 +4,7 @@ import com.dyf.common.service.impl.CrudService;
 import com.dyf.modules.menu.mapper.MenuMapper;
 import com.dyf.modules.menu.entity.Menu;
 import com.dyf.modules.menu.service.MenuService;
+import com.dyf.modules.role.mapper.RoleMenuMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,20 @@ import java.util.List;
 @Service
 public class MenuServiceImpl extends CrudService<MenuMapper, Menu> implements MenuService {
 
-
     @Resource
     private MenuMapper menuMapper;
 
+    @Resource
+    private RoleMenuMapper roleMenuMapper;
+
+    @Override
+    public boolean deleteById(String id, boolean isPhysical) {
+
+        //删除角色和菜单关系
+        roleMenuMapper.batchDeleteRoleMenuByMenuId(new Menu(id));
+
+        return super.deleteById(id, isPhysical);
+    }
 
     /**
      * 角色的菜单信息回显

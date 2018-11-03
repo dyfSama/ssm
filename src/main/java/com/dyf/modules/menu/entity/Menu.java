@@ -72,4 +72,8 @@ public class Menu extends DataEntity<Menu> {
     public Menu() {
         super();
     }
+
+    public Menu(String id) {
+        super(id);
+    }
 }

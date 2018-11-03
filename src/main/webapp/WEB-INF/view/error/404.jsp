@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>H+ 后台主题UI框架 - 没有权限页面</title>
+    <title>H+ 后台主题UI框架 - 404 页面</title>
     <meta name="keywords" content="keyworkdstext">
     <meta name="description" content="dericsdfsddemo">
     <link href="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">

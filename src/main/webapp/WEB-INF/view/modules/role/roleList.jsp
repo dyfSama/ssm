@@ -32,7 +32,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-4" style="text-align:left;">
-                                <button type="button"  class="btn btn-primary btn-query">
+                                <button type="button" class="btn btn-primary btn-query">
                                     <i class="fa fa-search" aria-hidden="true"></i> 查询
                                 </button>
                                 <button type="reset" class="btn btn-reset">
@@ -43,19 +43,17 @@
                     </form>
                 </div>
                 <div class="ibox-content">
-                    <shiro:hasRole name="admin">
-                        <div class="btn-group hidden-xs" id="talbeToolbar" role="group">
-                            <button type="button" class="RoleOfadd btn btn-outline btn-success" id="add">
-                                <i class="fa fa-plus-square-o" aria-hidden="true"></i> 添加
-                            </button>
-                            <button type="button" class="btn btn-outline btn-danger" id="batchDel">
-                                <i class="fa fa-trash-o" aria-hidden="true"></i> 批量删除
-                            </button>
-                            <button type="button" class="btn btn-outline btn-info queryFormToggle">
-                                <i class="fa fa-search-plus" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </shiro:hasRole>
+                    <div class="btn-group hidden-xs" id="talbeToolbar" role="group">
+                        <button type="button" class="RoleOfadd btn btn-outline btn-success" id="add">
+                            <i class="fa fa-plus-square-o" aria-hidden="true"></i> 添加
+                        </button>
+                        <button type="button" class="btn btn-outline btn-danger" id="batchDel">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i> 批量删除
+                        </button>
+                        <button type="button" class="btn btn-outline btn-info queryFormToggle">
+                            <i class="fa fa-search-plus" aria-hidden="true"></i>
+                        </button>
+                    </div>
                     <table id="bootstrap-table" data-toggle="bootstrap-table" data-classes="table table-no-bordered">
                     </table>
                 </div>
@@ -175,7 +173,7 @@
             $.modal.edit("编辑角色", "${ctx}/modules/role/toForm", "50%", "90%", row.id);
         },
         'click .RoleOfauthorize': function (e, value, row, index) {
-            $.modal.edit('配置菜单权限', '${ctx}/modules/menu/toMenuTree', '300px', '500px',row.id);
+            $.modal.edit('配置菜单权限', '${ctx}/modules/menu/toMenuTree', '300px', '500px', row.id);
         },
         'click .RoleOfassign': function (e, value, row, index) {
             $.modal.msg_success("给角色指派用户");

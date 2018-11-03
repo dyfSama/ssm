@@ -1,6 +1,9 @@
 package com.dyf.system.shiro;
 
 import com.dyf.common.contant.Contants;
+import com.dyf.common.utils.SystemUtils;
+import com.dyf.modules.menu.entity.Menu;
+import com.dyf.modules.role.entity.Role;
 import com.dyf.modules.user.entity.User;
 import com.dyf.modules.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,13 +32,35 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        Object principal = principals.getPrimaryPrincipal();
+
+        SimpleAuthorizationInfo saInfo = new SimpleAuthorizationInfo();
+        //角色的集合
         Set<String> roles = new HashSet<>();
-        roles.add("user");
-        if ("admin".equals(principal)) {
-            roles.add("admin");
+        //权限集合(权限标识符)
+        Set<String> permissions = new HashSet<>();
+
+        //认证实体(用户名)
+        Object principal = principals.getPrimaryPrincipal();
+        //用户信息(已包含了角色和菜单信息)
+        User currentUser = userService.getByUserName(principal.toString());
+        if (SystemUtils.isSuperAdmin(currentUser)) {
+            //超级管理员拥有所有权限
+            saInfo.addStringPermission("*:*:*");
+            saInfo.addRole(Contants.ADMIN_ROLE_KEY);
+        } else {
+            for (Role role : currentUser.getRoles()) {
+                roles.add(role.getRoleKey());
+                for (Menu menu : role.getMenuList()) {
+                    permissions.add(menu.getPermission());
+                }
+            }
+            //设置角色
+            saInfo.setRoles(roles);
+            //设置菜单权限
+            saInfo.setStringPermissions(permissions);
+            log.info("roles================" + roles);
+            log.info("permissions=============" + permissions);
         }
-        SimpleAuthorizationInfo saInfo = new SimpleAuthorizationInfo(roles);
         return saInfo;
     }
 
