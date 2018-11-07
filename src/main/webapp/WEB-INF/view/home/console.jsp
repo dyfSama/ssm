@@ -5,7 +5,16 @@
 <head>
     <meta charset="utf-8">
     <title>layuiAdmin 控制台主页一</title>
-    <%@include file="/WEB-INF/view/include/head.jsp" %>
+    <link rel="shortcut icon" href="${ctxStatic}/images/login/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet"
+          href="${ctxStatic}/layuiadmin/dist/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="${ctxStatic}/layuiadmin/dist/layuiadmin/style/admin.css"
+          media="all">
+    <link href="${ctxStatic}/hplus/css/plugins/nprogress/nprogress.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -310,13 +319,15 @@
 
     </div>
 </div>
+<script src="${ctxStatic}/layuiadmin/dist/layuiadmin/layui/layui.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/nprogress/nprogress.js"></script>
 <script>
     NProgress.start();
     window.onload = function () {
         NProgress.done();
-    }
+    };
     layui.config({
-        base: '/static/layuiadmin/dist/layuiadmin/' //静态资源所在路径
+        base: '${ctxStatic}/layuiadmin/dist/layuiadmin/' //静态资源所在路径
     }).extend({
         index: 'lib/index' //主入口模块
     }).use(['index', 'console']);

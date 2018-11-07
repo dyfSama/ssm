@@ -67,7 +67,7 @@
             <!-- 单个日志文件最多${logSingleMaxSize}, 保留${logMaxHistory}天, 但是文件总量不超过${logTotalMaxSize} -->
             <maxFileSize>${logSingleMaxSize}</maxFileSize>
             <!--<maxHistory>${logMaxHistory}</maxHistory>-->
-            <!--<totalSizeCap>${logTotalMaxSize}</totalSizeCap>-->
+            <!--<totalSizeCap>${logTotalMaxSize}</total SizeCap>-->
         </rollingPolicy>
 
         <!-- 日志输出的文件的格式 -->
@@ -87,7 +87,7 @@
         <appender-ref ref="fileErrorLog"/>
     </logger>
 
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="consoleLog"/>
         <appender-ref ref="fileInfoLog"/>
         <appender-ref ref="fileErrorLog"/>

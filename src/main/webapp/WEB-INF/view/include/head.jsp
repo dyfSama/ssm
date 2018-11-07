@@ -54,7 +54,7 @@
 
 
 <%-- bootstrap-switch --%>
-<script src="${ctxStatic}/hplus/js/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<%--<script src="${ctxStatic}/hplus/js/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>--%>
 <%-- bootstrap-star-rating--%>
 <%--<script src="${ctxStatic}/hplus/js/plugins/bootstrap-star-rating/js/star-rating.min.js"></script>--%>
 <%--<script src="${ctxStatic}/hplus/js/plugins/bootstrap-star-rating/js/locales/zh.js"></script>--%>

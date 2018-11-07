@@ -4,6 +4,7 @@ import com.dyf.common.contant.Contants;
 import com.dyf.common.controller.BaseController;
 import com.dyf.common.msg.MsgInfo;
 import com.dyf.common.utils.SystemUtils;
+import com.dyf.modules.menu.entity.Menu;
 import com.dyf.modules.menu.service.MenuService;
 import com.dyf.modules.user.entity.User;
 import com.dyf.modules.user.service.UserService;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @description: 登录操作
@@ -127,8 +129,19 @@ public class LoginController extends BaseController {
      */
     @RequestMapping("/index")
     public String index(Model model) {
+        //获取用户菜单
+        List<Menu> menuList = menuService.getMenuListByUser(SystemUtils.getCurrentUser());
+        model.addAttribute("menuList", menuList);
         return "system/index";
 //        return "system/index_layui";
+    }
+
+    /**
+     * index,首页
+     */
+    @RequestMapping("/console")
+    public String console(Model model) {
+        return "home/console";
     }
 
 
@@ -137,7 +150,6 @@ public class LoginController extends BaseController {
      */
     @RequestMapping("/index_v1")
     public String index_v1(HttpServletRequest request) {
-        log.info("================================主页1 ");
         return "home/index_v1";
     }
 }

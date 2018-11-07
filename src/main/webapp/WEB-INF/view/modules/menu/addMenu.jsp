@@ -22,7 +22,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <form method="post" class="form-horizontal" id="formId">
-                    <input type="hidden" name="parentId" id="parentId">
+                    <input type="hidden" name="parentId" id="parentId" value="0">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">上级菜单</label>
                         <div class="col-sm-8">

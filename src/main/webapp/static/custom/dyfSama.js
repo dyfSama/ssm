@@ -259,7 +259,7 @@
             },
             confirm: function (_msg, callBack) {
                 layer.confirm(_msg,
-                    {skin: 'layui-layer-molv', icon: 3, title: '系统提示', anim: 6}, function (index) {
+                    {icon: 3, title: '系统提示', anim: 6}, function (index) {
                         layer.close(index);
                         callBack(true);
                     });

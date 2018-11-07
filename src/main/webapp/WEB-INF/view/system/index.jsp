@@ -33,12 +33,23 @@
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
                     <div class="dropdown profile-element">
-                        <span><img alt="image" class="img-circle"
-                                   src="${ctx}/modules/userInfo/getAvatarById?id=${fns:getCurrentUser().id}"
-                                   width="110px"/>
+                        <span>
+                            <img alt="image" class="img-circle"
+                                 src="${ctx}/modules/userInfo/getAvatarById?id=${fns:getCurrentUser().id}"
+                                 width="70px"/>
                         </span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" data-hover="dropdown" href="#">
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold"> ${fns:getCurrentUser().realName}</strong>
+                                </span>
+                                <span class="text-muted text-xs block">
+                                    ${fns:getCurrentUser().dept.deptName}<b class="caret"></b>
+                                </span>
+                            </span>
+                        </a>
                     </div>
-                    <div class="logo-element">H+
+                    <div class="logo-element">ssm
                     </div>
                 </li>
                 <li>
@@ -47,82 +58,33 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="${ctx}/index_v1" data-index="0">主页</a>
+                            <a class="J_menuItem" href="index_v1.html" data-index="0"><i class="fa fa-star"></i>首页</a>
                         </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/modules/chart/toChart" data-index="0">数据统计</a>
-                        </li>
+                        <%--<li>--%>
+                        <%--<a class="J_menuItem" href="" data-id="0" >首页</a>--%>
+                        <%--</li>--%>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-gear"></i> <span class="nav-label">系统管理</span> <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/modules/user/toList">用户管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/modules/role/toList">角色管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/modules/menu/toList">菜单管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/modules/dept/toList">机构管理</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/modules/logger/toList">日志监控</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/druid">数据源监控</a>
-                        </li>
-                        <%--<li>
-                            <a class="J_menuItem" href="${ctx}/modules/job/toList">定时任务管理</a>
-                        </li>--%>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-user"></i> <span class="nav-label">个人信息</span> <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="javascript:void(0);">基本信息</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="javascript:void(0);">修改头像</a>
-                        </li>
-                        <%-- <li>
-                             <a class="J_menuItem" href="#">列表2</a>
-                         </li>
-                         <li>
-                             <a class="J_menuItem" href="#">列表3</a>
-                         </li>--%>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fa fa-cutlery"></i> <span class="nav-label">工具</span> <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <%-- <li>
-                             <a class="J_menuItem" href="/static/hplus/form_builder.html">表单构建器</a>
-                         </li>--%>
-                        <li>
-                            <a class="J_menuItem" href="javascript:void(0);">代码生成器</a>
-                        </li>
-                        <li>
-                            <a class="J_menuItem" href="${ctx}/doc.html">接口文档</a>
-                        </li>
-                        <%--  <li>
-                              <a class="J_menuItem" href="${ctx}/tools/template">Swagger2接口文档</a>
-                          </li>
-                          <li>
-                              <a class="J_menuItem" href="${ctx}/modules/userInfo/info">Swagger2接口文档</a>
-                          </li>--%>
-                    </ul>
-                </li>
+                <c:forEach items="${menuList}" var="menu">
+                    <li>
+                        <a href="#">
+                            <i class="${menu.icon}"></i> <span class="nav-label">${menu.menuName}</span> <span
+                                class="fa arrow"></span>
+                        </a>
+
+                        <c:if test="${menu.children.size() > 0}">
+                            <c:forEach items="${menu.children}" var="chideMenu">
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a class="J_menuItem" href="${ctx}${chideMenu.url}"> <i
+                                                class="${chideMenu.icon}"></i>${chideMenu.menuName}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </c:forEach>
+                        </c:if>
+                    </li>
+                </c:forEach>
             </ul>
         </div>
     </nav>
@@ -134,12 +96,12 @@
                 <div class="navbar-header">
                     <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
                     </a>
-                    <%--<form role="search" class="navbar-form-custom" method="post" action="search_results.html">--%>
-                    <%--<div class="form-group">--%>
-                    <%--<input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search"--%>
-                    <%--id="top-search">--%>
-                    <%--</div>--%>
-                    <%--</form>--%>
+                    <%-- <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+                         <div class="form-group">
+                             <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search"
+                                    id="top-search">
+                         </div>
+                     </form>--%>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown hidden-xs">
@@ -147,20 +109,25 @@
                             <i class="fa fa-tasks"></i> 主题
                         </a>
                     </li>
-                    <li class="hidden-xs">
-                        <a href="#" class="logout">
-                            <i class="fa fa-sign-out"></i> 注销
-                        </a>
-                    </li>
+                    <%--<li class="hidden-xs">--%>
+                    <%--<a href="#" class="logout">--%>
+                    <%--<i class="fa fa-sign-out"></i> 注销--%>
+                    <%--</a>--%>
+                    <%--</li>--%>
                 </ul>
             </nav>
         </div>
         <div class="row content-tabs">
             <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
             </button>
+            <%--<nav class="page-tabs J_menuTabs">--%>
+            <%--<div class="page-tabs-content">--%>
+            <%--<a href="javascript:;" class="active J_menuTab" data-id="0">首页</a>--%>
+            <%--</div>--%>
+            <%--</nav>--%>
             <nav class="page-tabs J_menuTabs">
                 <div class="page-tabs-content">
-                    <a href="#" class="active J_menuTab" data-id="index_v1.html">首页</a>
+                    <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
                 </div>
             </nav>
             <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
@@ -182,15 +149,20 @@
                     </li>
                 </ul>
             </div>
-            <a href="#" class="roll-nav roll-right J_tabExit J_tabRefresh"><i class="fa fa-refresh"></i> 刷新</a>
+            <%--<a href="#" class="roll-nav roll-right J_tabExit J_tabRefresh"><i class="fa fa-refresh"></i> 刷新</a>--%>
+            <a href="#" class="roll-nav roll-right J_tabExit J_tabRefresh logout"><i class="fa fa-sign-out"></i> 注销</a>
         </div>
+        <%--<div class="row J_mainContent" id="content-main">--%>
+        <%--<iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="${ctx}/index_v1"--%>
+        <%--frameborder="0" data-id="0" seamless></iframe>--%>
+        <%--</div>--%>
         <div class="row J_mainContent" id="content-main">
-            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="${ctx}/index_v1"
+            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="index_v1.html?v=4.1.0"
                     frameborder="0" data-id="index_v1.html" seamless></iframe>
         </div>
         <div class="footer">
             <div class="pull-right">&copy; 2018
-                <a href="https://github.com/dyfSama" target="_blank">dyfSam</a>
+                <a href="https://github.com/dyfSama/ssm" target="_blank">dyfSama</a>
             </div>
         </div>
     </div>
@@ -262,7 +234,7 @@
         //修改头像
         var $avatar = $('.img-circle');
         $avatar.mouseover(function () {
-            layer.tips("点击修改头像", this, {
+            layer.tips("点击更换头像", this, {
                 tipsMore: true, time: 1000
             });
         });
@@ -276,7 +248,7 @@
         $('.logout').click(function () {
             $.modal.confirm("确定注销吗?", function () {
 
-                layer.msg("正在清除用户信息...", {time: 1000}, function () {
+                layer.msg("正在清除用户信息...", {icon: 6, time: 1000}, function () {
                         window.location.href = "${ctx}/logout";
                     }
                 );

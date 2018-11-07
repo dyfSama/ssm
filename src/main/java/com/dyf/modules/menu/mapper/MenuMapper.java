@@ -21,4 +21,9 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @return
      */
     List<Menu> getMenuListByRoleId(String id);
+
+    List<Menu> getMenuByUserId(String id);
+
+    List<Menu> getMenuAll();
+
 }

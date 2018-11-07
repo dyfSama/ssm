@@ -33,10 +33,10 @@
         <div class="col-sm-7">
             <div class="signin-info">
                 <div class="logopanel m-b">
-                    <h1>[ H+ ]</h1>
+                    <h1>[ ssm ]</h1>
                 </div>
                 <div class="m-b"></div>
-                <h4>欢迎使用 <strong>H+ 后台主题UI框架</strong></h4>
+                <h4>欢迎使用 <strong>ssm 后台管理系统</strong></h4>
                 <ul class="m-b">
                     <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势一</li>
                     <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势二</li>
@@ -53,7 +53,7 @@
         <div class="col-sm-5">
             <form id="formId">
                 <h4 class="no-margins">登录：</h4>
-                <p class="m-t-md">登录ssm</p>
+                <p class="m-t-md">登录[ ssm ]</p>
                 <input type="text" class="form-control uname" name="username" id='username' placeholder="用户名"/>
                 <input type="password" class="form-control pword m-b" name="password" placeholder="密码"/>
                 <div class="row" style="margin-top: -12px">
@@ -78,7 +78,7 @@
     </div>
     <div class="signup-footer">
         <div class="pull-left">
-            &copy; 2018 All Rights Reserved. dyfSama
+            &copy; 2018 All Rights Reserved.  <a href="https://github.com/dyfSama/ssm" target="_blank">dyfSam</a>
         </div>
     </div>
 </div>
@@ -108,7 +108,7 @@
         });
 
         $('#toRegister').click(function () {
-            layer.msg("正在跳转到注册页面...", {time: 500}, function () {
+            layer.msg("正在跳转到注册页面...", {icon:6,time: 800}, function () {
                     window.location.href = "${pageContext.request.contextPath}/modules/userInfo/toRegister";
                 }
             );
@@ -137,23 +137,23 @@
                 dataType: "json",
                 data: $('#formId').serialize(),
                 beforeSend: function () {
-                    layer.msg("正在验证中...", {time: 10000});
+                    layer.msg("正在验证中...", {icon:6,time: 10000});
                 },
                 success: function (data) {
                     layer.closeAll();
                     if (data.status === "0") {
-                        layer.msg("认证成功,正在跳转到首页...", {time: 500}, function () {
+                        layer.msg("认证成功,正在跳转到首页...", {icon:6,time: 800}, function () {
                                 window.location.href = "${pageContext.request.contextPath}/index";
                             }
                         );
                     } else {
                         $('#refreshVerifyCode').val("");
                         $('#refreshVerifyCode').attr("src", "${pageContext.request.contextPath}/modules/userInfo/getVerifyCode?t=" + Math.random());
-                        layer.msg("认证失败: " + data.message, {time: 3000, anim: 6});
+                        layer.msg("认证失败: " + data.message, {icon:5,time: 3000, anim: 6});
                     }
                 },
                 error: function () {
-                    layer.msg("系统错误: " + data.message, {time: 3000, anim: 6});
+                    layer.msg("系统错误: " + data.message, {icon:5,time: 3000, anim: 6});
                 }
             });
         }

@@ -63,7 +63,6 @@
 
 </body>
 <script type="text/javascript">
-    layer.load(1, {shade: [0.5, '#393D49']});
     NProgress.start();
     window.onload = function () {
 

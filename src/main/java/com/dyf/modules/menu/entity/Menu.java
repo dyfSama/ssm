@@ -3,6 +3,9 @@ package com.dyf.modules.menu.entity;
 import com.dyf.common.persistence.DataEntity;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 public class Menu extends DataEntity<Menu> {
 
@@ -51,6 +54,12 @@ public class Menu extends DataEntity<Menu> {
 
     /****************其他信息**************************/
 
+
+    /**
+     * 子菜单
+     */
+
+    private List<Menu> children = new ArrayList<>();
 
     /**
      * parentId

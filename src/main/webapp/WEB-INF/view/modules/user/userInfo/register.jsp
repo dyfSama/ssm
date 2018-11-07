@@ -23,15 +23,15 @@
 
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg" background="${ctxStatic}/images/login/register_backgrouond.jpg">
 
-<div class="middle-box text-center loginscreen   animated fadeInDown">
+<div class="middle-box text-center loginscreen animated fadeInDown">
     <div>
-
-        <h3>欢迎注册 H+</h3>
-        <p>创建一个H+新账户</p>
+        <h3>欢迎注册 ssm</h3>
+        <p>创建一个ssm新账户</p>
         <form class="m-t" role="form" id="formId">
-
+            <input type="hidden" name="roleIds" value="9999">
+            <input type="hidden" name="deptId" value="100">
             <div class="form-group">
                 <input type="text" name="userName" class="form-control" placeholder="请输入用户名">
             </div>
@@ -64,7 +64,7 @@
 
             <p class="text-muted text-center">
                 <small>已经有账户了？</small>
-                <a href="${pageContext.request.contextPath}/">点此登录</a>
+                <a id="toLogin">点此登录</a>
             </p>
         </form>
     </div>
@@ -83,6 +83,14 @@
 <script src="${ctxStatic}/custom/dyfSama.js"></script>
 <script>
     $(function () {
+        $('#toLogin').click(function () {
+            layer.msg("正在跳转到登录页面...", {icon: 6, time: 800}, function () {
+                    window.location.href = "${pageContext.request.contextPath}/";
+                }
+            );
+        });
+
+
         $(".i-checks").iCheck({checkboxClass: "icheckbox_square-green", radioClass: "icheckbox_square-green"});
 
         var $vcode = $('#getVCode');
@@ -124,7 +132,7 @@
                         layer.tips('已发送至邮箱:' + email, $vcode, {time: 1500});
                         setTime();
                     } else {
-                        layer.tips('发送失败,请检查邮箱:' + email, $vcode, {time: 2000});
+                        layer.tips('发送失败,请检查邮箱:' + email, $vcode, {time: 4000});
                         $vcode.removeAttr("disabled");
                         $vcode.text("获取验证码");
                     }
@@ -188,7 +196,7 @@
                     layer.closeAll("loading");
                     console.info(data);
                     if (data.status === "0") {
-                        layer.msg("注册成功,正在跳转到登录页面...", {time: 1000}, function () {
+                        layer.msg("注册成功,正在跳转到登录页面...", {icon: 6, time: 800}, function () {
                                 window.location.href = "${pageContext.request.contextPath}/";
                             }
                         );

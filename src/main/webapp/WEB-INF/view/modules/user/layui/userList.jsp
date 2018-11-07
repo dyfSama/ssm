@@ -8,112 +8,111 @@
     <%--<%@include file="/WEB-INF/view/include/head.jsp" %>--%>
 
     <link href="${ctxStatic}/hplus/css/plugins/nprogress/nprogress.css" rel="stylesheet">
-    <link href="${ctxStatic}/layuiadmin/dist/layuiadmin/layui/css/layui.css" media="all" rel="stylesheet" >
+    <link href="${ctxStatic}/layuiadmin/dist/layuiadmin/layui/css/layui.css" media="all" rel="stylesheet">
 
     <script src="${ctxStatic}/hplus/js/plugins/jquery/2.1.4/jquery.min.js"></script>
     <script src="${ctxStatic}/hplus/js/plugins/nprogress/nprogress.js"></script>
     <script src="${ctxStatic}/layuiadmin/dist/layuiadmin/layui/layui.js"></script>
-
+    <link rel="stylesheet" href="${ctxStatic}/layuiadmin/dist/layuiadmin/style/admin.css" media="all">
 </head>
 <%--<body>--%>
 
-<body class="gray-bg">
+<body>
+<div class="layui-card layadmin-header">
+    <div class="layui-breadcrumb" lay-filter="breadcrumb">
+        <a lay-href="">主页</a>
+        <a><cite>组件</cite></a>
+        <a><cite>数据表格</cite></a>
+        <a><cite>开启头部工具栏</cite></a>
+    </div>
+</div>
 
-<div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
-                <div class="layui-card">
-                    <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">用户名</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="userName" placeholder="请输入用户名" autocomplete="off"
-                                           class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">性别</label>
-                                <div class="layui-input-block">
-                                    <select name="gender">
-                                        <option value="">不限</option>
-                                        <option value="1">男</option>
-                                        <option value="0">女</option>
-                                    </select>
-                                </div>
-                            </div>
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">状态</label>
-                                    <div class="layui-input-block">
-                                        <select name="status">
-                                            <option value="">不限</option>
-                                            <option value="0">启用</option>
-                                            <option value="2">停用</option>
-                                            <%--<option value="1">删除</option>--%>
-                                        </select>
-                                    </div>
-                                </div>
-                            <div class="layui-inline">
-                                <button class="layui-btn layuiadmin-btn-useradmin" lay-submit
-                                        lay-filter="LAY-user-front-search">
-                                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i> 查询
-                                </button>
-                                <%-- <button class="layui-btn layui-btn-primary" type="reset" id="formReset">
-                                     <i class="layui-icon "></i> 重置
-                                 </button>--%>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">用户数据layui展示</div>
+                <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">用户名</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="userName" placeholder="请输入用户名" autocomplete="off"
+                                       class="layui-input">
                             </div>
                         </div>
-                    </div>
-
-                    <div class="layui-card-body">
-                        <!-- 动态表格 -->
-                        <table id="tableId" lay-filter="tableFilter"></table>
-                        <!--头工具栏-->
-                        <script type="text/html" id="topToolBarId">
-                            <button class="layui-btn layuiadmin-btn-useradmin" lay-event="add">
-                                <i class="layui-icon  layui-icon-add-circle"></i>添加用户
+                        <div class="layui-inline">
+                            <label class="layui-form-label">性别</label>
+                            <div class="layui-input-block">
+                                <select name="gender">
+                                    <option value="">不限</option>
+                                    <option value="1">男</option>
+                                    <option value="0">女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">状态</label>
+                            <div class="layui-input-block">
+                                <select name="status">
+                                    <option value="">不限</option>
+                                    <option value="0">启用</option>
+                                    <option value="2">停用</option>
+                                    <%--<option value="1">删除</option>--%>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit
+                                    lay-filter="LAY-user-front-search">
+                                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i> 查询
                             </button>
-                            <button class="layui-btn  layui-btn-danger" lay-event="batchdel">
-                                <i class="layui-icon  layui-icon-delete"></i>批量删除
-                            </button>
-                        </script>
-                        <!--行工具栏-->
-                        <script type="text/html" id="rowToolBarId">
-                            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">
-                                <i class="layui-icon layui-icon-edit"></i>编辑
-                            </a>
-                            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
-                                <i class="layui-icon layui-icon-delete"></i>删除
-                            </a>
-                        </script>
-                        <!--模板-->
-                        <script type="text/html" id="status">
-                            <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch"
-                                   lay-text="启用|停用" lay-filter="switchFilter" {{ d.status==0 ? 'checked' : ''}}>
-                        </script>
-                        <script type="text/html" id="genderTpl">
-                            {{ d.gender == '0' ? '<i class="layui-icon layui-icon-female"></i>' : '<i
-                                    class="layui-icon layui-icon-male"></i>'}}
-                        </script>
-                        <script type="text/html" id="imgTpl">
-                            <%--<img style="display: inline-block; width: 50%; height: 100%;" src="${pageContext.request.contextPath}/static/imgaes/head/"{{= d.avatar }}>--%>
-                            <img style="display: inline-block; width: 100%; height: 100%;"
-                                 src="">
-                        </script>
-
+                             <button class="layui-btn layui-btn-primary" type="reset" id="formReset">
+                                 <i class="layui-icon "></i> 重置
+                             </button>
+                        </div>
                     </div>
                 </div>
+                <div class="layui-card-body">
+                    <table id="tableId" lay-filter="tableFilter"></table>
+
+                    <!--头工具栏-->
+                    <script type="text/html" id="topToolBarId">
+                        <button class="layui-btn layui-btn layui-btn-radius " lay-event="add">
+                            添加用户
+                        </button>
+                        <button class="layui-btn layui-btn-danger layui-btn-radius" lay-event="batchdel">
+                            批量删除
+                        </button>
+                    </script>
+                    <!--行工具栏-->
+                    <script type="text/html" id="rowToolBarId">
+                        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">
+                            <i class="layui-icon layui-icon-edit"></i>编辑
+                        </a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+                            <i class="layui-icon layui-icon-delete"></i>删除
+                        </a>
+                    </script>
+                    <!--模板-->
+                    <script type="text/html" id="status">
+                        <input type="checkbox" name="status" value="{{d.id}}" lay-skin="switch"
+                               lay-text="启用|停用" lay-filter="switchFilter" {{ d.status==0 ? 'checked' : ''}}>
+                    </script>
+                    <script type="text/html" id="genderTpl">
+                        {{ d.gender == '0' ? '<i class="layui-icon layui-icon-female"></i>' : '<i
+                                class="layui-icon layui-icon-male"></i>'}}
+                    </script>
+                    <script type="text/html" id="imgTpl">
+                        <%--<img style="display: inline-block; width: 50%; height: 100%;" src="${pageContext.request.contextPath}/static/imgaes/head/"{{= d.avatar }}>--%>
+                        <img style="display: inline-block; width: 100%; height: 100%;"
+                             src="">
+                    </script>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="layui-fluid">
-
-</div>
-
 <script>
     NProgress.start();
     window.onload = function () {
@@ -139,7 +138,7 @@
             toolbar: '#topToolBarId',
             defaultToolbar: [],
             // url: layui.setter.base + "json/useradmin/webuser.js",
-            url: '/user/getList',
+            url: '${ctx}/modules/user/list',
             text: {none: '暂无相关数据(*＾-＾*)'},
             height: 'full-200',
             page: {
@@ -154,7 +153,7 @@
                 {field: 'id', title: 'ID', hide: true},
                 {field: 'userName', title: '用户名'},
                 {field: 'realName', title: '真实姓名'},
-                {field: "avatar", title: "头像", width: 60, templet: "#imgTpl"},
+                // {field: "avatar", title: "头像", width: 60, templet: "#imgTpl"},
                 // {field: 'password', title: '密码'},
                 {field: 'gender', title: '性别', templet: '#genderTpl', width: 60},
                 {field: 'mobile', title: '手机[点击修改]', edit: 'text'},
@@ -186,7 +185,7 @@
                     title: '添加用户',
                     maxmin: true,
                     area: ['40%', '90%'],
-                    content: '/user/form',
+                    content: '${ctx}/modules/user/toForm',
                     end: function () {
                         table.reload('tableId'); //数据刷新
                     }
@@ -213,7 +212,7 @@
                             });
                             if (ids !== '') {
                                 $.ajax({
-                                    url: "/user/batchDelete",
+                                    url: "'${ctx}/modules/user/batchDelete",
                                     type: "post",
                                     dataType: "json",
                                     data: "id=" + ids,
@@ -250,7 +249,7 @@
                     title: '编辑用户',
                     maxmin: true,
                     area: ['40%', '90%'],
-                    content: '/user/form',
+                    content: '${ctx}/modules/user/toForm',
                     end: function () {
                         table.reload('tableId'); //数据刷新
                     },
@@ -261,10 +260,15 @@
                 });
 
             } else if (layEvent === 'del') {
-                layer.confirm("确定要删除吗？", {skin: 'layui-layer-molv', icon: 2, title: '提示', anim: 6}, function (index) {
+                layer.confirm("确定要删除吗？", {
+                    skin: 'layui-layer-molv',
+                    icon: 2,
+                    title: '提示',
+                    anim: 6
+                }, function (index) {
                     layer.close(index);
                     $.ajax({
-                        url: "/user/delete",
+                        url: "'${ctx}/modules/user/delete",
                         type: "post",
                         dataType: "json",
                         data: {id: field.id},
@@ -294,7 +298,7 @@
             var status = this.checked ? '0' : '2';
             var message = this.checked ? '启用' : '停用';
             $.ajax({
-                url: "/user/save",
+                url: "'${ctx}/modules/user/save",
                 type: "post",
                 dataType: "json",
                 data: {

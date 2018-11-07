@@ -9,6 +9,6 @@
                 })
             }
         })*/
-        location.href = "/login/logout"
+        location.href = "user/login.html"
     }, e("common", {})
 });

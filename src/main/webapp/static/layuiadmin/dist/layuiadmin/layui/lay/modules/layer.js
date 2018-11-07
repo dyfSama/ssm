@@ -86,7 +86,7 @@
         msg: function(e, n, a) {
             var s = "function" == typeof n
                 , f = o.config.skin
-                , c = (f ? f + " " + f + "-message" : "") || "layui-layer-message"
+                , c = (f ? f + " " + f + "-msg" : "") || "layui-layer-msg"
                 , u = l.anim.length - 1;
             return s && (a = n),
                 r.open(i.extend({

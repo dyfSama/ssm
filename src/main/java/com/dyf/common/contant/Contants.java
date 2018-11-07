@@ -75,6 +75,12 @@ public class Contants {
     public static final String ADMIN_ROLE_KEY = "admin";
 
 
+    /**
+     * 顶级菜单(菜单类型为C 目录)ID(数据库按照这个规范来)
+     */
+    public static final String TOP_MENU_PARENT_ID = "0";
+
+
 
     /* *//**
      * 成功

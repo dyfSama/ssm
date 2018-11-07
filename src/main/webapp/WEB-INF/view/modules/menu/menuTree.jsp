@@ -41,7 +41,7 @@
                     },
                     check: {
                         enable: true,
-                        chkboxType: {"Y": "s", "N": "s"} //关联子操作
+                        chkboxType: {"Y": "ps", "N": "ps"} //关联子操作
                     }
                 },
                 callback: {

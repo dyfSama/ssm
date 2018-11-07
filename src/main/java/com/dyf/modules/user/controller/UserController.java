@@ -41,6 +41,11 @@ public class UserController extends BaseController {
         return "modules/user/userList";
     }
 
+    @RequestMapping("/layui/tolist")
+    public String layuiList(Model model) {
+        return "modules/user/layui/userList";
+    }
+
     /**
      * form
      *

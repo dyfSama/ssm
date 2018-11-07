@@ -131,9 +131,9 @@
                     ,area: ['500px', '450px']
                     ,btn: ['确定', '取消']
                     ,yes: function(index, layero){
-                        var iframeWindow = window['layui-layer-iframe'+ index];
-                        var submitID = 'LAY-user-front-submit';
-                        var submit = layero.find('iframe').contents().find('#'+ submitID);
+                        var iframeWindow = window['layui-layer-iframe'+ index]
+                            ,submitID = 'LAY-user-front-submit'
+                            ,submit = layero.find('iframe').contents().find('#'+ submitID);
 
                         //监听提交
                         iframeWindow.layui.form.on('submit('+ submitID +')', function(data){

@@ -54,7 +54,7 @@
                             delete e.ajax.success
                         }
                         P.req(a.extend(!0, {
-                            url: "/auth/statue",
+                            url: "/auth/code",
                             type: "get",
                             data: {
                                 phone: n
