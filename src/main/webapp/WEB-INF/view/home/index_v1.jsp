@@ -53,7 +53,7 @@
         <h3>技术选型：</h3>
         <h4>后端</h4>
         <ol>
-            <li>Spring Framework 4.3.13</li>
+            <li>Spring Framework 5.1.2.RELEASE</li>
             <li>Apache Shiro 1.4.0</li>
             <li>MyBatis 3.4.6</li>
             <li>Alibaba Druid 1.1.10</li>

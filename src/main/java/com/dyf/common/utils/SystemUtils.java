@@ -8,6 +8,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -64,7 +65,7 @@ public class SystemUtils {
     }
 
     /**
-     * @description: 获取ip地址
+     * @description: 获取本地ip地址
      * @auther: duyafei
      * @date: 2018/10/19 17:35
      */
@@ -77,6 +78,16 @@ public class SystemUtils {
         }
 
         return remoteAddr;
+    }
+
+    /**
+     * @param request
+     * @description: 获取客户ip地址
+     * @auther: duyafei
+     * @date: 2018/10/19 17:35
+     */
+    public static String getRemoteAddress() {
+        return SecurityUtils.getSubject().getSession().getHost();
     }
 
 

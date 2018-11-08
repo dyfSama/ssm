@@ -15,8 +15,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!--spring-5.* 和reids 有冲突,redis需要这个版本 -->
-        <spring.version>4.3.13.RELEASE</spring.version>
+        <!--<spring.version>4.3.13.RELEASE</spring.version>-->
+        <spring.version>5.1.2.RELEASE</spring.version>
         <!--<spring.version>4.3.10.RELEASE</spring.version>-->
         <mysql.driver.version>5.1.46</mysql.driver.version>
         <mybatis.version>3.4.6</mybatis.version>
@@ -26,7 +26,7 @@
         <!--<shiro.verison>1.3.2</shiro.verison>-->
         <shiro.verison>1.4.0</shiro.verison>
         <aspectj.version>1.8.13</aspectj.version>
-        <servlet-api.version>3.0.1</servlet-api.version>
+        <servlet-api.version>3.1.0</servlet-api.version>
         <jsp-api.version>2.2</jsp-api.version>
         <jstl.version>1.2</jstl.version>
         <druid.version>1.1.10</druid.version>
@@ -35,8 +35,8 @@
         <mybatis-generator-core.version>1.3.7</mybatis-generator-core.version>
         <mybatis-spring.version>1.3.2</mybatis-spring.version>
         <jedis.version>2.9.0</jedis.version>
-        <spring-data-commons.version>1.13.9.RELEASE</spring-data-commons.version>
-        <spring-data-redis.version>1.8.9.RELEASE</spring-data-redis.version>
+        <spring-data-commons.version>2.1.2.RELEASE</spring-data-commons.version>
+        <spring-data-redis.version>2.1.2.RELEASE</spring-data-redis.version>
         <mybatis-ehcache.version>1.1.0</mybatis-ehcache.version>
         <lombok.version>1.18.2</lombok.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
@@ -412,7 +412,7 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.6.1</version>
+            <version>2.9.2</version>
         </dependency>
 
         <!-- swagger-ui为项目提供api展示及测试的界面 -->

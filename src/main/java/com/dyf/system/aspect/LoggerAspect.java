@@ -100,7 +100,7 @@ public class LoggerAspect {
         //请求方法的类型(get/post)
         String requestMethod = request.getMethod();
         //ip地址
-        String remoteAddr = SystemUtils.getHostAddress();
+        String remoteAddr = SystemUtils.getRemoteAddress();
         //执行时间
         int t = log.getExecTime();
         //异常信息
