@@ -92,14 +92,7 @@
     </div>
 </div>
 <script>
-    NProgress.start();
-
-    window.onload = function () {
-        NProgress.done();
-    };
-
-
-
+    $.modal.pageBlockUI();
 
     $.validator.setDefaults({
         highlight: function (e) {

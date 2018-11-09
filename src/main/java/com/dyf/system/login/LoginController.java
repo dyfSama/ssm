@@ -66,7 +66,6 @@ public class LoginController extends BaseController {
         String password = WebUtils.getCleanParam(request, "password");
         String rememberMe = WebUtils.getCleanParam(request, "rememberMe");
         String verifyCode = WebUtils.getCleanParam(request, "verifyCode");
-
         //校验验证码
         if (!checkVerifyCode(request, verifyCode)) {
             return MsgInfo.error("验证码不正确!");
@@ -106,7 +105,7 @@ public class LoginController extends BaseController {
     }
 
     /**
-     * 注销
+     * 注销,这里切入日志不好使。。。
      */
     @RequestMapping("/logout")
     @Log(moduleName = "用户注销", businessType = BusinessType.LOGOUT)

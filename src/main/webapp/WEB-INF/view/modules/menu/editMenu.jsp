@@ -108,11 +108,7 @@
     </div>
 </div>
 <script>
-    NProgress.start();
-
-    window.onload = function () {
-        NProgress.done();
-    };
+    $.modal.NProgres();
 
     $.validator.setDefaults({
         highlight: function (e) {

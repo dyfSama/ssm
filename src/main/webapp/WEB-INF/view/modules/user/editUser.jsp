@@ -109,6 +109,7 @@
 </div>
 
 <script>
+    $.modal.NProgres();
 
     $.validator.setDefaults({
         highlight: function (e) {

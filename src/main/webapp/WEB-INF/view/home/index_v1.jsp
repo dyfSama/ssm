@@ -25,14 +25,6 @@
 
 <body class="gray-bg">
 <div class="row  border-bottom white-bg dashboard-header">
-    <%--<div class="col-sm-12">--%>
-    <%--<blockquote class="text-warning" style="font-size:14px">您是否需要自己做一款后台、会员中心等等的，但是又缺乏html等前端知识… <br>您是否一直在苦苦寻找一款适合自己的后台主题…--%>
-    <%--<br>您是否想做一款自己的web应用程序… <br>…………--%>
-    <%--<h4 class="text-danger">那么，现在H+来了</h4>--%>
-    <%--</blockquote>--%>
-
-    <%--<hr>--%>
-    <%--</div>--%>
     <div class="col-sm-3">
         <h2>Hello,${fns:getCurrentUser().userName}</h2>
         <small>移动设备访问请扫描以下二维码：</small>
@@ -98,10 +90,26 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h5 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#version" href="#v41">v1.1.0</a>
+                                    <a data-toggle="collapse" data-parent="#version" href="#v2">v1.0.1</a>
                                 </h5>
                             </div>
-                            <div id="v41" class="panel-collapse collapse in">
+                            <div id="v2" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <ol>
+                                        <li>升级spring为最新版本5.1.2</li>
+                                        <li>升级其他一部分jar包</li>
+                                        <li>修正日志中登录用户ip获取不正确的问题</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h5 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#version" href="#v1">v1.0.0</a>
+                                </h5>
+                            </div>
+                            <div id="v1" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <ol>
                                         <li>注册用户试试吧<(￣︶￣)↗[GO!]</li>
@@ -167,5 +175,4 @@
 <script src="${ctxStatic}/hplus/js/plugins/layer-v3.1.1/layer.js" type="text/javascript"></script>
 
 </body>
-
 </html>

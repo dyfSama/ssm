@@ -55,7 +55,8 @@
         select
         id,
         parent_id,
-        menu_name
+        menu_name,
+        permission
         from sys_menu
         <where>
             status != '1'

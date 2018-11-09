@@ -8,14 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <title>ssm</title>
-    <meta name="keywords" content="keyworkdstext">
-    <meta name="description" content="dericsdfsddemo">
-    <link rel="shortcut icon" href="${ctxStatic}/images/login/favicon.ico">
-    <link href="${ctxStatic}/hplus/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${ctxStatic}/hplus/css/style.min.css" rel="stylesheet">
-    <link href="${ctxStatic}/hplus/css/login.min.css" rel="stylesheet">
-    <%-- icheck --%>
-    <link href="${ctxStatic}/hplus/js/plugins/iCheck/skins/all.css" rel="stylesheet">
+
+    <%@include file="/WEB-INF/view/include/head_login_register.jsp" %>
 
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html"/><![endif]-->
@@ -78,22 +72,12 @@
     </div>
     <div class="signup-footer">
         <div class="pull-left">
-            &copy; 2018 All Rights Reserved.  <a href="https://github.com/dyfSama/ssm" target="_blank">dyfSam</a>
+            &copy; 2018 All Rights Reserved. <a href="https://github.com/dyfSama/ssm" target="_blank">dyfSam</a>
         </div>
     </div>
 </div>
-<!--js逻辑-->
-<%-- jqueryValidate --%>
-<script src="${ctxStatic}/hplus/js/plugins/jquery/2.1.4/jquery.min.js"></script>
-<%-- icheck --%>
-<script src="${ctxStatic}/hplus/js/plugins/iCheck/icheck.min.js"></script>
-<%-- layer --%>
-<script src="${ctxStatic}/hplus/js/plugins/layer-v3.1.1/layer.js"></script>
-<%-- jqueryValidate --%>
-<script src="${ctxStatic}/hplus/js/plugins/validate/jquery.validate.min.js"></script>
-<script src="${ctxStatic}/hplus/js/plugins/validate/messages_zh.min.js"></script>
-<%--<script src="${ctxStatic}/layuiadmin/dist/layuiadmin/layui/layui.js"></script>--%>
 <script>
+    $.modal.pageBlockUI();
     $(function () {
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-blue',
@@ -108,10 +92,10 @@
         });
 
         $('#toRegister').click(function () {
-            layer.msg("正在跳转到注册页面...", {icon:6,time: 800}, function () {
-                    window.location.href = "${pageContext.request.contextPath}/modules/userInfo/toRegister";
-                }
-            );
+            $.modal.blockUICallBack("即将跳转到注册页面...", function () {
+                window.location.href = "${pageContext.request.contextPath}/modules/userInfo/toRegister";
+
+            });
         });
     });
     $("#formId").validate({
@@ -131,29 +115,26 @@
             });
         },
         submitHandler: function (form) {
+            $.modal.ajaxBlockUI("正在验证中...");
             $.ajax({
                 url: "${pageContext.request.contextPath}/shiroLogin",
                 type: "post",
                 dataType: "json",
                 data: $('#formId').serialize(),
-                beforeSend: function () {
-                    layer.msg("正在验证中...", {icon:6,time: 10000});
-                },
                 success: function (data) {
-                    layer.closeAll();
                     if (data.status === "0") {
-                        layer.msg("认证成功,正在跳转到首页...", {icon:6,time: 800}, function () {
+                        layer.msg("认证成功,正在跳转到首页...", { time: 800}, function () {
                                 window.location.href = "${pageContext.request.contextPath}/index";
                             }
                         );
                     } else {
                         $('#refreshVerifyCode').val("");
                         $('#refreshVerifyCode').attr("src", "${pageContext.request.contextPath}/modules/userInfo/getVerifyCode?t=" + Math.random());
-                        layer.msg("认证失败: " + data.message, {icon:5,time: 3000, anim: 6});
+                        layer.msg("认证失败: " + data.message, {icon: 5, time: 3000, anim: 6});
                     }
                 },
                 error: function () {
-                    layer.msg("系统错误: " + data.message, {icon:5,time: 3000, anim: 6});
+                    layer.msg("系统错误: " + data.message, {icon: 5, time: 3000, anim: 6});
                 }
             });
         }

@@ -58,7 +58,7 @@ public class LoggerController extends BaseController {
     @RequiresPermissions("module:logger:delete")
     @Log(moduleName = "日志管理", businessType = BusinessType.DELETE)
     public MsgInfo delete(Logger entity) {
-        return getMsgInfo(loggerService.deleteById(entity.getId(),true), MsgInfo.OPT_DEL);
+        return getMsgInfo(loggerService.deleteById(entity.getId(), true), MsgInfo.OPT_DEL);
     }
 
     /**

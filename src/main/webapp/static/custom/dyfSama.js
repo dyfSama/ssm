@@ -141,27 +141,28 @@
 
             },
             del: function (_url, _ids) {
+                $.modal.ajaxBlockUI("正在处理中...");
                 $.ajax({
                     url: _url,
                     type: "post",
                     dataType: "json",
                     data: {id: _ids},
-                    beforeSend: function () {
-                        layer.load("1", {shade: 0.3});
-                    },
+                    // beforeSend: function () {
+                    //     layer.load("1", {shade: 0.3});
+                    // },
                     success: function (data) {
                         console.info(data);
-                        layer.closeAll('loading');
+                        // layer.closeAll('loading');
                         if (data.status === "0") {
                             $.modal.msg_success(data.message);
                             $.table.refresh();
-                            $.treeTable.refresh();//刷新父页面
+                            // $.treeTable.refresh();//刷新父页面
                         } else {
                             $.modal.msg_fail(data.message);
                         }
                     },
                     error: function () {
-                        layer.closeAll('loading');
+                        // layer.closeAll('loading');
                         $.modal.msg_fail("系统错误!");
                     }
                 });
@@ -189,16 +190,17 @@
             },
             save: function (_url) {
                 var parentIndex = parent.layer.getFrameIndex(window.name);
+                $.modal.ajaxBlockUI("正在处理中...");
                 $.ajax({
                     url: _url,
                     type: "post",
                     dataType: "json",
                     data: $("#formId").serialize(),
-                    beforeSend: function () {
-                        layer.load("1", {shade: 0.3});
-                    },
+                    // beforeSend: function () {
+                    //     layer.load("1", {shade: 0.3});
+                    // },
                     success: function (data) {
-                        layer.closeAll("loading");
+                        // layer.closeAll("loading");
                         if (data.status === "0") {
                             parent.layer.close(parentIndex);//关闭弹出层
                             parent.$.modal.msg_success(data.message);//父页面提示信息
@@ -209,7 +211,7 @@
                         }
                     },
                     error: function (data) {
-                        layer.closeAll('loading');
+                        // layer.closeAll('loading');
                         $.modal.msg_fail("系统错误!");
                     }
                 });
@@ -292,10 +294,43 @@
             },
             msg_error: function (_msg) {
                 layer.msg(_msg, {icon: 2, time: 2000, shade: 0.5, shadeClose: true, anim: 6});
+            },
+            blockUI: function (_msg) { //统一遮罩样式
+                if (_msg !== undefined && _msg !== '') {
+                    $('#loadingText').html(_msg);
+                }
+                $.blockUI({message: $('#loading')});
+            },
+            ajaxBlockUI: function (_msg) {//声明ajax遮罩
+                $(document).ajaxStart($.modal.blockUI(_msg)).ajaxStop($.unblockUI);
+            },
+            pageBlockUI: function (_msg) {//页面载入遮罩
+                NProgress.start();
+                $.modal.blockUI();
+                window.onload = function () {
+                    setTimeout(function () {
+                        $.unblockUI();
+                        NProgress.done();
+                    }, 50)
+
+                };
+            },
+            blockUICallBack: function (_msg, callBack) {//支持回调函数
+                $.modal.blockUI(_msg);
+                setTimeout(function () {
+                    $.unblockUI({
+                        onUnblock: callBack(true)
+                    })
+                }, 800);
+            },
+            //加载进度条
+            NProgres: function () {
+                NProgress.start();
+                window.onload = function () {
+                    NProgress.done();
+                };
             }
-
         }
-
     });
 })(jQuery);
 

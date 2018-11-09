@@ -6,9 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>用户列表</title>
-
     <%@include file="/WEB-INF/view/include/head.jsp" %>
-
 </head>
 
 <body class="gray-bg">
@@ -83,10 +81,7 @@
     <jsp:include page="/WEB-INF/view/include/refresh.jsp"/>
 </div>
 <script type="text/javascript">
-    NProgress.start();
-    window.onload = function () {
-        NProgress.done();
-    };
+    $.modal.pageBlockUI();
     $(function () {
         //ztree自定义参数
         var ztreeOption = {
@@ -229,6 +224,7 @@
                 status: $("#status").val(),
                 deptId: $("#deptId").val()
             };
+            $.modal.ajaxBlockUI("正在处理中...");
             $('#bootstrap-table').bootstrapTable('refresh', opt);
         });
 

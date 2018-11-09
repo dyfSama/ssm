@@ -7,16 +7,10 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
     <title>ssm-注册</title>
-    <meta name="keywords" content="keyworkdstext">
-    <meta name="description" content="dericsdfsddemo">
 
-    <link rel="shortcut icon" href="${ctxStatic}/images/login/favicon.ico">
-    <link href="${ctxStatic}/hplus/css/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${ctxStatic}/hplus/js/plugins/iCheck/skins/all.css" rel="stylesheet">
-    <link href="${ctxStatic}/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <%@include file="/WEB-INF/view/include/head_login_register.jsp" %>
+
     <script>if (window.top !== window.self) {
         window.top.location = window.location;
     }</script>
@@ -69,27 +63,15 @@
         </form>
     </div>
 </div>
-<%-- jquery --%>
-<script src="${ctxStatic}/hplus/js/plugins/jquery/2.1.4/jquery.min.js"></script>
-<%-- 下面这俩顺序不能变 --%>
-<script src="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<%-- layer --%>
-<script src="${ctxStatic}/hplus/js/plugins/layer-v3.1.1/layer.js"></script>
-<%-- icheck --%>
-<script src="${ctxStatic}/hplus/js/plugins/iCheck/icheck.min.js"></script>
-<%-- jqueryValidate --%>
-<script src="${ctxStatic}/hplus/js/plugins/validate/jquery.validate.min.js"></script>
-<script src="${ctxStatic}/hplus/js/plugins/validate/messages_zh.min.js"></script>
-<script src="${ctxStatic}/custom/dyfSama.js"></script>
 <script>
+    $.modal.pageBlockUI();
     $(function () {
         $('#toLogin').click(function () {
-            layer.msg("正在跳转到登录页面...", {icon: 6, time: 800}, function () {
-                    window.location.href = "${pageContext.request.contextPath}/";
-                }
-            );
-        });
+            $.modal.blockUICallBack("正在跳转到登录页面...", function () {
+                window.location.href = "${pageContext.request.contextPath}/";
 
+            });
+        });
 
         $(".i-checks").iCheck({checkboxClass: "icheckbox_square-green", radioClass: "icheckbox_square-green"});
 
@@ -120,6 +102,7 @@
                 return;
             }
             $vcode.attr("disabled", "true");
+            $.modal.ajaxBlockUI("正在发送中...");
             $.ajax({
                 url: "${pageContext.request.contextPath}/system/mailSender/sendMailVerifyCode?to=" + email,
                 type: "post",
@@ -184,19 +167,16 @@
             agree: {required: e + "必须同意协议后才能注册", element: "#agree-error"}
         },
         submitHandler: function (form) {
+            $.modal.ajaxBlockUI("正在注册中...");
             $.ajax({
                 url: "${pageContext.request.contextPath}/modules/userInfo/register?",
                 type: "post",
                 dataType: "json",
                 data: $("#formId").serialize(),
-                beforeSend: function () {
-                    layer.load("1", {shade: 0.3});
-                },
                 success: function (data) {
-                    layer.closeAll("loading");
                     console.info(data);
                     if (data.status === "0") {
-                        layer.msg("注册成功,正在跳转到登录页面...", {icon: 6, time: 800}, function () {
+                        layer.msg("注册成功,正在跳转到登录页面...", {time: 800}, function () {
                                 window.location.href = "${pageContext.request.contextPath}/";
                             }
                         );
@@ -205,7 +185,6 @@
                     }
                 },
                 error: function () {
-                    layer.closeAll('loading');
                     $.modal.msg_fail('网络忙,请稍后重试!');
                 }
             });

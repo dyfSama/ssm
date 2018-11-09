@@ -20,10 +20,8 @@
     </div>
 </div>
 <script type="text/javascript">
-    NProgress.start();
-    window.onload = function () {
-        NProgress.done();
-    };
+    $.modal.NProgres();
+
     $(function () {
         //ztree自定义参数
         var ztreeOption = {

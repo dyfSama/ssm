@@ -110,12 +110,7 @@
     </div>
 </div>
 <script>
-    NProgress.start();
-
-    window.onload = function () {
-        NProgress.done();
-    };
-
+    $.modal.NProgres();
     $.validator.setDefaults({
         highlight: function (e) {
             $(e).closest(".form-group").removeClass("has-success").addClass("has-error")

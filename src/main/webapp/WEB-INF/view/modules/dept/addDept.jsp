@@ -9,8 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>机构表单</title>
-    <meta name="keywords" content="keyworkdstext">
-    <meta name="description" content="dericsdfsddemo">
 
     <%@include file="/WEB-INF/view/include/head.jsp" %>
 
@@ -90,12 +88,7 @@
     </div>
 </div>
 <script>
-    NProgress.start();
-
-    window.onload = function () {
-        NProgress.done();
-    };
-
+    $.modal.NProgres();
     $.validator.setDefaults({
         highlight: function (e) {
             $(e).closest(".form-group").removeClass("has-success").addClass("has-error")

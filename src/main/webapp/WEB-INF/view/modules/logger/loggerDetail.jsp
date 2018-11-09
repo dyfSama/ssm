@@ -82,8 +82,8 @@
 </div>
 
 <script>
+    $.modal.NProgres();
     $(function () {
-
         $.ajax({
             url: "${ctx}/modules/logger/getById?id=${entityId}",
             type: "post",

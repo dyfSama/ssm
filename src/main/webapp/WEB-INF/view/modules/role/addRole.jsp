@@ -66,6 +66,7 @@
 </div>
 
 <script>
+    $.modal.NProgres();
     $.validator.setDefaults({
         highlight: function (e) {
             $(e).closest(".form-group").removeClass("has-success").addClass("has-error")

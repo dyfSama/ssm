@@ -98,3 +98,7 @@ body.signin {
         width: auto
     }
 }
+.block-loading{
+    background:url(../../images/loading/loading2.gif) left no-repeat;
+}
+

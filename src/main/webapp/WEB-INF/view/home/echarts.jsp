@@ -10,13 +10,16 @@
 
 
     <title> 百度ECHarts</title>
-    <meta name="keywords" content="keyworkdstext">
+
+    <%@include file="/WEB-INF/view/include/head.jsp" %>
+
+<%--   <meta name="keywords" content="keyworkdstext">
     <meta name="description" content="dericsdfsddemo">
 
     <link rel="shortcut icon" href="images/favicon.ico">
     <link href="${ctxStatic}/hplus/css/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="${ctxStatic}/hplus/js/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="${ctxStatic}/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">
+    <link href="${ctxStatic}/hplus/css/style.min.css?v=4.1.0" rel="stylesheet">--%>
 
 </head>
 
@@ -199,6 +202,7 @@
 <%--<script src="${ctxStatic}/hplus/js/demo/echarts-demo.min.js"></script>--%>
 
 <script type="text/javascript">
+    // $.modal.pageBlockUI();
     $(function () {
         $.ajax({
             url: "${ctx}/modules/chart/getData",

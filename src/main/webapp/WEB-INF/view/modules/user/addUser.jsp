@@ -107,6 +107,8 @@
 </div>
 
 <script>
+    $.modal.NProgres();
+    
     laydate.render({
         elem: '#birthday' //指定元素
     });
@@ -119,7 +121,6 @@
             e.appendTo(r.is(":radio") || r.is(":checkbox") ? r.parent().parent().parent() : r.parent())
         }, errorClass: "help-block m-b-none", validClass: "help-block m-b-none"
     });
-
 
     $(function () {
         $('#deptName').focus(function () {

@@ -224,12 +224,12 @@
 <script src="${ctxStatic}/custom/dyfSama.js"></script>
 <%-- nprogress --%>
 <script src="${ctxStatic}/hplus/js/plugins/nprogress/nprogress.js"></script>
+<%-- 遮罩 --%>
+<script src="${ctxStatic}/hplus/js/plugins/jquery-block-ui/jquery.blockUI.js"></script>
+</div>
 </body>
 <script type="text/javascript">
-    NProgress.start();
-    window.onload = function () {
-        NProgress.done();
-    };
+    $.modal.pageBlockUI();
     $(function () {
         //修改头像
         var $avatar = $('.img-circle');
@@ -247,7 +247,6 @@
         //退出操作
         $('.logout').click(function () {
             $.modal.confirm("确定注销吗?", function () {
-
                 layer.msg("正在清除用户信息...", {icon: 6, time: 1000}, function () {
                         window.location.href = "${ctx}/logout";
                     }

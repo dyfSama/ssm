@@ -9,37 +9,37 @@ package com.dyf.system.aspect.enums;
 public enum BusinessType {
 
     /**
-     * 新增/更新
+     * 新增/更新 0
      */
     INSERT_UPDATE,
 
     /**
-     * 删除
+     * 删除 1
      */
     DELETE,
 
     /**
-     * 批量删除
+     * 批量删除 2
      */
     DELETE_BATCH,
 
     /**
-     * 登录
+     * 登录 3
      */
     LOGNIN,
 
     /**
-     * 注销
+     * 注销 4
      */
     LOGOUT,
 
     /**
-     * 代码生成
+     * 代码生成 5
      */
     CODE_GENERATOR,
 
     /**
-     * 其他
+     * 其他 6
      */
     OTHER,
 

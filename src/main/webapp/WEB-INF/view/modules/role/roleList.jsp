@@ -65,10 +65,7 @@
 </div>
 
 <script>
-    NProgress.start();
-    window.onload = function () {
-        NProgress.done();
-    };
+    $.modal.pageBlockUI();
     //table自定义参数
     $(function () {
         var option = {

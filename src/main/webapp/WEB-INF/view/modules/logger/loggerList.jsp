@@ -25,12 +25,12 @@
                             <div class="col-sm-1">
                                 <select class="form-control m-b" name="businessType" id="businessType">
                                     <option value=""></option>
-                                    <option value=0>新增</option>
-                                    <option value=1>更新</option>
-                                    <option value=2>删除</option>
-                                    <option value=3>查询</option>
-                                    <option value=4>登录</option>
-                                    <option value=5>注销</option>
+                                    <option value=0>新增/更新</option>
+                                    <option value=1>删除</option>
+                                    <option value=2>批量删除</option>
+                                    <option value=3>登录</option>
+                                    <option value=4>注销</option>
+                                    <option value=5>代码生成</option>
                                     <option value=6>其他</option>
                                 </select>
                             </div>
@@ -73,10 +73,7 @@
 </div>
 
 <script type="text/javascript">
-    NProgress.start();
-    window.onload = function () {
-        NProgress.done();
-    };
+    $.modal.pageBlockUI();
     $(function () {
         //table自定义参数
         var option = {
@@ -220,17 +217,17 @@
     function businessTypeFormatter(value, row, index) {
         switch (value) {
             case 0:
-                return '新增';
+                return '新增/更新';
             case 1:
-                return '更新';
-            case 2:
                 return '删除';
+            case 2:
+                return '批量删除';
             case 3:
-                return '查询';
-            case 4:
                 return '登录';
-            case 5:
+            case 4:
                 return '注销';
+            case 5:
+                return '代码生成';
             case 6:
                 return '其他';
             default:

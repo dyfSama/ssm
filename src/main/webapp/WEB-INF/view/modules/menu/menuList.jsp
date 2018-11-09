@@ -62,6 +62,7 @@
 </div>
 </body>
 <script type="text/javascript">
+    $.modal.pageBlockUI();
     $(function () {
         var option = {
             url: "${ctx}/modules/menu/list",
