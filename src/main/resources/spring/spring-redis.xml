@@ -8,7 +8,7 @@
                            http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 加载redis配置文件 ignore-unresolvable="true" 防止第二个配置读取不到 -->
-    <context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:config.properties" ignore-unresolvable="true"/>
 
     <!-- 下面这种直接加载两个,  redis配置可以放在spring-context.xml 中的  -->
     <!--    <bean id="propertyConfigurer"

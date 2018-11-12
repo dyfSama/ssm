@@ -3,6 +3,7 @@ package com.dyf.system.login;
 import com.dyf.common.contant.Contants;
 import com.dyf.common.controller.BaseController;
 import com.dyf.common.msg.MsgInfo;
+import com.dyf.common.utils.PropertyUtil;
 import com.dyf.common.utils.SystemUtils;
 import com.dyf.modules.menu.entity.Menu;
 import com.dyf.modules.menu.service.MenuService;
@@ -99,6 +100,11 @@ public class LoginController extends BaseController {
      * @return
      */
     private boolean checkVerifyCode(HttpServletRequest request, String verifyCode) {
+
+        //是否进行图像验证码校验
+        if("false".equals(PropertyUtil.getProperty("login.verifyCode"))){
+            return true;
+        }
         //sesiion中的验证码
         String verifyCodeInSesion = request.getSession().getAttribute(Contants.IMG_CODE_SESSIO_KEY) + "";
         return verifyCode != null && verifyCode.equalsIgnoreCase(verifyCodeInSesion);

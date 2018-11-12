@@ -15,7 +15,7 @@
     <!-- 配置整合 mybatis -->
 
     <!-- 1. 读取数据库配置文件  ignore-unresolvable="true" 防止第二个配置读取不到-->
-    <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:config.properties" ignore-unresolvable="true"/>
 
     <!-- 2.数据源 1 c3p0 -->
     <!--<bean id="dataSource1" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
@@ -95,9 +95,9 @@
         <property name="basePackage" value="com.dyf.**.mapper"/>
     </bean>
 
-    <!-- 5.扫描service包下所有使用注解的类型-->
+    <!-- 5.扫描组件-->
     <context:component-scan base-package="com.dyf">
-        <!-- controller 扫描配置在spring-mvc.xml,这里要排除掉 -->
+        <!-- 这里只扫描@Component,@Service,@Reposity的Bean, controller 扫描配置在spring-mvc.xml,这里要排除掉 -->
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 

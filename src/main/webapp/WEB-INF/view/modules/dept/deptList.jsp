@@ -56,8 +56,6 @@
             </div>
         </div>
     </div>
-    <%-- 引入refresh html --%>
-    <jsp:include page="/WEB-INF/view/include/refresh.jsp"/>
 </div>
 </body>
 <script type="text/javascript">

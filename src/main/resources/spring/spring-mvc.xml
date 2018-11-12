@@ -69,7 +69,9 @@
     </bean>
 
     <!-- 4.扫描web相关的bean -->
-    <context:component-scan base-package="com.dyf">
+    <!-- use-default-filters 属性的默认值为 true，即使用默认的 Filter 进行包扫描，
+    而默认的 Filter 对标有 @Service,@Controller和@Repository 的注解的类进行扫描 ,这里设置为false, 当然spring的地方使用默认的-->
+    <context:component-scan base-package="com.dyf" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 

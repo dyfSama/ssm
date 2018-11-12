@@ -1,6 +1,7 @@
 package com.dyf.system.mail.service.impl;
 
 import com.dyf.common.contant.Contants;
+import com.dyf.common.utils.PropertyUtil;
 import com.dyf.modules.menu.entity.Menu;
 import com.dyf.system.mail.service.MailSenderService;
 import com.google.code.kaptcha.Producer;
@@ -25,6 +26,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
+import java.util.Arrays;
 
 /**
  * <p>
@@ -37,6 +39,9 @@ import java.io.File;
 @Service
 @Slf4j
 public class MailSenderServiceImpl implements MailSenderService {
+
+
+    public static final String FROM = PropertyUtil.getProperty("mail.username");
 
     /**
      * 注入javaMailSender
@@ -52,10 +57,15 @@ public class MailSenderServiceImpl implements MailSenderService {
     @Override
     public void sendSimpleMail(SimpleMailMessage simpleMailMessage) {
 
+        //设置发件人
+        simpleMailMessage.setFrom(FROM);
+        StringBuffer to = new StringBuffer();
+        String[] tos = simpleMailMessage.getTo();
+        if (tos != null && tos.length > 0) {
+            Arrays.stream(tos).forEach(x -> to.append(x).append(" "));
+        }
+        log.info("Sending mail...: from <" + FROM + "> to <" + to + ">");
         try {
-            //设置发件人
-            simpleMailMessage.setFrom("du_yafei@163.com");
-            log.info("Sending mail...");
             javaMailSender.send(simpleMailMessage);
             log.info("Send mail successfully!");
         } catch (MailException e) {

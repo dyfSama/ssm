@@ -15,7 +15,13 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * 使用第三方内存数据库Redis作为二级缓存
+ * 映射类RedisCacheClass 实现 MyBatis包中的Cache类，并重写其中各方法；
+ * 在重写各方法体中，使用redisFactory和redis服务建立连接，
+ * 将缓存的数据加载到指定的redis内存中(putObject方法)或将redis服务中的数据从缓存中读取出来(getObject方法)；
+ * 在redis服务中写入和加载数据时需要借用spring-data-redis.jar中JdkSerializationRedisSerializer.class中的序列化(serialize)和反序列化方法(deserialize),
+ * 此为包中封装的redis默认的序列化方法；
  */
+
 public class RedisCache implements Cache {
     private static final Logger logger = LoggerFactory.getLogger(RedisCache.class);
 
