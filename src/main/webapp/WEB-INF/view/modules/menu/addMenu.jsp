@@ -79,10 +79,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">图标</label>
+                        <label class="col-sm-2 control-label">图标&nbsp;&nbsp;<i id="menuIcon" ></i></label>
 
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="icon" placeholder="点击选择菜单图标" readonly>
+                            <input type="text" class="form-control" name="icon" placeholder="点击选择菜单图标" id="iconChoose" readonly>
                         </div>
                     </div>
 
@@ -122,6 +122,10 @@
     });
 
     $(function () {
+        $('#iconChoose').click(function () {
+            $.modal.open('选择图标', '${ctx}/common/tools/iconChoose', '100%', '100%');
+        });
+        
         $('#parentName').focus(function () {
             $.modal.open('选择菜单', '${ctx}/modules/menu/toMenuTree', '250px', '500px');
         });

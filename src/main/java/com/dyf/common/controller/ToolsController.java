@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Slf4j
 @Controller
-@RequestMapping("tools")
+@RequestMapping("/common/tools")
 public class ToolsController {
 
     @RequestMapping("template")
@@ -31,5 +31,10 @@ public class ToolsController {
     @RequestMapping("bootstrap-step")
     public String bootstrap_step() {
         return "tools/bootstrap-step";
+    }
+
+    @RequestMapping("iconChoose")
+    public String iconChoose() {
+        return "tools/fontawesome";
     }
 }

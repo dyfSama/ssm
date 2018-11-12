@@ -146,6 +146,7 @@
                 roleName: $("#roleName").val(), // 额外添加的参数
                 status: $("#status").val()
             };
+            $.modal.ajaxBlockUI("正在努力加载数据中...");
             $('#bootstrap-table').bootstrapTable('refresh', opt);
         });
 

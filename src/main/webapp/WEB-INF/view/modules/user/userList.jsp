@@ -212,7 +212,7 @@
         };
 
         //初始化表格
-        $.table.init(option);
+               $.table.init(option);
 
         //查询方法
         $('.btn-query').click(function () {
@@ -224,7 +224,7 @@
                 status: $("#status").val(),
                 deptId: $("#deptId").val()
             };
-            $.modal.ajaxBlockUI("正在处理中...");
+            $.modal.ajaxBlockUI("正在努力加载数据中...");
             $('#bootstrap-table').bootstrapTable('refresh', opt);
         });
 

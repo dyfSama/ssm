@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.apache.bcel.generic.MethodGen;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailParseException;
@@ -44,17 +45,6 @@ public class MailSenderServiceImpl implements MailSenderService {
     private JavaMailSender javaMailSender;
 
     /**
-     * 发件人
-     */
-    @Value("${mail.username}")
-    public String mailFrom;
-
-
-    public void setMailFrom(String mailFrom) {
-        this.mailFrom = mailFrom;
-    }
-
-    /**
      * 简单纯文本邮件
      *
      * @param message
@@ -63,7 +53,6 @@ public class MailSenderServiceImpl implements MailSenderService {
     public void sendSimpleMail(SimpleMailMessage simpleMailMessage) {
 
         try {
-            log.info("fajianren ............."+mailFrom);
             //设置发件人
             simpleMailMessage.setFrom("du_yafei@163.com");
             log.info("Sending mail...");
@@ -93,7 +82,7 @@ public class MailSenderServiceImpl implements MailSenderService {
             helper = new MimeMessageHelper(mimeMessage, true);
 
             //解析发件地址
-            helper.setFrom(new InternetAddress(mailFrom));
+            helper.setFrom(new InternetAddress("du_yafei@163.com"));
             //解析收件地址,群发
             //InternetAddress[] toAddrs = parseToAddrs(simpleMailMessage.getTo());
 //            helper.setTo(toAddrs);

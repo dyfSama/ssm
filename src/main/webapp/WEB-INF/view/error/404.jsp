@@ -29,8 +29,8 @@
         抱歉，页面好歉，火星了~
     </div>
 </div>
-<script src="${ctxStatic}/ssm/static/hplus/js/plugins/jquery/2.1.4/jquery.min.js"></script>
-<script src="${ctxStatic}/ssm/static/hplus/js/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/jquery/2.1.4/jquery.min.js"></script>
+<script src="${ctxStatic}/hplus/js/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
 </body>
 

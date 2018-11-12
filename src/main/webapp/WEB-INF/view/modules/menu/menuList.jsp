@@ -154,6 +154,7 @@
                 menuName: $('#menuName').val(),
                 isShow: $('#isShow').val()
             };
+            $.modal.ajaxBlockUI("正在努力加载数据中...");
             $.treeTable.refresh(params);
         });
 
@@ -194,7 +195,7 @@
 
     // 是否显示
     function isShowFormatter(value, row, index) {
-        if (value === '0') {
+        if (value === false) {
             return '<span class="label label-success">隐藏</span>';
         } else {
             return '<span class="label label-info">显示</span>';
@@ -203,7 +204,7 @@
 
     // 名字图标
     function nameFormatter(value, row, index) {
-        if (row.icon == null || row == "") {
+        if (row.icon == null || row === "") {
             return row.menuName;
         } else {
             return '<i class="' + row.icon + '"></i> <span class="nav-label">' + row.menuName + '</span>';

@@ -131,6 +131,7 @@
                 deptName: $('#deptName').val(),
                 isShow: $('#isShow').val()
             };
+            $.modal.ajaxBlockUI("正在努力加载数据中...");
             $.treeTable.refresh(params);
         });
 
@@ -168,7 +169,6 @@
 
     // 是否显示
     function isShowFormatter(value, row, index) {
-        console.info(value)
         if (value === '0') {
             return '<span class="label label-success">显示</span>';
         } else {

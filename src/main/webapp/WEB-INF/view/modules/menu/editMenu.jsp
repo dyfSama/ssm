@@ -80,9 +80,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">图标 &nbsp;<span><i id="menuIcon"></i></span></label>
+                        <label class="col-sm-2 control-label">图标&nbsp;&nbsp;<i id="menuIcon" ></i></label>
+
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="icon">
+                            <input type="text" class="form-control" name="icon" placeholder="点击选择菜单图标" id="iconChoose" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -140,7 +141,7 @@
                 } else {
                     $("input[name='status'][value='0']").iCheck('check');
                 }
-                if (data.status === "1") {
+                if (data.isShow === "1") {
                     $("input[name='isShow'][value='1']").iCheck('check');
                 } else {
                     $("input[name='isShow'][value='0']").iCheck('check');
@@ -156,10 +157,15 @@
                 //图标
                 $("#menuIcon").addClass(data.icon);
                 $("input[name='icon']").val(data.icon);
+
             }
         });
         $('#parentName').focus(function () {
             $.modal.open('选择菜单', '${ctx}/modules/menu/toMenuTree', '250px', '500px');
+        });
+
+        $('#iconChoose').click(function () {
+            $.modal.open('选择图标', '${ctx}/common/tools/iconChoose', '100%', '100%');
         });
 
         var e = "<i class='fa fa-times-circle'></i> ";

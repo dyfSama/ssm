@@ -89,7 +89,9 @@
                 });
             },
             refresh: function (params) {
-                $.treeTable._instance.bootstrapTreeTable('refresh', params);
+                if (typeof $.treeTable._instance.bootstrapTreeTable === "function") {
+                    $.treeTable._instance.bootstrapTreeTable('refresh', params);
+                }
             }
 
         },
@@ -156,7 +158,7 @@
                         if (data.status === "0") {
                             $.modal.msg_success(data.message);
                             $.table.refresh();
-                            // $.treeTable.refresh();//刷新父页面
+                            $.treeTable.refresh();//刷新父页面
                         } else {
                             $.modal.msg_fail(data.message);
                         }
@@ -308,10 +310,10 @@
                 NProgress.start();
                 $.modal.blockUI();
                 window.onload = function () {
-                    setTimeout(function () {
-                        $.unblockUI();
-                        NProgress.done();
-                    }, 50)
+                    $.unblockUI();
+                    NProgress.done();
+                    // setTimeout(function () {
+                    // }, 50)
 
                 };
             },
@@ -323,8 +325,7 @@
                     })
                 }, 800);
             },
-            //加载进度条
-            NProgres: function () {
+            NProgres: function () {//加载进度条
                 NProgress.start();
                 window.onload = function () {
                     NProgress.done();
@@ -347,11 +348,13 @@ function indexFormatter(value, row, index) {
 
 $(function () {
 
+    //表单的显示隐藏
     $('.queryFormToggle').click(function () {
         $('.queryForm').slideToggle(300);
     });
 
 
+    //用户列表树的显示隐藏
     $('.toggleTree').click(function () {
         var $rightList = $('.rightList');
         var $leftTree = $('.leftTree');
@@ -367,6 +370,7 @@ $(function () {
             });
         }
     });
+    //icheck样式
     $('.i-checks').iCheck({
         checkboxClass: 'icheckbox_flat-green',
         radioClass: 'iradio_flat-green',
