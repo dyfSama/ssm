@@ -1,30 +1,4 @@
-# ssm
+# ssm后台管理系统
 
->######spring
-
->######spring-mvc
-
->######mybatis
-* mybatts-plugin
-
-* mybatis-generator
-
-* pagehelper
-
->######mysql
-
->######redis
-
->######druid
-
->######redis
-
->######dubbo
-
->######shiro
-
->######logback
-
->######logback
-
-&copy;sdfsdfdsfsdf
+>###演示地址
+http://59.110.168.2  admin/admin
